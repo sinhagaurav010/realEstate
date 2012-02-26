@@ -8,6 +8,8 @@
 
 #import "PropertyDescViewController.h"
 #import "cellDescpImg.h"
+#import "cellSummary.h"
+#import "cellMapView.h"
 @implementation PropertyDescViewController
 @synthesize dictResult;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -77,7 +79,28 @@
 #pragma mark - UITableView Delegates
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 193;
+    switch (indexPath.section) {
+        case 0:
+            return 193;
+            break;
+        case 1:
+        {
+            NSString *cellText =[NSString stringWithFormat:@"%@",[NSString stringWithFormat:@"%@,£%@           %@\n Reference:%d \n Description \n %@",[dictResult objectForKey:@"property_type"],[dictResult objectForKey:@"price"],[dictResult objectForKey:@"pricetype"],[[dictResult objectForKey:@"id"] integerValue],[dictResult objectForKey:ksummary]]];
+            UIFont *cellFont = [UIFont fontWithName:@"Helvetica" size:15.0];
+            CGSize constraintSize = CGSizeMake(280.0f, MAXFLOAT);
+            CGSize labelSize = [cellText sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:UILineBreakModeWordWrap];
+            
+            return labelSize.height + 50;
+            break;
+        }
+            case 2:
+        {
+            return 314;
+        }
+        default:
+            break;
+    }
+    return 44;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -86,11 +109,11 @@
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView;              // Default is 1 if not implemented
 {
-    return 1;
+    return 3;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 25;
+    return 10;
 }
 
 
@@ -106,26 +129,73 @@
                 cell = [[[NSBundle mainBundle] loadNibNamed:@"cellDescpImg" owner:self options:nil] lastObject] ;
             }
             cell.imageMain.placeholderImage = [UIImage  imageNamed:@"place_holder_small.jpg"];
-            NSURL *imageUrl=[NSURL URLWithString:[dictResult objectForKey:@"thumb"]];
+            NSURL *imageUrl=[NSURL URLWithString:[dictResult objectForKey:@"main_ photo"]];
             cell.imageMain.imageURL=imageUrl;
             cell.labelAddress.text=[dictResult objectForKey:@"address"];
-            cell.accessoryType=1;
             return cell;
            break;
         }
+        case 1:
+        {
+            NSString *stringCell=@"cell";
+            UITableViewCell *cell=(UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:stringCell];
+            if(!cell)
+            {
+                cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:stringCell];
+                
+            }
+            cell.textLabel.text=[NSString stringWithFormat:@"%@",[NSString stringWithFormat:@" %@,£%@            %@\n Reference:%d \n Description \n %@",[dictResult objectForKey:@"property_type"],[dictResult objectForKey:@"price"],[dictResult objectForKey:@"pricetype"],[[dictResult objectForKey:@"id"] integerValue],[dictResult objectForKey:ksummary]]];
+            cell.textLabel.textColor=[UIColor blackColor];
+            cell.textLabel.lineBreakMode = UILineBreakModeWordWrap;
+            cell.textLabel.numberOfLines = 0;
+            cell.textLabel.font = [UIFont fontWithName:@"Helvetica" size:15.0];
+            cell.textLabel.backgroundColor=[UIColor clearColor];
+    
+            /*cellSummary *cell = (cellSummary *)[tableView dequeueReusableCellWithIdentifier:@"cellSummary"];
+            if (!cell) 
+            {
+                cell = [[[NSBundle mainBundle] loadNibNamed:@"cellSummary" owner:self options:nil] lastObject] ;
+            }
+            cell.labelproperty_type.text=[NSString stringWithFormat:@"%@,£%@",[dictResult objectForKey:@"property_type"],[dictResult objectForKey:@"price"]];
+            cell.labelpricetype.text=[dictResult objectForKey:@"pricetype"];
+            cell.labelsummary.text=[dictResult objectForKey:@"summary"]; */
+            return cell;
+            break;  
+        }
+        case 2:
+        {
+            cellMapView *cell = (cellMapView *)[tableView dequeueReusableCellWithIdentifier:@"cellMapView"];
+            if (cell==nil) 
+            {
+                cell = [[[NSBundle mainBundle] loadNibNamed:@"cellMapView" owner:self options:nil] lastObject] ;
+                
+
+            }
             
+            cell.stringLat = [dictResult objectForKey:klatitude];
+            cell.stringLong = [dictResult objectForKey:klongitude];
+            
+            [cell createMap];
+            
+            return cell;
+
+            break;
+        }
         default:
             break;
+       
     }
    return nil;   
 }
+
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return 30;
+    return 10;
 }
 
 

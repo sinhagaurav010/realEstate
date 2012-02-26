@@ -47,6 +47,9 @@
     [modal sendTheRequestWithPostString:nil withURLString:kmainURL];
     [modal setDelegate:self];
     
+//    if(TESTING)
+//        if([ModalController  getContforKey:SAVEDATA ])
+            
     MBProgressHUD *hud=[MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     [hud setLabelText:@"Loading..."];
 }
@@ -106,6 +109,8 @@
 #pragma mark - modal Delegates
 -(void)getdata
 {
+    if(TESTING)
+    [ModalController  saveTheContent:modal.stringRx withKey:SAVEDATA];
 //    NSDictionary *responseDict = [modal.dataXml objectFromJSONDataWithParseOptions:JKSerializeOptionNone error:nil];
 //    NSLog(@"-------=%@",responseDict);
     

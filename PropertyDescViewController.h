@@ -10,7 +10,8 @@
 #import "Constant.h"
 #import <MessageUI/MessageUI.h>
 #import "ModalController.h"
-
+#import "MyAnnotation.h"
+#import "iCodeBlogAnnotationView.h"
 @interface PropertyDescViewController : UIViewController<MFMailComposeViewControllerDelegate>
 {
   IBOutlet  UITableView *tableViewDesc;

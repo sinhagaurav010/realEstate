@@ -50,6 +50,14 @@
 		C98BCCC414FA3B8000E1E9F7 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C98BCCC314FA3B8000E1E9F7 /* MessageUI.framework */; };
 		C9E136C914FA5AA60016F018 /* cellDescpImg.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E136C814FA5AA60016F018 /* cellDescpImg.m */; };
 		C9E136CC14FA5ADA0016F018 /* cellDescpImg.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9E136CB14FA5ADA0016F018 /* cellDescpImg.xib */; };
+		C9E136DD14FA72970016F018 /* cellSummary.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E136DC14FA72970016F018 /* cellSummary.m */; };
+		C9E136DF14FA72AC0016F018 /* cellSummary.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9E136DE14FA72AC0016F018 /* cellSummary.xib */; };
+		C9E136E214FA7F690016F018 /* cellMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E136E114FA7F690016F018 /* cellMapView.m */; };
+		C9E136E514FA7F910016F018 /* cellMapView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9E136E414FA7F910016F018 /* cellMapView.xib */; };
+		C9E136EB14FA81CA0016F018 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9E136EA14FA81CA0016F018 /* CoreLocation.framework */; };
+		C9E136ED14FA81D00016F018 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9E136EC14FA81D00016F018 /* MapKit.framework */; };
+		C9E136F814FA87AC0016F018 /* MyAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E136F714FA87AC0016F018 /* MyAnnotation.m */; };
+		C9E136FB14FA8A4C0016F018 /* iCodeBlogAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E136FA14FA8A4B0016F018 /* iCodeBlogAnnotationView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -133,6 +141,18 @@
 		C9E136C714FA5AA60016F018 /* cellDescpImg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cellDescpImg.h; sourceTree = "<group>"; };
 		C9E136C814FA5AA60016F018 /* cellDescpImg.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = cellDescpImg.m; sourceTree = "<group>"; };
 		C9E136CB14FA5ADA0016F018 /* cellDescpImg.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = cellDescpImg.xib; sourceTree = "<group>"; };
+		C9E136DB14FA72970016F018 /* cellSummary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cellSummary.h; sourceTree = "<group>"; };
+		C9E136DC14FA72970016F018 /* cellSummary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = cellSummary.m; sourceTree = "<group>"; };
+		C9E136DE14FA72AC0016F018 /* cellSummary.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = cellSummary.xib; sourceTree = "<group>"; };
+		C9E136E014FA7F690016F018 /* cellMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cellMapView.h; sourceTree = "<group>"; };
+		C9E136E114FA7F690016F018 /* cellMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = cellMapView.m; sourceTree = "<group>"; };
+		C9E136E414FA7F910016F018 /* cellMapView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = cellMapView.xib; sourceTree = "<group>"; };
+		C9E136EA14FA81CA0016F018 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		C9E136EC14FA81D00016F018 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		C9E136F614FA87AC0016F018 /* MyAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyAnnotation.h; sourceTree = "<group>"; };
+		C9E136F714FA87AC0016F018 /* MyAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyAnnotation.m; sourceTree = "<group>"; };
+		C9E136F914FA8A4B0016F018 /* iCodeBlogAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iCodeBlogAnnotationView.h; sourceTree = "<group>"; };
+		C9E136FA14FA8A4B0016F018 /* iCodeBlogAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iCodeBlogAnnotationView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,6 +160,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9E136ED14FA81D00016F018 /* MapKit.framework in Frameworks */,
+				C9E136EB14FA81CA0016F018 /* CoreLocation.framework in Frameworks */,
 				C98BCCC414FA3B8000E1E9F7 /* MessageUI.framework in Frameworks */,
 				C905243E14F985F000D62E24 /* UIKit.framework in Frameworks */,
 				C905244014F985F000D62E24 /* Foundation.framework in Frameworks */,
@@ -153,6 +175,12 @@
 		C905242E14F985F000D62E24 = {
 			isa = PBXGroup;
 			children = (
+				C9E136F914FA8A4B0016F018 /* iCodeBlogAnnotationView.h */,
+				C9E136FA14FA8A4B0016F018 /* iCodeBlogAnnotationView.m */,
+				C9E136F614FA87AC0016F018 /* MyAnnotation.h */,
+				C9E136F714FA87AC0016F018 /* MyAnnotation.m */,
+				C9E136EC14FA81D00016F018 /* MapKit.framework */,
+				C9E136EA14FA81CA0016F018 /* CoreLocation.framework */,
 				C9E136C514FA5A440016F018 /* constants */,
 				C9E136C414FA5A340016F018 /* images */,
 				C98BCCBD14FA2E0100E1E9F7 /* PropertyDescViewController */,
@@ -353,6 +381,8 @@
 			children = (
 				C9E136C614FA5A560016F018 /* searchCell */,
 				C9E136CA14FA5AAD0016F018 /* cellDescpImg */,
+				C9E136D814FA70A90016F018 /* CellSummary */,
+				C9E136E314FA7F710016F018 /* cellMapView */,
 			);
 			name = cellView;
 			sourceTree = "<group>";
@@ -402,6 +432,26 @@
 				C9E136CB14FA5ADA0016F018 /* cellDescpImg.xib */,
 			);
 			name = cellDescpImg;
+			sourceTree = "<group>";
+		};
+		C9E136D814FA70A90016F018 /* CellSummary */ = {
+			isa = PBXGroup;
+			children = (
+				C9E136DB14FA72970016F018 /* cellSummary.h */,
+				C9E136DC14FA72970016F018 /* cellSummary.m */,
+				C9E136DE14FA72AC0016F018 /* cellSummary.xib */,
+			);
+			name = CellSummary;
+			sourceTree = "<group>";
+		};
+		C9E136E314FA7F710016F018 /* cellMapView */ = {
+			isa = PBXGroup;
+			children = (
+				C9E136E014FA7F690016F018 /* cellMapView.h */,
+				C9E136E114FA7F690016F018 /* cellMapView.m */,
+				C9E136E414FA7F910016F018 /* cellMapView.xib */,
+			);
+			name = cellMapView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -463,6 +513,8 @@
 				C98BCCBC14FA2DF900E1E9F7 /* PropertyDescViewController.xib in Resources */,
 				C98BCCBF14FA2EB600E1E9F7 /* PlaceHolder.png in Resources */,
 				C9E136CC14FA5ADA0016F018 /* cellDescpImg.xib in Resources */,
+				C9E136DF14FA72AC0016F018 /* cellSummary.xib in Resources */,
+				C9E136E514FA7F910016F018 /* cellMapView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -504,6 +556,10 @@
 				C98BCCAE14FA14BE00E1E9F7 /* EGOImageView.m in Sources */,
 				C98BCCBB14FA2DF900E1E9F7 /* PropertyDescViewController.m in Sources */,
 				C9E136C914FA5AA60016F018 /* cellDescpImg.m in Sources */,
+				C9E136DD14FA72970016F018 /* cellSummary.m in Sources */,
+				C9E136E214FA7F690016F018 /* cellMapView.m in Sources */,
+				C9E136F814FA87AC0016F018 /* MyAnnotation.m in Sources */,
+				C9E136FB14FA8A4C0016F018 /* iCodeBlogAnnotationView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

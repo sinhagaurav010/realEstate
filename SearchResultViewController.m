@@ -75,12 +75,15 @@
 	}
     
     cell.imageMain.placeholderImage = [UIImage  imageNamed:@"place_holder_small.jpg"];
-    NSURL *imageUrl=[NSURL URLWithString:[[arraySearch objectAtIndex:indexPath.row]objectForKey:@"thumb"]];
+    NSURL *imageUrl=[NSURL URLWithString:[[arraySearch objectAtIndex:indexPath.row]objectForKey:@"main_ photo"]];
     cell.imageMain.imageURL=imageUrl;
-    cell.lablePrice.text=[NSString stringWithFormat:@"£%@",[[arraySearch objectAtIndex:indexPath.row]objectForKey:@"price"]];
-    cell.lablePricetype.text=[[arraySearch objectAtIndex:indexPath.row]objectForKey:@"pricetype"];
-    cell.labelBedRoom.text=[NSString stringWithFormat:@"%@ Bed Rooms",[[arraySearch objectAtIndex:indexPath.row]objectForKey:@"bedrooms"]];
-    cell.labelDescription.text=[[arraySearch objectAtIndex:indexPath.row]objectForKey:@"address"];
+    cell.lablePrice.text=[NSString stringWithFormat:@"£%@",[[arraySearch objectAtIndex:indexPath.row]objectForKey:kprice]];
+    cell.lablePricetype.text=[[arraySearch objectAtIndex:indexPath.row]objectForKey:kpricetype];
+    cell.labelBedRoom.text=[NSString stringWithFormat:@"%@ Bed Rooms",[[arraySearch objectAtIndex:indexPath.row]objectForKey:kbedrooms]];
+    cell.labelDescription.text=[[arraySearch objectAtIndex:indexPath.row]objectForKey:kaddress];
+    
+    cell.accessoryType = 1;
+    
     return (UITableViewCell *)cell;
 }    
 

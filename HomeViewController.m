@@ -66,9 +66,12 @@
 #pragma mark - User Defined Functions
 -(IBAction)clickToForSale:(id)sender
 {
+    if([txtFldLoc.text length]>0)
+    {
+    NSLog(@"%@",[[[arrayProperty objectAtIndex:0] objectForKey:@"transaction_type"] class]);
     arrayHome=[[NSMutableArray alloc]init ];
     for (int i=0; i<[arrayProperty count]; i++) {
-        if([txtFldLoc.text isEqualToString:[[arrayProperty objectAtIndex:i]objectForKey:@"postcode"]] || [txtFldLoc.text isEqualToString:[[arrayProperty objectAtIndex:i]objectForKey:@"address"]])
+        if(([txtFldLoc.text isEqualToString:[[arrayProperty objectAtIndex:i]objectForKey:@"postcode"]] || [txtFldLoc.text isEqualToString:[[arrayProperty objectAtIndex:i]objectForKey:@"address"]]) && ([[[arrayProperty objectAtIndex:i] objectForKey:@"transaction_type"] integerValue] == 1))
         {
             [arrayHome addObject:[arrayProperty objectAtIndex:i]];
         }
@@ -79,6 +82,12 @@
         SearchResultViewController *sdvc=[[SearchResultViewController alloc]init];
         [sdvc setArraySearch:arrayHome];
         [self.navigationController pushViewController:sdvc animated:YES];
+    }
+    }
+    else
+    {
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Info" message:@"No data found." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
     }
     
 }

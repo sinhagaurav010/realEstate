@@ -48,6 +48,8 @@
 		C98BCCBC14FA2DF900E1E9F7 /* PropertyDescViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C98BCCBA14FA2DF900E1E9F7 /* PropertyDescViewController.xib */; };
 		C98BCCBF14FA2EB600E1E9F7 /* PlaceHolder.png in Resources */ = {isa = PBXBuildFile; fileRef = C98BCCBE14FA2EB600E1E9F7 /* PlaceHolder.png */; };
 		C98BCCC414FA3B8000E1E9F7 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C98BCCC314FA3B8000E1E9F7 /* MessageUI.framework */; };
+		C9E136C914FA5AA60016F018 /* cellDescpImg.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E136C814FA5AA60016F018 /* cellDescpImg.m */; };
+		C9E136CC14FA5ADA0016F018 /* cellDescpImg.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9E136CB14FA5ADA0016F018 /* cellDescpImg.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -128,6 +130,9 @@
 		C98BCCBE14FA2EB600E1E9F7 /* PlaceHolder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PlaceHolder.png; sourceTree = "<group>"; };
 		C98BCCC014FA2FC800E1E9F7 /* Constant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constant.h; sourceTree = "<group>"; };
 		C98BCCC314FA3B8000E1E9F7 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		C9E136C714FA5AA60016F018 /* cellDescpImg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cellDescpImg.h; sourceTree = "<group>"; };
+		C9E136C814FA5AA60016F018 /* cellDescpImg.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = cellDescpImg.m; sourceTree = "<group>"; };
+		C9E136CB14FA5ADA0016F018 /* cellDescpImg.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = cellDescpImg.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,7 +153,8 @@
 		C905242E14F985F000D62E24 = {
 			isa = PBXGroup;
 			children = (
-				C98BCCC314FA3B8000E1E9F7 /* MessageUI.framework */,
+				C9E136C514FA5A440016F018 /* constants */,
+				C9E136C414FA5A340016F018 /* images */,
 				C98BCCBD14FA2E0100E1E9F7 /* PropertyDescViewController */,
 				C98BCCAF14FA14C500E1E9F7 /* EGOImageView */,
 				C98BCCB014FA14D800E1E9F7 /* cellView */,
@@ -178,6 +184,7 @@
 		C905243C14F985F000D62E24 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C98BCCC314FA3B8000E1E9F7 /* MessageUI.framework */,
 				C905243D14F985F000D62E24 /* UIKit.framework */,
 				C905243F14F985F000D62E24 /* Foundation.framework */,
 				C905244114F985F000D62E24 /* CoreGraphics.framework */,
@@ -344,12 +351,8 @@
 		C98BCCB014FA14D800E1E9F7 /* cellView */ = {
 			isa = PBXGroup;
 			children = (
-				C98BCCBE14FA2EB600E1E9F7 /* PlaceHolder.png */,
-				C98BCCB114FA2BFA00E1E9F7 /* place_holder_small.jpg */,
-				C98BCCC014FA2FC800E1E9F7 /* Constant.h */,
-				C98BCC9B14FA137100E1E9F7 /* searchCell.h */,
-				C98BCC9C14FA137100E1E9F7 /* searchCell.m */,
-				C98BCC9E14FA138800E1E9F7 /* searchCell.xib */,
+				C9E136C614FA5A560016F018 /* searchCell */,
+				C9E136CA14FA5AAD0016F018 /* cellDescpImg */,
 			);
 			name = cellView;
 			sourceTree = "<group>";
@@ -362,6 +365,43 @@
 				C98BCCBA14FA2DF900E1E9F7 /* PropertyDescViewController.xib */,
 			);
 			name = PropertyDescViewController;
+			sourceTree = "<group>";
+		};
+		C9E136C414FA5A340016F018 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				C98BCCBE14FA2EB600E1E9F7 /* PlaceHolder.png */,
+				C98BCCB114FA2BFA00E1E9F7 /* place_holder_small.jpg */,
+			);
+			name = images;
+			sourceTree = "<group>";
+		};
+		C9E136C514FA5A440016F018 /* constants */ = {
+			isa = PBXGroup;
+			children = (
+				C98BCCC014FA2FC800E1E9F7 /* Constant.h */,
+			);
+			name = constants;
+			sourceTree = "<group>";
+		};
+		C9E136C614FA5A560016F018 /* searchCell */ = {
+			isa = PBXGroup;
+			children = (
+				C98BCC9B14FA137100E1E9F7 /* searchCell.h */,
+				C98BCC9C14FA137100E1E9F7 /* searchCell.m */,
+				C98BCC9E14FA138800E1E9F7 /* searchCell.xib */,
+			);
+			name = searchCell;
+			sourceTree = "<group>";
+		};
+		C9E136CA14FA5AAD0016F018 /* cellDescpImg */ = {
+			isa = PBXGroup;
+			children = (
+				C9E136C714FA5AA60016F018 /* cellDescpImg.h */,
+				C9E136C814FA5AA60016F018 /* cellDescpImg.m */,
+				C9E136CB14FA5ADA0016F018 /* cellDescpImg.xib */,
+			);
+			name = cellDescpImg;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -422,6 +462,7 @@
 				C98BCCB214FA2BFA00E1E9F7 /* place_holder_small.jpg in Resources */,
 				C98BCCBC14FA2DF900E1E9F7 /* PropertyDescViewController.xib in Resources */,
 				C98BCCBF14FA2EB600E1E9F7 /* PlaceHolder.png in Resources */,
+				C9E136CC14FA5ADA0016F018 /* cellDescpImg.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -462,6 +503,7 @@
 				C98BCCAD14FA14BE00E1E9F7 /* EGOImageButton.m in Sources */,
 				C98BCCAE14FA14BE00E1E9F7 /* EGOImageView.m in Sources */,
 				C98BCCBB14FA2DF900E1E9F7 /* PropertyDescViewController.m in Sources */,
+				C9E136C914FA5AA60016F018 /* cellDescpImg.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

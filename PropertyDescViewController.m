@@ -7,7 +7,7 @@
 //
 
 #import "PropertyDescViewController.h"
-
+#import "cellDescpImg.h"
 @implementation PropertyDescViewController
 @synthesize dictResult;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -74,39 +74,59 @@
     // Do any additional setup after loading the view from its nib.
 }
 
-//#pragma mark - UITableView Delegates
-//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    return 102;
-//}
-//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-//{
-//    return [arraySearch count];
-//}
-//
-//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    
-//    searchCell *cell = (searchCell *)[tableView dequeueReusableCellWithIdentifier:@"searchCell"];
-//	if (!cell) 
-//	{
-//        //cell = [[ListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ListCell"];
-//        cell = [[[NSBundle mainBundle] loadNibNamed:@"searchCell" owner:self options:nil] lastObject] ;
-//	}
-//    
-//    cell.imageMain.placeholderImage = [UIImage  imageNamed:@"place_holder_small.jpg"];
-//    NSURL *imageUrl=[NSURL URLWithString:[[arraySearch objectAtIndex:indexPath.row]objectForKey:@"thumb"]];
-//    cell.imageMain.imageURL=imageUrl;
-//    
-//    cell.lablePrice.text=[NSString stringWithFormat:@"£%@",[[arraySearch objectAtIndex:indexPath.row]objectForKey:@"price"]];
-//    cell.lablePricetype.text=[[arraySearch objectAtIndex:indexPath.row]objectForKey:@"pricetype"];
-//    cell.labelBedRoom.text=[NSString stringWithFormat:@"%@ Bed Rooms",[[arraySearch objectAtIndex:indexPath.row]objectForKey:@"bedrooms"]];
-//    cell.labelDescription.text=[[arraySearch objectAtIndex:indexPath.row]objectForKey:@"address"];
-//    cell.accessoryType=1;
-//    return (UITableViewCell *)cell;
-//    
-//    
-//}    
+#pragma mark - UITableView Delegates
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 193;
+}
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    
+    return 1;
+}
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView;              // Default is 1 if not implemented
+{
+    return 1;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 25;
+}
+
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    switch (indexPath.section) {
+        case 0:
+        {
+    
+            cellDescpImg *cell = (cellDescpImg *)[tableView dequeueReusableCellWithIdentifier:@"cellDescpImg"];
+            if (!cell) 
+            {
+                cell = [[[NSBundle mainBundle] loadNibNamed:@"cellDescpImg" owner:self options:nil] lastObject] ;
+            }
+            cell.imageMain.placeholderImage = [UIImage  imageNamed:@"place_holder_small.jpg"];
+            NSURL *imageUrl=[NSURL URLWithString:[dictResult objectForKey:@"thumb"]];
+            cell.imageMain.imageURL=imageUrl;
+            cell.labelAddress.text=[dictResult objectForKey:@"address"];
+            cell.accessoryType=1;
+            return cell;
+           break;
+        }
+            
+        default:
+            break;
+    }
+   return nil;   
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 30;
+}
 
 
 - (void)viewDidUnload

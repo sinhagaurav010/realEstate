@@ -10,6 +10,8 @@
 #import "cellDescpImg.h"
 #import "cellSummary.h"
 #import "cellMapView.h"
+#import "cellShowPhotos.h"
+#import "EGOImageView.h"
 @implementation PropertyDescViewController
 @synthesize dictResult;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -31,7 +33,7 @@
 
 -(IBAction)callAgent:(id)sender
 {
-
+    
 }
 
 -(IBAction)EmailAgent:(id)sender
@@ -83,7 +85,7 @@
         case 0:
             return 193;
             break;
-        case 1:
+        case 2:
         {
             NSString *cellText =[NSString stringWithFormat:@"%@",[NSString stringWithFormat:@"%@,£%@           %@\n Reference:%d \n Description \n %@",[dictResult objectForKey:@"property_type"],[dictResult objectForKey:@"price"],[dictResult objectForKey:@"pricetype"],[[dictResult objectForKey:@"id"] integerValue],[dictResult objectForKey:ksummary]]];
             UIFont *cellFont = [UIFont fontWithName:@"Helvetica" size:15.0];
@@ -93,9 +95,15 @@
             return labelSize.height + 50;
             break;
         }
-            case 2:
+        case 1:
+        {
+            return 88;
+            break;
+        }
+        case 3:
         {
             return 314;
+            break;
         }
         default:
             break;
@@ -109,7 +117,7 @@
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView;              // Default is 1 if not implemented
 {
-    return 3;
+    return 4;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
@@ -122,7 +130,7 @@
     switch (indexPath.section) {
         case 0:
         {
-    
+            
             cellDescpImg *cell = (cellDescpImg *)[tableView dequeueReusableCellWithIdentifier:@"cellDescpImg"];
             if (!cell) 
             {
@@ -133,9 +141,9 @@
             cell.imageMain.imageURL=imageUrl;
             cell.labelAddress.text=[dictResult objectForKey:@"address"];
             return cell;
-           break;
+            break;
         }
-        case 1:
+        case 2:
         {
             NSString *stringCell=@"cell";
             UITableViewCell *cell=(UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:stringCell];
@@ -150,26 +158,57 @@
             cell.textLabel.numberOfLines = 0;
             cell.textLabel.font = [UIFont fontWithName:@"Helvetica" size:15.0];
             cell.textLabel.backgroundColor=[UIColor clearColor];
-    
+            
             /*cellSummary *cell = (cellSummary *)[tableView dequeueReusableCellWithIdentifier:@"cellSummary"];
-            if (!cell) 
-            {
-                cell = [[[NSBundle mainBundle] loadNibNamed:@"cellSummary" owner:self options:nil] lastObject] ;
-            }
-            cell.labelproperty_type.text=[NSString stringWithFormat:@"%@,£%@",[dictResult objectForKey:@"property_type"],[dictResult objectForKey:@"price"]];
-            cell.labelpricetype.text=[dictResult objectForKey:@"pricetype"];
-            cell.labelsummary.text=[dictResult objectForKey:@"summary"]; */
+             if (!cell) 
+             {
+             cell = [[[NSBundle mainBundle] loadNibNamed:@"cellSummary" owner:self options:nil] lastObject] ;
+             }
+             cell.labelproperty_type.text=[NSString stringWithFormat:@"%@,£%@",[dictResult objectForKey:@"property_type"],[dictResult objectForKey:@"price"]];
+             cell.labelpricetype.text=[dictResult objectForKey:@"pricetype"];
+             cell.labelsummary.text=[dictResult objectForKey:@"summary"]; */
             return cell;
             break;  
         }
-        case 2:
+        case 1:
+        {
+            int countPhotos=0;
+            cellShowPhotos *cell = (cellShowPhotos *)[tableView dequeueReusableCellWithIdentifier:@"cellShowPhotos"];
+            if (!cell) 
+            {
+                cell = [[[NSBundle mainBundle] loadNibNamed:@"cellShowPhotos" owner:self options:nil] lastObject] ;
+            }
+            for (int i=1; i<=12; i++) {
+                if([[dictResult objectForKey:[NSString stringWithFormat:@"photo%d",i]] length]>0)
+                {
+                    countPhotos++;
+                }
+            }
+           [cell.scrlView setContentSize:CGSizeMake(100*countPhotos,0)];
+            int inX=0;
+            for(int i=1;i<=countPhotos;i++)
+            {
+                UIView *aView=[[UIView alloc]initWithFrame:CGRectMake(inX, 10, 80,60)];
+                [aView setBackgroundColor:[UIColor clearColor]];
+                EGOImageView *imgEgo=[[EGOImageView alloc]initWithFrame:CGRectMake(0,0, 80,60)];
+                [imgEgo setBackgroundColor:[UIColor clearColor]];
+                NSURL *imageUrl=[NSURL URLWithString:[dictResult objectForKey:[NSString stringWithFormat:@"photo%d",i]]];
+                imgEgo.imageURL=imageUrl;
+                [aView addSubview:imgEgo];
+                [cell.scrlView addSubview:aView];
+                inX=inX+90;
+                                 
+            }
+
+            return cell;
+            break;
+        }
+        case 3:
         {
             cellMapView *cell = (cellMapView *)[tableView dequeueReusableCellWithIdentifier:@"cellMapView"];
             if (cell==nil) 
             {
                 cell = [[[NSBundle mainBundle] loadNibNamed:@"cellMapView" owner:self options:nil] lastObject] ;
-                
-
             }
             
             cell.stringLat = [dictResult objectForKey:klatitude];
@@ -178,14 +217,14 @@
             [cell createMap];
             
             return cell;
-
+            
             break;
         }
         default:
             break;
-       
+            
     }
-   return nil;   
+    return nil;   
 }
 
 

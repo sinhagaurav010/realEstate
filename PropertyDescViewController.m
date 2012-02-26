@@ -12,8 +12,9 @@
 #import "cellMapView.h"
 #import "cellShowPhotos.h"
 #import "EGOImageView.h"
+#import "cellAgent.h"
 @implementation PropertyDescViewController
-@synthesize dictResult;
+@synthesize dictResult,stringRightTitle;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -33,7 +34,11 @@
 
 -(IBAction)callAgent:(id)sender
 {
-    
+    NSString *string=[dictResult objectForKey:@"agent_telephone"];
+    string=[string stringByReplacingOccurrencesOfString:@" " withString:@""];
+    NSLog(@"call string=%@",string);
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat: @"tel:%@",string]]];
+
 }
 
 -(IBAction)EmailAgent:(id)sender
@@ -43,7 +48,7 @@
         MFMailComposeViewController *mailViewController = [[MFMailComposeViewController alloc] init];
         mailViewController.mailComposeDelegate = self;
         [mailViewController setSubject:@"Subject "];
-        [mailViewController setMessageBody:[NSString stringWithFormat:@"%@",[dictResult objectForKey:@"summary"]] isHTML:NO];
+        [mailViewController setMessageBody:[NSString stringWithFormat:@"%@",[dictResult objectForKey:@"description"]] isHTML:NO];
         
         [self presentModalViewController:mailViewController animated:YES];
         [mailViewController release];
@@ -64,6 +69,26 @@
     [self dismissModalViewControllerAnimated:YES];
     
 }
+-(void)save
+{
+    if([self.stringRightTitle isEqualToString:@"Save"])
+    {
+        [arraySavedProperty addObject:dictResult];
+        self.navigationItem.rightBarButtonItem.title = @"Unsave";
+        self.stringRightTitle = @"Unsave";
+
+    }
+    else
+    {
+         self.navigationItem.rightBarButtonItem.title = @"Save";
+        self.stringRightTitle = @"Save";
+
+        [arraySavedProperty  removeObjectAtIndex:savedAtIndex];
+    }
+    [ModalController  saveTheContent:arraySavedProperty withKey:SAVEDPROP];
+    
+}
+
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
@@ -72,8 +97,26 @@
     toolbar.tintColor = COLORBAC;
     self.navigationController.navigationBar.tintColor   = COLORBAC;
     self.view.backgroundColor = COLORBAC;
-    NSLog(@"%@",dictResult);
+    arraySavedProperty = [[NSMutableArray alloc] initWithArray:[ModalController getContforKey:SAVEDPROP]];
+    self.stringRightTitle = @"Save"; 
     
+    for(int i=0;i<[arraySavedProperty   count];i++)
+    {
+        if([[[arraySavedProperty  objectAtIndex:i] objectForKey:kid] integerValue] ==[[dictResult objectForKey:kid] integerValue])
+        {
+            savedAtIndex = i;
+            self.stringRightTitle = @"Unsave";   
+            break;
+        }
+        else
+            self.stringRightTitle = @"Save";   
+        
+    }
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:stringRightTitle style:UIBarButtonItemStyleDone target:self  action:@selector(save)];
+    
+    
+    NSLog(@"%@",dictResult);
+
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 }
@@ -102,6 +145,11 @@
         }
         case 3:
         {
+            return 137;
+            break;
+        }
+        case 4:
+        {
             return 314;
             break;
         }
@@ -117,7 +165,7 @@
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView;              // Default is 1 if not implemented
 {
-    return 4;
+    return 5;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
@@ -136,6 +184,9 @@
             {
                 cell = [[[NSBundle mainBundle] loadNibNamed:@"cellDescpImg" owner:self options:nil] lastObject] ;
             }
+            
+            cell.selectionStyle  = UITableViewCellSelectionStyleNone;
+
             cell.imageMain.placeholderImage = [UIImage  imageNamed:@"place_holder_small.jpg"];
             NSURL *imageUrl=[NSURL URLWithString:[dictResult objectForKey:@"main_ photo"]];
             cell.imageMain.imageURL=imageUrl;
@@ -152,6 +203,9 @@
                 cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:stringCell];
                 
             }
+            
+            cell.selectionStyle  = UITableViewCellSelectionStyleNone;
+
             cell.textLabel.text=[NSString stringWithFormat:@"%@",[NSString stringWithFormat:@" %@,£%@            %@\n Reference:%d \n Description \n %@",[dictResult objectForKey:@"property_type"],[dictResult objectForKey:@"price"],[dictResult objectForKey:@"pricetype"],[[dictResult objectForKey:@"id"] integerValue],[dictResult objectForKey:ksummary]]];
             cell.textLabel.textColor=[UIColor blackColor];
             cell.textLabel.lineBreakMode = UILineBreakModeWordWrap;
@@ -178,13 +232,16 @@
             {
                 cell = [[[NSBundle mainBundle] loadNibNamed:@"cellShowPhotos" owner:self options:nil] lastObject] ;
             }
+            
+            cell.selectionStyle  = UITableViewCellSelectionStyleNone;
+
             for (int i=1; i<=12; i++) {
                 if([[dictResult objectForKey:[NSString stringWithFormat:@"photo%d",i]] length]>0)
                 {
                     countPhotos++;
                 }
             }
-           [cell.scrlView setContentSize:CGSizeMake(100*countPhotos,0)];
+            [cell.scrlView setContentSize:CGSizeMake(100*countPhotos,0)];
             int inX=0;
             for(int i=1;i<=countPhotos;i++)
             {
@@ -197,20 +254,39 @@
                 [aView addSubview:imgEgo];
                 [cell.scrlView addSubview:aView];
                 inX=inX+90;
-                                 
+                
             }
-
+            
             return cell;
             break;
         }
         case 3:
+        {
+            cellAgent *cell = (cellAgent *)[tableView dequeueReusableCellWithIdentifier:@"cellAgent"];
+            if (!cell) 
+            {
+                cell = [[[NSBundle mainBundle] loadNibNamed:@"cellAgent" owner:self options:nil] lastObject] ;
+            }
+            
+            cell.selectionStyle  = UITableViewCellSelectionStyleNone;
+
+            cell.labelAgentDescp.text=[NSString stringWithFormat:@"%@, %@",[dictResult objectForKey:@"selling_agent"],[dictResult objectForKey:@"town"]];
+            cell.labeltelephone.text=[dictResult objectForKey:@"agent_telephone"];
+            cell.imageMain.placeholderImage = [UIImage imageNamed:@"place_holder_small.jpg"];
+            NSURL *imageUrl=[NSURL URLWithString:[dictResult objectForKey:@"agent_logo"]];
+            cell.imageMain.imageURL=imageUrl;
+            return cell;
+            break;
+        }
+        case 4:
         {
             cellMapView *cell = (cellMapView *)[tableView dequeueReusableCellWithIdentifier:@"cellMapView"];
             if (cell==nil) 
             {
                 cell = [[[NSBundle mainBundle] loadNibNamed:@"cellMapView" owner:self options:nil] lastObject] ;
             }
-            
+            cell.selectionStyle  = UITableViewCellSelectionStyleNone;
+
             cell.stringLat = [dictResult objectForKey:klatitude];
             cell.stringLong = [dictResult objectForKey:klongitude];
             

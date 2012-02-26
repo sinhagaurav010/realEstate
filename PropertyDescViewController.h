@@ -16,11 +16,14 @@
 {
   IBOutlet  UITableView *tableViewDesc;
     IBOutlet UIToolbar *toolbar;
+    NSMutableArray *arraySavedProperty;
+    NSInteger savedAtIndex;
 }
 
 
 -(IBAction)callAgent:(id)sender;
 
 -(IBAction)EmailAgent:(id)sender;
+@property(retain)NSString *stringRightTitle;
 @property(retain)NSMutableDictionary *dictResult;
 @end

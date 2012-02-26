@@ -69,16 +69,18 @@
 #pragma mark - User Defined Functions
 -(IBAction)clickToForSale:(id)sender
 {
+    [arrayHome removeAllObjects];
     if([txtFldLoc.text length]>0)
     {
     NSLog(@"%@",[[[arrayProperty objectAtIndex:0] objectForKey:@"transaction_type"] class]);
     arrayHome=[[NSMutableArray alloc]init ];
     for (int i=0; i<[arrayProperty count]; i++) {
-        if(([txtFldLoc.text isEqualToString:[[arrayProperty objectAtIndex:i]objectForKey:@"postcode"]] || [txtFldLoc.text isEqualToString:[[arrayProperty objectAtIndex:i]objectForKey:@"address"]]) && ([[[arrayProperty objectAtIndex:i] objectForKey:@"transaction_type"] integerValue] == 1))
+        if(([txtFldLoc.text isEqualToString:[[arrayProperty objectAtIndex:i]objectForKey:@"postcode"]] || [[[arrayProperty objectAtIndex:i]objectForKey:@"address"] hasPrefix:txtFldLoc.text]) && ([[[arrayProperty objectAtIndex:i] objectForKey:@"transaction_type"] integerValue] == 1))
         {
             [arrayHome addObject:[arrayProperty objectAtIndex:i]];
         }
     }
+        
     if([arrayHome count]>0)
     {
         NSLog(@"array home=%@",arrayHome);
@@ -86,25 +88,75 @@
         [sdvc setArraySearch:arrayHome];
         [self.navigationController pushViewController:sdvc animated:YES];
     }
-    }
+    
     else
     {
         UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Info" message:@"No data found." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
     }
-    
+    }
+    else
+    {
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Info" message:@"Please enter postal code" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+    }
 }
 -(IBAction)clickToToLet:(id)sender
 {
-    
+     [arrayHome removeAllObjects];
+    if([txtFldLoc.text length]>0)
+    {
+       
+        arrayHome=[[NSMutableArray alloc]init ];
+        for (int i=0; i<[arrayProperty count]; i++) {
+            if(([txtFldLoc.text isEqualToString:[[arrayProperty objectAtIndex:i]objectForKey:@"postcode"]] || [[[arrayProperty objectAtIndex:i]objectForKey:@"address"] hasPrefix:txtFldLoc.text]) && ([[[arrayProperty objectAtIndex:i] objectForKey:@"transaction_type"] integerValue] == 2))
+            {
+                [arrayHome addObject:[arrayProperty objectAtIndex:i]];
+            }
+        }
+        
+        if([arrayHome count]>0)
+        {
+            NSLog(@"array home=%@",arrayHome);
+            SearchResultViewController *sdvc=[[SearchResultViewController alloc]init];
+            [sdvc setArraySearch:arrayHome];
+            [self.navigationController pushViewController:sdvc animated:YES];
+        }
+        
+        else
+        {
+            UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Info" message:@"No data found." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
+        }
+    }
+    else
+    {
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Info" message:@"Please enter postal code" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+    }
+
 }
 -(IBAction)clickToSavedSearches:(id)sender
 {
-    
+    UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Info" message:@"Not implemented yet!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alert show];
+    [alert release];
 }
 -(IBAction)clickToSavedProperties:(id)sender
 {
-    
+    NSMutableArray *arraySavedProperty = [[NSMutableArray alloc] initWithArray:[ModalController getContforKey:SAVEDPROP]];
+    if([arraySavedProperty count]>0)
+    {
+        SearchResultViewController *sdvc=[[SearchResultViewController alloc]init];
+        [sdvc setArraySearch:arraySavedProperty];
+        [self.navigationController pushViewController:sdvc animated:YES];
+    }
+    else
+    {
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Info" message:@"No Propert has been saved" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+        [alert  release];
+    }
 }
 #pragma mark - modal Delegates
 -(void)getdata

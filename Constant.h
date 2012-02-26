@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #define SAVEDATA @"savedata"
-
+#define SAVEDPROP @"savedProp"
 #define TESTING 1
 
 #define kaddress @"address"

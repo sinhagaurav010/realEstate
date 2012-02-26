@@ -60,6 +60,8 @@
 		C9E136FB14FA8A4C0016F018 /* iCodeBlogAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E136FA14FA8A4B0016F018 /* iCodeBlogAnnotationView.m */; };
 		C9E1370214FA99410016F018 /* cellShowPhotos.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E1370114FA99400016F018 /* cellShowPhotos.m */; };
 		C9E1370514FA996B0016F018 /* cellShowPhotos.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9E1370414FA996B0016F018 /* cellShowPhotos.xib */; };
+		C9E1370C14FABBD70016F018 /* cellAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E1370B14FABBD70016F018 /* cellAgent.m */; };
+		C9E1370F14FABBFA0016F018 /* cellAgent.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9E1370E14FABBFA0016F018 /* cellAgent.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -158,6 +160,9 @@
 		C9E1370014FA99400016F018 /* cellShowPhotos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cellShowPhotos.h; sourceTree = "<group>"; };
 		C9E1370114FA99400016F018 /* cellShowPhotos.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = cellShowPhotos.m; sourceTree = "<group>"; };
 		C9E1370414FA996B0016F018 /* cellShowPhotos.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = cellShowPhotos.xib; sourceTree = "<group>"; };
+		C9E1370A14FABBD60016F018 /* cellAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cellAgent.h; sourceTree = "<group>"; };
+		C9E1370B14FABBD70016F018 /* cellAgent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = cellAgent.m; sourceTree = "<group>"; };
+		C9E1370E14FABBFA0016F018 /* cellAgent.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = cellAgent.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -389,6 +394,7 @@
 				C9E136D814FA70A90016F018 /* CellSummary */,
 				C9E136E314FA7F710016F018 /* cellMapView */,
 				C9E1370314FA99450016F018 /* cellShowPhotos */,
+				C9E1370D14FABBDC0016F018 /* cellAgent */,
 			);
 			name = cellView;
 			sourceTree = "<group>";
@@ -470,6 +476,16 @@
 			name = cellShowPhotos;
 			sourceTree = "<group>";
 		};
+		C9E1370D14FABBDC0016F018 /* cellAgent */ = {
+			isa = PBXGroup;
+			children = (
+				C9E1370A14FABBD60016F018 /* cellAgent.h */,
+				C9E1370B14FABBD70016F018 /* cellAgent.m */,
+				C9E1370E14FABBFA0016F018 /* cellAgent.xib */,
+			);
+			name = cellAgent;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -532,6 +548,7 @@
 				C9E136DF14FA72AC0016F018 /* cellSummary.xib in Resources */,
 				C9E136E514FA7F910016F018 /* cellMapView.xib in Resources */,
 				C9E1370514FA996B0016F018 /* cellShowPhotos.xib in Resources */,
+				C9E1370F14FABBFA0016F018 /* cellAgent.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -578,6 +595,7 @@
 				C9E136F814FA87AC0016F018 /* MyAnnotation.m in Sources */,
 				C9E136FB14FA8A4C0016F018 /* iCodeBlogAnnotationView.m in Sources */,
 				C9E1370214FA99410016F018 /* cellShowPhotos.m in Sources */,
+				C9E1370C14FABBD70016F018 /* cellAgent.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -32,30 +32,28 @@
 				<string key="IBProxiedObjectIdentifier">IBFirstResponder</string>
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 			</object>
-			<object class="IBUITableViewCell" id="901099563">
+			<object class="IBUITableViewCell" id="336513407">
 				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">292</int>
 				<array class="NSMutableArray" key="NSSubviews">
-					<object class="IBUIView" id="593600667">
-						<reference key="NSNextResponder" ref="901099563"/>
+					<object class="IBUIView" id="569028185">
+						<reference key="NSNextResponder" ref="336513407"/>
 						<int key="NSvFlags">256</int>
 						<array class="NSMutableArray" key="NSSubviews">
-							<object class="IBUIImageView" id="433988069">
-								<reference key="NSNextResponder" ref="593600667"/>
+							<object class="IBUIImageView" id="425744636">
+								<reference key="NSNextResponder" ref="569028185"/>
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{20, 11}, {265, 142}}</string>
-								<reference key="NSSuperview" ref="593600667"/>
-								<reference key="NSWindow"/>
+								<reference key="NSSuperview" ref="569028185"/>
 								<string key="NSReuseIdentifierKey">_NS:567</string>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 							</object>
-							<object class="IBUILabel" id="857908549">
-								<reference key="NSNextResponder" ref="593600667"/>
+							<object class="IBUILabel" id="901274563">
+								<reference key="NSNextResponder" ref="569028185"/>
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{20, 161}, {265, 21}}</string>
-								<reference key="NSSuperview" ref="593600667"/>
-								<reference key="NSWindow"/>
+								<reference key="NSSuperview" ref="569028185"/>
 								<string key="NSReuseIdentifierKey">_NS:328</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -82,8 +80,7 @@
 							</object>
 						</array>
 						<string key="NSFrameSize">{306, 192}</string>
-						<reference key="NSSuperview" ref="901099563"/>
-						<reference key="NSWindow"/>
+						<reference key="NSSuperview" ref="336513407"/>
 						<string key="NSReuseIdentifierKey">_NS:395</string>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
@@ -98,11 +95,11 @@
 				</array>
 				<string key="NSFrameSize">{306, 193}</string>
 				<reference key="NSSuperview"/>
-				<reference key="NSWindow"/>
-				<reference key="NSNextKeyView" ref="593600667"/>
+				<reference key="NSNextKeyView" ref="569028185"/>
 				<string key="NSReuseIdentifierKey">_NS:384</string>
+				<bool key="IBUIUserInteractionEnabled">NO</bool>
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-				<reference key="IBUIContentView" ref="593600667"/>
+				<reference key="IBUIContentView" ref="569028185"/>
 				<real value="193" key="IBUIRowHeight"/>
 			</object>
 		</array>
@@ -111,16 +108,16 @@
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">labelAddress</string>
-						<reference key="source" ref="901099563"/>
-						<reference key="destination" ref="857908549"/>
+						<reference key="source" ref="336513407"/>
+						<reference key="destination" ref="901274563"/>
 					</object>
 					<int key="connectionID">5</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">imageMain</string>
-						<reference key="source" ref="901099563"/>
-						<reference key="destination" ref="433988069"/>
+						<reference key="source" ref="336513407"/>
+						<reference key="destination" ref="425744636"/>
 					</object>
 					<int key="connectionID">6</int>
 				</object>
@@ -146,22 +143,22 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">2</int>
-						<reference key="object" ref="901099563"/>
+						<reference key="object" ref="336513407"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="433988069"/>
-							<reference ref="857908549"/>
+							<reference ref="425744636"/>
+							<reference ref="901274563"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">3</int>
-						<reference key="object" ref="433988069"/>
-						<reference key="parent" ref="901099563"/>
+						<reference key="object" ref="425744636"/>
+						<reference key="parent" ref="336513407"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">4</int>
-						<reference key="object" ref="857908549"/>
-						<reference key="parent" ref="901099563"/>
+						<reference key="object" ref="901274563"/>
+						<reference key="parent" ref="336513407"/>
 					</object>
 				</array>
 			</object>
@@ -181,40 +178,7 @@
 			<nil key="sourceID"/>
 			<int key="maxID">6</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes">
-			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
-				<object class="IBPartialClassDescription">
-					<string key="className">EGOImageView</string>
-					<string key="superclassName">UIImageView</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/EGOImageView.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">cellDescpImg</string>
-					<string key="superclassName">UITableViewCell</string>
-					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="imageMain">EGOImageView</string>
-						<string key="labelAddress">UILabel</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="imageMain">
-							<string key="name">imageMain</string>
-							<string key="candidateClassName">EGOImageView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="labelAddress">
-							<string key="name">labelAddress</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-					</dictionary>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/cellDescpImg.h</string>
-					</object>
-				</object>
-			</array>
-		</object>
+		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaTouchFramework</string>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>

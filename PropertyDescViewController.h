@@ -9,5 +9,13 @@
 #import <UIKit/UIKit.h>
 
 @interface PropertyDescViewController : UIViewController
+{
+  IBOutlet  UITableView *tableViewDesc;
+}
 
+
+-(IBAction)callAgent:(id)sender;
+
+-(IBAction)EmailAgent:(id)sender;
+@property(retain)NSMutableDictionary *dictResult;
 @end

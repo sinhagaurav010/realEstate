@@ -125,6 +125,7 @@
 		C98BCCB914FA2DF900E1E9F7 /* PropertyDescViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PropertyDescViewController.m; sourceTree = "<group>"; };
 		C98BCCBA14FA2DF900E1E9F7 /* PropertyDescViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PropertyDescViewController.xib; sourceTree = "<group>"; };
 		C98BCCBE14FA2EB600E1E9F7 /* PlaceHolder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PlaceHolder.png; sourceTree = "<group>"; };
+		C98BCCC014FA2FC800E1E9F7 /* Constant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constant.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -341,6 +342,7 @@
 			children = (
 				C98BCCBE14FA2EB600E1E9F7 /* PlaceHolder.png */,
 				C98BCCB114FA2BFA00E1E9F7 /* place_holder_small.jpg */,
+				C98BCCC014FA2FC800E1E9F7 /* Constant.h */,
 				C98BCC9B14FA137100E1E9F7 /* searchCell.h */,
 				C98BCC9C14FA137100E1E9F7 /* searchCell.m */,
 				C98BCC9E14FA138800E1E9F7 /* searchCell.xib */,

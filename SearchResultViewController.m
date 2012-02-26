@@ -89,6 +89,10 @@
 {
     
     PropertyDescViewController  *propertyViewController = [[PropertyDescViewController  alloc] init];
+    
+    propertyViewController.dictResult = [arraySearch  objectAtIndex:indexPath.row];
+    
+    
     [self.navigationController  pushViewController:propertyViewController animated:YES];
     
     [propertyViewController release];

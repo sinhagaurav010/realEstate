@@ -9,7 +9,7 @@
 #import "PropertyDescViewController.h"
 
 @implementation PropertyDescViewController
-
+@synthesize dictResult;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -31,9 +31,46 @@
 
 - (void)viewDidLoad
 {
+    NSLog(@"%@",dictResult);
+    
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 }
+
+//#pragma mark - UITableView Delegates
+//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    return 102;
+//}
+//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+//{
+//    return [arraySearch count];
+//}
+//
+//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    
+//    searchCell *cell = (searchCell *)[tableView dequeueReusableCellWithIdentifier:@"searchCell"];
+//	if (!cell) 
+//	{
+//        //cell = [[ListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ListCell"];
+//        cell = [[[NSBundle mainBundle] loadNibNamed:@"searchCell" owner:self options:nil] lastObject] ;
+//	}
+//    
+//    cell.imageMain.placeholderImage = [UIImage  imageNamed:@"place_holder_small.jpg"];
+//    NSURL *imageUrl=[NSURL URLWithString:[[arraySearch objectAtIndex:indexPath.row]objectForKey:@"thumb"]];
+//    cell.imageMain.imageURL=imageUrl;
+//    
+//    cell.lablePrice.text=[NSString stringWithFormat:@"£%@",[[arraySearch objectAtIndex:indexPath.row]objectForKey:@"price"]];
+//    cell.lablePricetype.text=[[arraySearch objectAtIndex:indexPath.row]objectForKey:@"pricetype"];
+//    cell.labelBedRoom.text=[NSString stringWithFormat:@"%@ Bed Rooms",[[arraySearch objectAtIndex:indexPath.row]objectForKey:@"bedrooms"]];
+//    cell.labelDescription.text=[[arraySearch objectAtIndex:indexPath.row]objectForKey:@"address"];
+//    cell.accessoryType=1;
+//    return (UITableViewCell *)cell;
+//    
+//    
+//}    
+
 
 - (void)viewDidUnload
 {

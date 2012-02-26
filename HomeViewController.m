@@ -41,7 +41,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     modal=[[ModalController alloc]init];
-    [modal sendTheRequestWithPostString:nil withURLString:@"http://www.bspc.co.uk/sspc_feed/sspc_feed.asp"];
+    [modal sendTheRequestWithPostString:nil withURLString:kmainURL];
     [modal setDelegate:self];
     
     MBProgressHUD *hud=[MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];

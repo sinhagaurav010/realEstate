@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "ModalController.h"
+#import "Constant.h"
+
 @interface HomeViewController : UIViewController<ModalDelegate>
 {
     IBOutlet UITextField *txtFldLoc;

@@ -38,6 +38,9 @@
 
 - (void)viewDidLoad
 {
+    self.navigationItem.title = TITLENAV;
+    self.navigationController.navigationBar.tintColor   = COLORBAC;
+    self.view.backgroundColor = COLORBAC;
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     modal=[[ModalController alloc]init];

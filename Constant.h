@@ -23,4 +23,7 @@
 #define ktransaction_type @"transaction_type"
 #define kurl @"url"
 
+#define TITLENAV @"BSPC"
+
+#define COLORBAC [UIColor colorWithRed:0.0f/255.0f green:51.0f/255.0f blue:87.0f/255.0f alpha:1.0f]
 #define kmainURL @"http://www.bspc.co.uk/sspc_feed/sspc_feed.asp"

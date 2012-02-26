@@ -7,10 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Constant.h"
+#import <MessageUI/MessageUI.h>
+#import "ModalController.h"
 
-@interface PropertyDescViewController : UIViewController
+@interface PropertyDescViewController : UIViewController<MFMailComposeViewControllerDelegate>
 {
   IBOutlet  UITableView *tableViewDesc;
+    IBOutlet UIToolbar *toolbar;
 }
 
 

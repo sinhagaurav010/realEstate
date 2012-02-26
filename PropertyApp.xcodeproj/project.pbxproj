@@ -47,6 +47,7 @@
 		C98BCCBB14FA2DF900E1E9F7 /* PropertyDescViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C98BCCB914FA2DF900E1E9F7 /* PropertyDescViewController.m */; };
 		C98BCCBC14FA2DF900E1E9F7 /* PropertyDescViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C98BCCBA14FA2DF900E1E9F7 /* PropertyDescViewController.xib */; };
 		C98BCCBF14FA2EB600E1E9F7 /* PlaceHolder.png in Resources */ = {isa = PBXBuildFile; fileRef = C98BCCBE14FA2EB600E1E9F7 /* PlaceHolder.png */; };
+		C98BCCC414FA3B8000E1E9F7 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C98BCCC314FA3B8000E1E9F7 /* MessageUI.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -126,6 +127,7 @@
 		C98BCCBA14FA2DF900E1E9F7 /* PropertyDescViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PropertyDescViewController.xib; sourceTree = "<group>"; };
 		C98BCCBE14FA2EB600E1E9F7 /* PlaceHolder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PlaceHolder.png; sourceTree = "<group>"; };
 		C98BCCC014FA2FC800E1E9F7 /* Constant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constant.h; sourceTree = "<group>"; };
+		C98BCCC314FA3B8000E1E9F7 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +135,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C98BCCC414FA3B8000E1E9F7 /* MessageUI.framework in Frameworks */,
 				C905243E14F985F000D62E24 /* UIKit.framework in Frameworks */,
 				C905244014F985F000D62E24 /* Foundation.framework in Frameworks */,
 				C905244214F985F000D62E24 /* CoreGraphics.framework in Frameworks */,
@@ -145,6 +148,7 @@
 		C905242E14F985F000D62E24 = {
 			isa = PBXGroup;
 			children = (
+				C98BCCC314FA3B8000E1E9F7 /* MessageUI.framework */,
 				C98BCCBD14FA2E0100E1E9F7 /* PropertyDescViewController */,
 				C98BCCAF14FA14C500E1E9F7 /* EGOImageView */,
 				C98BCCB014FA14D800E1E9F7 /* cellView */,

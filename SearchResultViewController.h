@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "PropertyDescViewController.h"
-
+#import "Constant.h"
 @interface SearchResultViewController : UIViewController
 {
     IBOutlet UITableView *tableViewSearch;

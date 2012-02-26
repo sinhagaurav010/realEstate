@@ -27,10 +27,47 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
+-(IBAction)callAgent:(id)sender
+{
+
+}
+
+-(IBAction)EmailAgent:(id)sender
+{
+    if ([MFMailComposeViewController canSendMail]) {
+        
+        MFMailComposeViewController *mailViewController = [[MFMailComposeViewController alloc] init];
+        mailViewController.mailComposeDelegate = self;
+        [mailViewController setSubject:@"Subject "];
+        [mailViewController setMessageBody:[NSString stringWithFormat:@"%@",[dictResult objectForKey:@"summary"]] isHTML:NO];
+        
+        [self presentModalViewController:mailViewController animated:YES];
+        [mailViewController release];
+        
+    }
+    
+    else 
+    {
+        UIAlertView *alert  = [[UIAlertView  alloc] initWithTitle:@"Please configure Mail or this Device does not support Mail" message:nil delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [alert  show];
+        [alert  release];
+    }
+}
+
+-(void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult :(MFMailComposeResult)result error :( NSError*)error 
+{
+    
+    [self dismissModalViewControllerAnimated:YES];
+    
+}
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
 {
+    self.navigationItem.title = TITLENAV;
+    toolbar.tintColor = COLORBAC;
+    self.navigationController.navigationBar.tintColor   = COLORBAC;
+    self.view.backgroundColor = COLORBAC;
     NSLog(@"%@",dictResult);
     
     [super viewDidLoad];

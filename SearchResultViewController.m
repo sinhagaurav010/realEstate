@@ -32,6 +32,9 @@
 
 - (void)viewDidLoad
 {
+    self.navigationItem.title = TITLENAV;
+    self.view.backgroundColor   = COLORBAC;
+    self.navigationController.navigationBar.tintColor   = COLORBAC;
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 }

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PropertyDescViewController.h"
 
 @interface SearchResultViewController : UIViewController
 {

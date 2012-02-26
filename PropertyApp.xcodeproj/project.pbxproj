@@ -43,6 +43,10 @@
 		C98BCCAC14FA14BE00E1E9F7 /* EGOImageLoadConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = C98BCCA614FA14BE00E1E9F7 /* EGOImageLoadConnection.m */; };
 		C98BCCAD14FA14BE00E1E9F7 /* EGOImageButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C98BCCA714FA14BE00E1E9F7 /* EGOImageButton.m */; };
 		C98BCCAE14FA14BE00E1E9F7 /* EGOImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C98BCCA914FA14BE00E1E9F7 /* EGOImageView.m */; };
+		C98BCCB214FA2BFA00E1E9F7 /* place_holder_small.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C98BCCB114FA2BFA00E1E9F7 /* place_holder_small.jpg */; };
+		C98BCCBB14FA2DF900E1E9F7 /* PropertyDescViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C98BCCB914FA2DF900E1E9F7 /* PropertyDescViewController.m */; };
+		C98BCCBC14FA2DF900E1E9F7 /* PropertyDescViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C98BCCBA14FA2DF900E1E9F7 /* PropertyDescViewController.xib */; };
+		C98BCCBF14FA2EB600E1E9F7 /* PlaceHolder.png in Resources */ = {isa = PBXBuildFile; fileRef = C98BCCBE14FA2EB600E1E9F7 /* PlaceHolder.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -116,6 +120,11 @@
 		C98BCCA714FA14BE00E1E9F7 /* EGOImageButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGOImageButton.m; sourceTree = "<group>"; };
 		C98BCCA814FA14BE00E1E9F7 /* EGOImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGOImageView.h; sourceTree = "<group>"; };
 		C98BCCA914FA14BE00E1E9F7 /* EGOImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGOImageView.m; sourceTree = "<group>"; };
+		C98BCCB114FA2BFA00E1E9F7 /* place_holder_small.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = place_holder_small.jpg; sourceTree = "<group>"; };
+		C98BCCB814FA2DF900E1E9F7 /* PropertyDescViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PropertyDescViewController.h; sourceTree = "<group>"; };
+		C98BCCB914FA2DF900E1E9F7 /* PropertyDescViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PropertyDescViewController.m; sourceTree = "<group>"; };
+		C98BCCBA14FA2DF900E1E9F7 /* PropertyDescViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PropertyDescViewController.xib; sourceTree = "<group>"; };
+		C98BCCBE14FA2EB600E1E9F7 /* PlaceHolder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PlaceHolder.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +144,7 @@
 		C905242E14F985F000D62E24 = {
 			isa = PBXGroup;
 			children = (
+				C98BCCBD14FA2E0100E1E9F7 /* PropertyDescViewController */,
 				C98BCCAF14FA14C500E1E9F7 /* EGOImageView */,
 				C98BCCB014FA14D800E1E9F7 /* cellView */,
 				C98BCC9214FA0F2900E1E9F7 /* constants */,
@@ -329,11 +339,23 @@
 		C98BCCB014FA14D800E1E9F7 /* cellView */ = {
 			isa = PBXGroup;
 			children = (
+				C98BCCBE14FA2EB600E1E9F7 /* PlaceHolder.png */,
+				C98BCCB114FA2BFA00E1E9F7 /* place_holder_small.jpg */,
 				C98BCC9B14FA137100E1E9F7 /* searchCell.h */,
 				C98BCC9C14FA137100E1E9F7 /* searchCell.m */,
 				C98BCC9E14FA138800E1E9F7 /* searchCell.xib */,
 			);
 			name = cellView;
+			sourceTree = "<group>";
+		};
+		C98BCCBD14FA2E0100E1E9F7 /* PropertyDescViewController */ = {
+			isa = PBXGroup;
+			children = (
+				C98BCCB814FA2DF900E1E9F7 /* PropertyDescViewController.h */,
+				C98BCCB914FA2DF900E1E9F7 /* PropertyDescViewController.m */,
+				C98BCCBA14FA2DF900E1E9F7 /* PropertyDescViewController.xib */,
+			);
+			name = PropertyDescViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -391,6 +413,9 @@
 				C905245814F9860B00D62E24 /* HomeViewController.xib in Resources */,
 				C905245E14F98A1F00D62E24 /* SearchResultViewController.xib in Resources */,
 				C98BCC9F14FA138800E1E9F7 /* searchCell.xib in Resources */,
+				C98BCCB214FA2BFA00E1E9F7 /* place_holder_small.jpg in Resources */,
+				C98BCCBC14FA2DF900E1E9F7 /* PropertyDescViewController.xib in Resources */,
+				C98BCCBF14FA2EB600E1E9F7 /* PlaceHolder.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -430,6 +455,7 @@
 				C98BCCAC14FA14BE00E1E9F7 /* EGOImageLoadConnection.m in Sources */,
 				C98BCCAD14FA14BE00E1E9F7 /* EGOImageButton.m in Sources */,
 				C98BCCAE14FA14BE00E1E9F7 /* EGOImageView.m in Sources */,
+				C98BCCBB14FA2DF900E1E9F7 /* PropertyDescViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

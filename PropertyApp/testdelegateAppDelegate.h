@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface testdelegateAppDelegate : UIResponder <UIApplicationDelegate>
+{
+    UINavigationController *navigation;
+}
 
 @property (strong, nonatomic) UIWindow *window;
 

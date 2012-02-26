@@ -7,7 +7,7 @@
 //
 
 #import "testdelegateAppDelegate.h"
-
+#import "HomeViewController.h"
 @implementation testdelegateAppDelegate
 
 @synthesize window = _window;
@@ -23,6 +23,9 @@
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
+    HomeViewController *home=[[HomeViewController alloc]init];
+    navigation=[[UINavigationController alloc]initWithRootViewController:home];
+    [self.window addSubview:navigation.view];
     [self.window makeKeyAndVisible];
     return YES;
 }

@@ -14,8 +14,16 @@
 #import "JSONKit.h"
 #import "CJSONDeserializer.h"
 #import "constants.h"
-
+#import "SVGeocoder.h"
 @implementation HomeViewController
+@synthesize strUserAdd,strUserLat,strUserLong;
+const double PIx = 3.141592653589793;
+const double RADIO = 6371; // Mean radius of Earth in Km
+
+double convertToRadians(double val) {
+    
+    return val * PIx / 180;
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -47,9 +55,9 @@
     [modal sendTheRequestWithPostString:nil withURLString:kmainURL];
     [modal setDelegate:self];
     
-//    if(TESTING)
-//        if([ModalController  getContforKey:SAVEDATA ])
-            
+    //    if(TESTING)
+    //        if([ModalController  getContforKey:SAVEDATA ])
+    
     MBProgressHUD *hud=[MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     [hud setLabelText:@"Loading..."];
 }
@@ -67,54 +75,110 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 #pragma mark - User Defined Functions
+-(IBAction)clickToFindCurrentLocation:(id)sender
+{
+    [txtFldLoc resignFirstResponder];
+    isFromCrrntLoc=YES;
+    if(TARGET_IPHONE_SIMULATOR)
+    {
+        double lat=55.5991;
+        double  lng=-2.43339;
+        self.strUserLat=[NSString stringWithFormat:@"%f",lat]; 
+        self.strUserLong=[NSString stringWithFormat:@"%f",lng];
+        corrd.latitude=[self.strUserLat doubleValue];
+        corrd.longitude=[self.strUserLong doubleValue];
+        NSLog(@"%@",self.strUserLat);
+        txtFldLoc.text=@"current loc";
+        
+    }
+    else
+    {
+        locmanager = [[CLLocationManager alloc] init];
+        [locmanager setDelegate:self];
+        [locmanager setDesiredAccuracy:kCLLocationAccuracyBest];
+        [locmanager startUpdatingLocation];
+    }
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
+{
+    [locmanager stopUpdatingLocation];
+    self.strUserLat = [NSString stringWithFormat:@"%g",newLocation.coordinate.latitude];
+    self.strUserLong = [NSString stringWithFormat:@"%g",newLocation.coordinate.longitude];
+    NSLog(@"%@",self.strUserLat);
+    
+    [SVGeocoder reverseGeocode:CLLocationCoordinate2DMake(self.strUserLat.floatValue, self.strUserLong.floatValue)
+                    completion:^(NSArray *placemarks, NSError *error) {
+                        if(!error && placemarks) {
+                            SVPlacemark *placemark = [placemarks objectAtIndex:0];
+                            txtFldLoc.text=placemark.formattedAddress;
+                            corrd.latitude=placemark.coordinate.latitude;
+                            corrd.longitude=placemark.coordinate.longitude;
+                            /* alertView = [[UIAlertView alloc] initWithTitle:@"Placemark Found!" message:[placemark description] delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];   */
+                        } else {
+                            UIAlertView *alertView;
+                            alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:[error description] delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                            [alertView show];
+                        }
+                        
+                        
+                    }];
+}
+- (void)locationManager:(CLLocationManager *)manager
+       didFailWithError:(NSError *)error
+{
+    NSLog(@"error");
+    [locmanager stopUpdatingLocation];
+}
+-(double)kilometresBetweenPlace1:(CLLocationCoordinate2D) place1 andPlace2:(CLLocationCoordinate2D) place2 {
+    
+    double dlon = convertToRadians(place2.longitude - place1.longitude);
+    double dlat = convertToRadians(place2.latitude - place1.latitude);
+    
+    double a = ( pow(sin(dlat / 2), 2) + cos(convertToRadians(place1.latitude))) * cos(convertToRadians(place2.latitude)) * pow(sin(dlon / 2), 2);
+    double angle = 2 * asin(sqrt(a));
+    
+    return angle * RADIO;
+}
+
+
 -(IBAction)clickToForSale:(id)sender
 {
     [arrayHome removeAllObjects];
-    if([txtFldLoc.text length]>0)
-    {
-    NSLog(@"%@",[[[arrayProperty objectAtIndex:0] objectForKey:@"transaction_type"] class]);
     arrayHome=[[NSMutableArray alloc]init ];
-    for (int i=0; i<[arrayProperty count]; i++) {
-        if(([txtFldLoc.text isEqualToString:[[arrayProperty objectAtIndex:i]objectForKey:@"postcode"]] || [[[arrayProperty objectAtIndex:i]objectForKey:@"address"] hasPrefix:txtFldLoc.text]) && ([[[arrayProperty objectAtIndex:i] objectForKey:@"transaction_type"] integerValue] == 1))
-        {
-            [arrayHome addObject:[arrayProperty objectAtIndex:i]];
-        }
-    }
-        
-    if([arrayHome count]>0)
-    {
-        NSLog(@"array home=%@",arrayHome);
-        SearchResultViewController *sdvc=[[SearchResultViewController alloc]init];
-        [sdvc setArraySearch:arrayHome];
-        [self.navigationController pushViewController:sdvc animated:YES];
-    }
-    
-    else
-    {
-        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Info" message:@"No data found." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert show];
-    }
-    }
-    else
-    {
-        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Info" message:@"Please enter postal code" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert show];
-    }
-}
--(IBAction)clickToToLet:(id)sender
-{
-     [arrayHome removeAllObjects];
     if([txtFldLoc.text length]>0)
     {
-       
-        arrayHome=[[NSMutableArray alloc]init ];
-        for (int i=0; i<[arrayProperty count]; i++) {
-            if(([txtFldLoc.text isEqualToString:[[arrayProperty objectAtIndex:i]objectForKey:@"postcode"]] || [[[arrayProperty objectAtIndex:i]objectForKey:@"address"] hasPrefix:txtFldLoc.text]) && ([[[arrayProperty objectAtIndex:i] objectForKey:@"transaction_type"] integerValue] == 2))
+        if(isFromCrrntLoc == YES)
+        {
+            for(int i=0;i<[arrayProperty count];i++)
             {
-                [arrayHome addObject:[arrayProperty objectAtIndex:i]];
+                CLLocationCoordinate2D corrd2;
+                corrd2.latitude=[[[arrayProperty objectAtIndex:i] objectForKey:@"latitude"] doubleValue];
+                corrd2.longitude=[[[arrayProperty objectAtIndex:i] objectForKey:@"longitude"] doubleValue];
+                if (([self kilometresBetweenPlace1:corrd andPlace2:corrd2] < 10) && ([[[arrayProperty objectAtIndex:i] objectForKey:@"transaction_type"] integerValue] == 1) ) {
+                    [arrayHome addObject:[arrayProperty objectAtIndex:i]];
+                }
             }
+            NSLog(@"for current loc array home=%@",arrayHome);
         }
-        
+        else
+        {
+            
+            for (int i=0; i<[arrayProperty count]; i++)
+            {
+                if([[[arrayProperty objectAtIndex:i] objectForKey:@"transaction_type"] integerValue] == 1)
+                {
+                    if([self checkForExistance:txtFldLoc.text withStringFromArray:[[arrayProperty objectAtIndex:i] objectForKey:kpostcode]])
+                        [arrayHome  addObject:[arrayProperty  objectAtIndex:i]];
+                    
+                    else if([self checkForExistance:txtFldLoc.text withStringFromArray:[[arrayProperty objectAtIndex:i] objectForKey:kaddress]])
+                        [arrayHome  addObject:[arrayProperty  objectAtIndex:i]];
+                    
+                    else if([self checkForExistance:txtFldLoc.text withStringFromArray:[[arrayProperty objectAtIndex:i] objectForKey:@"town"]])
+                        [arrayHome  addObject:[arrayProperty  objectAtIndex:i]];
+                }
+            }
+        }  
         if([arrayHome count]>0)
         {
             NSLog(@"array home=%@",arrayHome);
@@ -128,19 +192,95 @@
             UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Info" message:@"No data found." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [alert show];
         }
+        
     }
     else
     {
         UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Info" message:@"Please enter postal code" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
     }
+}
+-(IBAction)clickToToLet:(id)sender
+{
+    [arrayHome removeAllObjects];
+    arrayHome=[[NSMutableArray alloc]init ];
+    
+    if([txtFldLoc.text length]>0)
+    {
+        if(isFromCrrntLoc == YES)
+        {
+            for(int i=0;i<[arrayProperty count];i++)
+            {
+                CLLocationCoordinate2D corrd2;
+                corrd2.latitude=[[[arrayProperty objectAtIndex:i] objectForKey:@"latitude"] doubleValue];
+                corrd2.longitude=[[[arrayProperty objectAtIndex:i] objectForKey:@"longitude"] doubleValue];
+                if (([self kilometresBetweenPlace1:corrd andPlace2:corrd2] < 10) && ([[[arrayProperty objectAtIndex:i] objectForKey:@"transaction_type"] integerValue] == 2) ) {
+                    [arrayHome addObject:[arrayProperty objectAtIndex:i]];
+                }
+            }
+            NSLog(@"for current loc array home=%@",arrayHome);
+        }
+        
+        else
+        {
+            for (int i=0; i<[arrayProperty count]; i++)
+            {
+                if([[[arrayProperty objectAtIndex:i] objectForKey:@"transaction_type"] integerValue] == 2)
+                {
+                    if([self checkForExistance:txtFldLoc.text withStringFromArray:[[arrayProperty objectAtIndex:i] objectForKey:kpostcode]])
+                        [arrayHome  addObject:[arrayProperty  objectAtIndex:i]];
+                    
+                    else if([self checkForExistance:txtFldLoc.text withStringFromArray:[[arrayProperty objectAtIndex:i] objectForKey:kaddress]])
+                        [arrayHome  addObject:[arrayProperty  objectAtIndex:i]];
+                    
+                    else if([self checkForExistance:txtFldLoc.text withStringFromArray:[[arrayProperty objectAtIndex:i] objectForKey:@"town"]])
+                        [arrayHome  addObject:[arrayProperty  objectAtIndex:i]];
+                }
+                //                if((([[[[arrayProperty objectAtIndex:i] objectForKey:@"postcode"] substringToIndex:[txtFldLoc.text length]] caseInsensitiveCompare:txtFldLoc.text]==NSOrderedSame) || ([[[[arrayProperty objectAtIndex:i] objectForKey:@"address"] substringToIndex:[txtFldLoc.text length]] caseInsensitiveCompare:txtFldLoc.text]==NSOrderedSame)|| ([[[NSString stringWithFormat:@"%@",[[arrayProperty objectAtIndex:i] objectForKey:@"town"]]  substringToIndex:[txtFldLoc.text length]] caseInsensitiveCompare:txtFldLoc.text]==NSOrderedSame))&& ([[[arrayProperty objectAtIndex:i] objectForKey:@"transaction_type"] integerValue] == 2))
+                //                {
+                //                    [arrayHome addObject:[arrayProperty objectAtIndex:i]];
+                //                }
+            }
+        } 
+        if([arrayHome count]>0)
+        {
+            NSLog(@"array home=%@",arrayHome);
+            SearchResultViewController *sdvc=[[SearchResultViewController alloc]init];
+            [sdvc setArraySearch:arrayHome];
+            [self.navigationController pushViewController:sdvc animated:YES];
+        }
+        
+        else
+        {
+            UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Info" message:@"No data found." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
+        }
+        
+    }
+    
+    else
+    {
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Info" message:@"Please enter postal code" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+    }
+}
 
+
+-(BOOL)checkForExistance:(NSString *)stringTocheck withStringFromArray:(NSString *)stringFrmArray
+{
+    BOOL check = NO;
+    if([stringFrmArray  length]>=[stringTocheck length])
+    {
+        if([[[NSString stringWithFormat:@"%@",stringFrmArray]  substringToIndex:[stringTocheck length]] caseInsensitiveCompare:stringTocheck]==NSOrderedSame)
+            check = YES;
+    }
+    return check;
 }
 -(IBAction)clickToSavedSearches:(id)sender
 {
     UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Info" message:@"Not implemented yet!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [alert show];
-    [alert release];
+    // [alert release];
 }
 -(IBAction)clickToSavedProperties:(id)sender
 {
@@ -155,27 +295,28 @@
     {
         UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Info" message:@"No Propert has been saved" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
-        [alert  release];
+        //[alert  release];
     }
 }
 #pragma mark - modal Delegates
 -(void)getdata
 {
     if(TESTING)
-    [ModalController  saveTheContent:modal.stringRx withKey:SAVEDATA];
-//    NSDictionary *responseDict = [modal.dataXml objectFromJSONDataWithParseOptions:JKSerializeOptionNone error:nil];
-//    NSLog(@"-------=%@",responseDict);
+        [ModalController  saveTheContent:modal.stringRx withKey:SAVEDATA];
+    //    NSDictionary *responseDict = [modal.dataXml objectFromJSONDataWithParseOptions:JKSerializeOptionNone error:nil];
+    //    NSLog(@"-------=%@",responseDict);
     
     NSError *error =  nil;
-
-
-  NSDictionary * dictionary = [[CJSONDeserializer deserializer] deserializeAsDictionary:modal.dataXml error:&error];
     
-   // NSLog(@"------%@",dictionary);
-    [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
+    
+    NSDictionary * dictionary = [[CJSONDeserializer deserializer] deserializeAsDictionary:modal.dataXml error:&error];
+    
+    
     [[dictionary objectForKey:@"property"] isKindOfClass:[NSArray class]];
     arrayProperty=[[NSMutableArray alloc]initWithArray:[dictionary objectForKey:@"property"]];
     NSLog(@"array property==%@",arrayProperty);
+    // NSLog(@"------%@",dictionary);
+    [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
     
 }
 -(void)getError
@@ -188,6 +329,13 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [textField resignFirstResponder];
+    return YES;
+}
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+    NSLog(@"in textFieldShouldBeginEditing");
+    isFromCrrntLoc=NO; 
     return YES;
 }
 @end

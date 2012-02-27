@@ -31,8 +31,8 @@
                                    delegate:self
                                    startImmediately:YES];
     
-    
-    [connection release];
+    [connection start];
+    //[connection release];
 }
 
 //+(void)sendLog:(NSString *)string
@@ -137,7 +137,7 @@
                                           cancelButtonTitle:@"OK"
                                           otherButtonTitles: nil];
     [alert show];
-    [alert release];
+   // [alert release];
 }
 
 #pragma mark -NSUserDefaults-
@@ -191,10 +191,10 @@
 //}
 //
 
--(void)dealloc
-{ 
-    //    [receivedData release];
-    //    [stringRx release];
-    [super dealloc];
-}
+//-(void)dealloc
+//{ 
+//    //    [receivedData release];
+//    //    [stringRx release];
+//    [super dealloc];
+//}
 @end

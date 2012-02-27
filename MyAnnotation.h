@@ -2,9 +2,9 @@
 //  MyAnnotation.h
 //  swiftGO
 //
-//  Created by gauravsinha on 23/01/10.
+//  Created by  on 23/01/10.
 //  Copyright ChromeInfotech 2010. All rights reserved.
-//  mail:gaurav@bosscomputec.com
+//  
 //
 
 
@@ -25,15 +25,15 @@
         NSString *stringType;
 
 	}
-@property (nonatomic, assign) CLLocationCoordinate2D coordinate;
-@property (nonatomic,assign)	NSInteger ann_tag;
-@property (nonatomic,assign)	NSUInteger annotations;
+@property (nonatomic, readwrite) CLLocationCoordinate2D coordinate;
+@property (nonatomic,readwrite)	NSInteger ann_tag;
+@property (nonatomic,readwrite)	NSUInteger annotations;
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *subtitle;
-@property (nonatomic,assign) NSString *userData;
-@property (nonatomic,assign)  UIView  *annotation_view;
+@property (nonatomic,strong) NSString *userData;
+@property (nonatomic,strong)  UIView  *annotation_view;
 
-@property (nonatomic,assign)         NSString *stringType;
+@property (nonatomic,strong)         NSString *stringType;
 
 
 

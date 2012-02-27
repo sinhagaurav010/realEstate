@@ -64,7 +64,7 @@
 	if(annView == nil)
     {
         // ////NSLog(@"here");
-        annView = [[[MKPinAnnotationView alloc] initWithAnnotation:annot reuseIdentifier:string] autorelease];
+        annView = [[MKPinAnnotationView alloc] initWithAnnotation:annot reuseIdentifier:string];
         annView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
         
         //annView.tag = annot.ann_tag;

@@ -13,6 +13,7 @@
 #import "cellShowPhotos.h"
 #import "EGOImageView.h"
 #import "cellAgent.h"
+#import "BroucherViewController.h"
 @implementation PropertyDescViewController
 @synthesize dictResult,stringRightTitle;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -143,12 +144,12 @@
             return 88;
             break;
         }
-        case 3:
+        case 4:
         {
             return 137;
             break;
         }
-        case 4:
+        case 5:
         {
             return 314;
             break;
@@ -165,7 +166,7 @@
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView;              // Default is 1 if not implemented
 {
-    return 5;
+    return 6;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
@@ -200,13 +201,12 @@
             UITableViewCell *cell=(UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:stringCell];
             if(!cell)
             {
-                cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:stringCell];
+                cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:stringCell];
                 
             }
             
             cell.selectionStyle  = UITableViewCellSelectionStyleNone;
-
-            cell.textLabel.text=[NSString stringWithFormat:@"%@",[NSString stringWithFormat:@" %@,£%@            %@\n Reference:%d \n Description \n %@",[dictResult objectForKey:@"property_type"],[dictResult objectForKey:@"price"],[dictResult objectForKey:@"pricetype"],[[dictResult objectForKey:@"id"] integerValue],[dictResult objectForKey:ksummary]]];
+            cell.textLabel.text=[NSString stringWithFormat:@"%@",[NSString stringWithFormat:@" %@, £%@            %@\n Reference: %d \n Description: \n %@",[dictResult objectForKey:@"property_type"],[dictResult objectForKey:@"price"],[dictResult objectForKey:@"pricetype"],[[dictResult objectForKey:@"id"] integerValue],[dictResult objectForKey:ksummary]]];
             cell.textLabel.textColor=[UIColor blackColor];
             cell.textLabel.lineBreakMode = UILineBreakModeWordWrap;
             cell.textLabel.numberOfLines = 0;
@@ -262,6 +262,31 @@
         }
         case 3:
         {
+            NSString *stringCell=@"cell";
+            UITableViewCell *cell=(UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:stringCell];
+            if(!cell)
+            {
+                cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:stringCell];
+                
+            }
+            
+            
+            if([[dictResult objectForKey:@"property_brochure"] length]>0)
+            {
+                cell.textLabel.text=@"Schedule Available";
+                cell.accessoryType=1;
+            }
+            else
+            {
+                cell.selectionStyle  = UITableViewCellSelectionStyleNone;
+                cell.textLabel.text=@"Schedule Unavailable";
+                cell.accessoryType=0;
+            }
+            return cell;
+            break ;
+        }
+        case 4:
+        {
             cellAgent *cell = (cellAgent *)[tableView dequeueReusableCellWithIdentifier:@"cellAgent"];
             if (!cell) 
             {
@@ -278,7 +303,7 @@
             return cell;
             break;
         }
-        case 4:
+        case 5:
         {
             cellMapView *cell = (cellMapView *)[tableView dequeueReusableCellWithIdentifier:@"cellMapView"];
             if (cell==nil) 
@@ -306,7 +331,18 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+     NSLog(@"in select =%d",indexPath.section);
+     if(indexPath.section == 3)
+     {
+        
+         if([[dictResult objectForKey:@"property_brochure"] length]>0)
+         {
+             BroucherViewController *bvc=[[BroucherViewController alloc]init];
+             [bvc setStrUrlBroucher:[dictResult objectForKey:@"property_brochure"]];
+             [self presentModalViewController:bvc animated:YES];
+         }
+
+     }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {

@@ -9,18 +9,28 @@
 #import <UIKit/UIKit.h>
 #import "ModalController.h"
 #import "Constant.h"
+#import <CoreLocation/CLLocationManagerDelegate.h>
+#import <CoreLocation/CoreLocation.h>
 
-@interface HomeViewController : UIViewController<ModalDelegate>
+@interface HomeViewController : UIViewController<ModalDelegate,CLLocationManagerDelegate>
 {
     IBOutlet UITextField *txtFldLoc;
     ModalController *modal;
     NSMutableArray *arrayHome;
+    CLLocationManager *locmanager;
+    BOOL isFromCrrntLoc;
+    CLLocationCoordinate2D corrd;
 }
+-(BOOL)checkForExistance:(NSString *)stringTocheck withStringFromArray:(NSString *)stringFrmArray;
+
+@property(retain) NSString *strUserAdd;
+@property(retain)NSString *strUserLat;
+@property(retain)NSString *strUserLong;
 -(IBAction)clickToForSale:(id)sender;
 -(IBAction)clickToToLet:(id)sender;
 -(IBAction)clickToSavedSearches:(id)sender;
 -(IBAction)clickToSavedProperties:(id)sender;
-
-
-
+-(IBAction)clickToFindCurrentLocation:(id)sender;
+double convertToRadians(double val);
+-(double)kilometresBetweenPlace1:(CLLocationCoordinate2D) place1 andPlace2:(CLLocationCoordinate2D) place2;
 @end

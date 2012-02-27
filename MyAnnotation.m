@@ -53,13 +53,13 @@
 	return @"sdfsdvdsgf";
 }
 */
--(void)dealloc 
-{
-	[title release];
-	[subtitle release];
-	[userData release];
-	
-	[super dealloc];
-}
+//-(void)dealloc 
+//{
+//	[title release];
+//	[subtitle release];
+//	[userData release];
+//	
+//	[super dealloc];
+//}
 
 @end

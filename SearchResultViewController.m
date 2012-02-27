@@ -97,7 +97,7 @@
     
     [self.navigationController  pushViewController:propertyViewController animated:YES];
     
-    [propertyViewController release];
+   // [propertyViewController release];
     
    /* DetailViewController *detail=[[DetailViewController alloc]init];
     [detail setPidNo:[[arrayHome objectAtIndex:indexPath.row]objectForKey:@"PID"]];

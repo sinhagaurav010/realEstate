@@ -74,38 +74,14 @@ double convertToRadians(double val) {
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
-#pragma mark - User Defined Functions
--(IBAction)clickToFindCurrentLocation:(id)sender
-{
-    [txtFldLoc resignFirstResponder];
-    isFromCrrntLoc=YES;
-    if(TARGET_IPHONE_SIMULATOR)
-    {
-        double lat=55.5991;
-        double  lng=-2.43339;
-        self.strUserLat=[NSString stringWithFormat:@"%f",lat]; 
-        self.strUserLong=[NSString stringWithFormat:@"%f",lng];
-        corrd.latitude=[self.strUserLat doubleValue];
-        corrd.longitude=[self.strUserLong doubleValue];
-        NSLog(@"%@",self.strUserLat);
-        txtFldLoc.text=@"current loc";
-        
-    }
-    else
-    {
-        locmanager = [[CLLocationManager alloc] init];
-        [locmanager setDelegate:self];
-        [locmanager setDesiredAccuracy:kCLLocationAccuracyBest];
-        [locmanager startUpdatingLocation];
-    }
-}
+#pragma mark -CLLocationManager Delegates
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
 {
     [locmanager stopUpdatingLocation];
     self.strUserLat = [NSString stringWithFormat:@"%g",newLocation.coordinate.latitude];
     self.strUserLong = [NSString stringWithFormat:@"%g",newLocation.coordinate.longitude];
-    NSLog(@"%@",self.strUserLat);
+    //NSLog(@"%@",self.strUserLat);
     
     [SVGeocoder reverseGeocode:CLLocationCoordinate2DMake(self.strUserLat.floatValue, self.strUserLong.floatValue)
                     completion:^(NSArray *placemarks, NSError *error) {
@@ -127,9 +103,11 @@ double convertToRadians(double val) {
 - (void)locationManager:(CLLocationManager *)manager
        didFailWithError:(NSError *)error
 {
-    NSLog(@"error");
+    //NSLog(@"error");
     [locmanager stopUpdatingLocation];
 }
+#pragma mark - To find distace between Locations(b/w 10KM)
+
 -(double)kilometresBetweenPlace1:(CLLocationCoordinate2D) place1 andPlace2:(CLLocationCoordinate2D) place2 {
     
     double dlon = convertToRadians(place2.longitude - place1.longitude);
@@ -142,8 +120,37 @@ double convertToRadians(double val) {
 }
 
 
+#pragma mark - User Defined Functions
+-(IBAction)clickToFindCurrentLocation:(id)sender
+{
+    [txtFldLoc resignFirstResponder];
+    isFromCrrntLoc=YES;
+    if(TARGET_IPHONE_SIMULATOR)
+    {
+        double lat=55.5991;
+        double  lng=-2.43339;
+        self.strUserLat=[NSString stringWithFormat:@"%f",lat]; 
+        self.strUserLong=[NSString stringWithFormat:@"%f",lng];
+        corrd.latitude=[self.strUserLat doubleValue];
+        corrd.longitude=[self.strUserLong doubleValue];
+        //NSLog(@"%@",self.strUserLat);
+        txtFldLoc.text=@"current loc";
+        
+    }
+    else
+    {
+        locmanager = [[CLLocationManager alloc] init];
+        [locmanager setDelegate:self];
+        [locmanager setDesiredAccuracy:kCLLocationAccuracyBest];
+        [locmanager startUpdatingLocation];
+    }
+}
+
+
+
 -(IBAction)clickToForSale:(id)sender
 {
+    [txtFldLoc resignFirstResponder];
     [arrayHome removeAllObjects];
     arrayHome=[[NSMutableArray alloc]init ];
     if([txtFldLoc.text length]>0)
@@ -152,6 +159,7 @@ double convertToRadians(double val) {
         {
             for(int i=0;i<[arrayProperty count];i++)
             {
+                
                 CLLocationCoordinate2D corrd2;
                 corrd2.latitude=[[[arrayProperty objectAtIndex:i] objectForKey:@"latitude"] doubleValue];
                 corrd2.longitude=[[[arrayProperty objectAtIndex:i] objectForKey:@"longitude"] doubleValue];
@@ -159,7 +167,8 @@ double convertToRadians(double val) {
                     [arrayHome addObject:[arrayProperty objectAtIndex:i]];
                 }
             }
-            NSLog(@"for current loc array home=%@",arrayHome);
+           
+          //  NSLog(@"for current loc array temp=%@",arrayHome);
         }
         else
         {
@@ -181,7 +190,9 @@ double convertToRadians(double val) {
         }  
         if([arrayHome count]>0)
         {
-            NSLog(@"array home=%@",arrayHome);
+            //NSLog(@"array home=%@",arrayHome);
+            NSSortDescriptor *myDescriptor = [[NSSortDescriptor alloc] initWithKey:@"price" ascending:NO];
+            [arrayHome sortUsingDescriptors:[NSArray arrayWithObject:myDescriptor]];
             SearchResultViewController *sdvc=[[SearchResultViewController alloc]init];
             [sdvc setArraySearch:arrayHome];
             [self.navigationController pushViewController:sdvc animated:YES];
@@ -202,6 +213,7 @@ double convertToRadians(double val) {
 }
 -(IBAction)clickToToLet:(id)sender
 {
+    [txtFldLoc resignFirstResponder];
     [arrayHome removeAllObjects];
     arrayHome=[[NSMutableArray alloc]init ];
     
@@ -211,6 +223,7 @@ double convertToRadians(double val) {
         {
             for(int i=0;i<[arrayProperty count];i++)
             {
+                
                 CLLocationCoordinate2D corrd2;
                 corrd2.latitude=[[[arrayProperty objectAtIndex:i] objectForKey:@"latitude"] doubleValue];
                 corrd2.longitude=[[[arrayProperty objectAtIndex:i] objectForKey:@"longitude"] doubleValue];
@@ -218,7 +231,7 @@ double convertToRadians(double val) {
                     [arrayHome addObject:[arrayProperty objectAtIndex:i]];
                 }
             }
-            NSLog(@"for current loc array home=%@",arrayHome);
+            //NSLog(@"for current loc array home=%@",arrayHome);
         }
         
         else
@@ -236,15 +249,13 @@ double convertToRadians(double val) {
                     else if([self checkForExistance:txtFldLoc.text withStringFromArray:[[arrayProperty objectAtIndex:i] objectForKey:@"town"]])
                         [arrayHome  addObject:[arrayProperty  objectAtIndex:i]];
                 }
-                //                if((([[[[arrayProperty objectAtIndex:i] objectForKey:@"postcode"] substringToIndex:[txtFldLoc.text length]] caseInsensitiveCompare:txtFldLoc.text]==NSOrderedSame) || ([[[[arrayProperty objectAtIndex:i] objectForKey:@"address"] substringToIndex:[txtFldLoc.text length]] caseInsensitiveCompare:txtFldLoc.text]==NSOrderedSame)|| ([[[NSString stringWithFormat:@"%@",[[arrayProperty objectAtIndex:i] objectForKey:@"town"]]  substringToIndex:[txtFldLoc.text length]] caseInsensitiveCompare:txtFldLoc.text]==NSOrderedSame))&& ([[[arrayProperty objectAtIndex:i] objectForKey:@"transaction_type"] integerValue] == 2))
-                //                {
-                //                    [arrayHome addObject:[arrayProperty objectAtIndex:i]];
-                //                }
             }
         } 
         if([arrayHome count]>0)
         {
-            NSLog(@"array home=%@",arrayHome);
+            //NSLog(@"array home=%@",arrayHome);
+            NSSortDescriptor *myDescriptor = [[NSSortDescriptor alloc] initWithKey:@"price" ascending:NO];
+            [arrayHome sortUsingDescriptors:[NSArray arrayWithObject:myDescriptor]];
             SearchResultViewController *sdvc=[[SearchResultViewController alloc]init];
             [sdvc setArraySearch:arrayHome];
             [self.navigationController pushViewController:sdvc animated:YES];
@@ -304,7 +315,7 @@ double convertToRadians(double val) {
     if(TESTING)
         [ModalController  saveTheContent:modal.stringRx withKey:SAVEDATA];
     //    NSDictionary *responseDict = [modal.dataXml objectFromJSONDataWithParseOptions:JKSerializeOptionNone error:nil];
-    //    NSLog(@"-------=%@",responseDict);
+    //    //NSLog(@"-------=%@",responseDict);
     
     NSError *error =  nil;
     
@@ -314,8 +325,8 @@ double convertToRadians(double val) {
     
     [[dictionary objectForKey:@"property"] isKindOfClass:[NSArray class]];
     arrayProperty=[[NSMutableArray alloc]initWithArray:[dictionary objectForKey:@"property"]];
-    NSLog(@"array property==%@",arrayProperty);
-    // NSLog(@"------%@",dictionary);
+    //NSLog(@"array property==%@",arrayProperty);
+    // //NSLog(@"------%@",dictionary);
     [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
     
 }
@@ -334,7 +345,7 @@ double convertToRadians(double val) {
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
-    NSLog(@"in textFieldShouldBeginEditing");
+    //NSLog(@"in textFieldShouldBeginEditing");
     isFromCrrntLoc=NO; 
     return YES;
 }

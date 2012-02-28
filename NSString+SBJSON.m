@@ -37,7 +37,7 @@
     SBJsonParser *jsonParser = [SBJsonParser new];    
     id repr = [jsonParser fragmentWithString:self];    
     if (!repr)
-        //dbdNSLog(@"-JSONFragmentValue failed. Error trace is: %@", [jsonParser errorTrace]);
+        //dbd//NSLog(@"-JSONFragmentValue failed. Error trace is: %@", [jsonParser errorTrace]);
     [jsonParser release];
     return repr;
 }
@@ -47,7 +47,7 @@
     SBJsonParser *jsonParser = [SBJsonParser new];
     id repr = [jsonParser objectWithString:self];
     if (!repr)
-        //dbdNSLog(@"-JSONValue failed. Error trace is: %@", [jsonParser errorTrace]);
+        //dbd//NSLog(@"-JSONValue failed. Error trace is: %@", [jsonParser errorTrace]);
     [jsonParser release];
     return repr;
 }

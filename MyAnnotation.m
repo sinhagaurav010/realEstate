@@ -28,7 +28,7 @@
 {
 	inCoord = coordinate;
 	//annotations   =  pinID;
-	//NSLog(@"coordinate6578667877790880-%f",coordinate1.latitude);
+	////NSLog(@"coordinate6578667877790880-%f",coordinate1.latitude);
 	return self;
 	
 	self = [super init];
@@ -45,7 +45,7 @@
 //}
 /*
 -(NSString *) title {
-	//NSLog(@"coordinate0---------------------%f",self.coordinate.latitude);
+	////NSLog(@"coordinate0---------------------%f",self.coordinate.latitude);
    // for(int i=0;i<[])
 	return @"ddsfdsf";
 }

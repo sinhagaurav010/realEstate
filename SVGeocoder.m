@@ -212,7 +212,7 @@ typedef NSUInteger SVGeocoderRequestState;
     self.timeoutTimer = [NSTimer scheduledTimerWithTimeInterval:kSVGeocoderTimeoutInterval target:self selector:@selector(requestTimeout) userInfo:nil repeats:NO];
     
     self.connection = [[NSURLConnection alloc] initWithRequest:self.request delegate:self startImmediately:YES];
-    NSLog(@"[%@] %@", self.request.HTTPMethod, self.request.URL.absoluteString);
+    //NSLog(@"[%@] %@", self.request.HTTPMethod, self.request.URL.absoluteString);
 }
 
 // private method; not part of NSOperation

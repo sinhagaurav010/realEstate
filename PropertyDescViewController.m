@@ -37,7 +37,7 @@
 {
     NSString *string=[dictResult objectForKey:@"agent_telephone"];
     string=[string stringByReplacingOccurrencesOfString:@" " withString:@""];
-    NSLog(@"call string=%@",string);
+    //NSLog(@"call string=%@",string);
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat: @"tel:%@",string]]];
 
 }
@@ -116,7 +116,7 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:stringRightTitle style:UIBarButtonItemStyleDone target:self  action:@selector(save)];
     
     
-    NSLog(@"%@",dictResult);
+    //NSLog(@"%@",dictResult);
 
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
@@ -166,7 +166,7 @@
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView;              // Default is 1 if not implemented
 {
-    return 6;
+    return 5;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
@@ -303,7 +303,7 @@
             return cell;
             break;
         }
-        case 5:
+      /*  case 5:
         {
             cellMapView *cell = (cellMapView *)[tableView dequeueReusableCellWithIdentifier:@"cellMapView"];
             if (cell==nil) 
@@ -320,7 +320,7 @@
             return cell;
             
             break;
-        }
+        }   */
         default:
             break;
             
@@ -331,7 +331,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-     NSLog(@"in select =%d",indexPath.section);
+     //NSLog(@"in select =%d",indexPath.section);
      if(indexPath.section == 3)
      {
         

@@ -54,6 +54,8 @@
 		C9B7D9CE14FBE0C1003B6B8F /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9B7D9CD14FBE0C1003B6B8F /* AddressBook.framework */; };
 		C9B7D9D214FC0D95003B6B8F /* BroucherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B7D9D014FC0D94003B6B8F /* BroucherViewController.m */; };
 		C9B7D9D314FC0D95003B6B8F /* BroucherViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9B7D9D114FC0D94003B6B8F /* BroucherViewController.xib */; };
+		C9B7D9D814FC3736003B6B8F /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B7D9D614FC3736003B6B8F /* DetailViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C9B7D9D914FC3736003B6B8F /* DetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9B7D9D714FC3736003B6B8F /* DetailViewController.xib */; };
 		C9E136C914FA5AA60016F018 /* cellDescpImg.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E136C814FA5AA60016F018 /* cellDescpImg.m */; };
 		C9E136CC14FA5ADA0016F018 /* cellDescpImg.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9E136CB14FA5ADA0016F018 /* cellDescpImg.xib */; };
 		C9E136DD14FA72970016F018 /* cellSummary.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E136DC14FA72970016F018 /* cellSummary.m */; };
@@ -157,6 +159,9 @@
 		C9B7D9CF14FC0D94003B6B8F /* BroucherViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BroucherViewController.h; sourceTree = "<group>"; };
 		C9B7D9D014FC0D94003B6B8F /* BroucherViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BroucherViewController.m; sourceTree = "<group>"; };
 		C9B7D9D114FC0D94003B6B8F /* BroucherViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BroucherViewController.xib; sourceTree = "<group>"; };
+		C9B7D9D514FC3736003B6B8F /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
+		C9B7D9D614FC3736003B6B8F /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		C9B7D9D714FC3736003B6B8F /* DetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailViewController.xib; sourceTree = "<group>"; };
 		C9E136C714FA5AA60016F018 /* cellDescpImg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cellDescpImg.h; sourceTree = "<group>"; };
 		C9E136C814FA5AA60016F018 /* cellDescpImg.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = cellDescpImg.m; sourceTree = "<group>"; };
 		C9E136CB14FA5ADA0016F018 /* cellDescpImg.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = cellDescpImg.xib; sourceTree = "<group>"; };
@@ -201,6 +206,7 @@
 		C905242E14F985F000D62E24 = {
 			isa = PBXGroup;
 			children = (
+				C9B7D9DA14FC3744003B6B8F /* DetailViewController */,
 				C9B7D9D414FC11BB003B6B8F /* BroucherViewController */,
 				C9B7D9BC14FBDBD8003B6B8F /* For Corrent Location */,
 				C9B7D9BA14FBDB58003B6B8F /* MapSource */,
@@ -278,9 +284,9 @@
 		C905245F14F98A2400D62E24 /* SearchResultViewController */ = {
 			isa = PBXGroup;
 			children = (
-				C905245A14F98A1F00D62E24 /* SearchResultViewController.h */,
 				C905245B14F98A1F00D62E24 /* SearchResultViewController.m */,
 				C905245C14F98A1F00D62E24 /* SearchResultViewController.xib */,
+				C905245A14F98A1F00D62E24 /* SearchResultViewController.h */,
 			);
 			name = SearchResultViewController;
 			sourceTree = "<group>";
@@ -457,6 +463,16 @@
 			name = BroucherViewController;
 			sourceTree = "<group>";
 		};
+		C9B7D9DA14FC3744003B6B8F /* DetailViewController */ = {
+			isa = PBXGroup;
+			children = (
+				C9B7D9D514FC3736003B6B8F /* DetailViewController.h */,
+				C9B7D9D614FC3736003B6B8F /* DetailViewController.m */,
+				C9B7D9D714FC3736003B6B8F /* DetailViewController.xib */,
+			);
+			name = DetailViewController;
+			sourceTree = "<group>";
+		};
 		C9E136C414FA5A340016F018 /* images */ = {
 			isa = PBXGroup;
 			children = (
@@ -600,6 +616,7 @@
 				C9E1370F14FABBFA0016F018 /* cellAgent.xib in Resources */,
 				C9B7D9C814FBDCB5003B6B8F /* location.jpg in Resources */,
 				C9B7D9D314FC0D95003B6B8F /* BroucherViewController.xib in Resources */,
+				C9B7D9D914FC3736003B6B8F /* DetailViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -650,6 +667,7 @@
 				C9B7D9C514FBDBFE003B6B8F /* SVGeocoder.m in Sources */,
 				C9B7D9C614FBDBFE003B6B8F /* SVPlacemark.m in Sources */,
 				C9B7D9D214FC0D95003B6B8F /* BroucherViewController.m in Sources */,
+				C9B7D9D814FC3736003B6B8F /* DetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

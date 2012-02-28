@@ -19,17 +19,17 @@
 
 - (id)initWithAnnotation:(id <MKAnnotation>)annotation reuseIdentifier:(NSString *)reuseIdentifier
 {
-    //NSLog(@"annotation view");
+    ////NSLog(@"annotation view");
     
-    //NSLog(@"view.annotation_view_tag = %i",annotation_view_tag);
+    ////NSLog(@"view.annotation_view_tag = %i",annotation_view_tag);
     
     //HomeViewController *HomeController = [[HomeViewController alloc] init];
     
     MyAnnotation* myAnnotation = (MyAnnotation*)annotation;
-    //NSLog(@" myAnnotation.ann_tag------%i", myAnnotation.ann_tag);
+    ////NSLog(@" myAnnotation.ann_tag------%i", myAnnotation.ann_tag);
     annotation_view_tag = myAnnotation.ann_tag;	
     
-    //NSLog(@"annotation_view_tag %i",annotation_view_tag);
+    ////NSLog(@"annotation_view_tag %i",annotation_view_tag);
     self = [super initWithAnnotation:myAnnotation reuseIdentifier:reuseIdentifier];
     
     self.frame = CGRectMake(0, 0, 20,25);

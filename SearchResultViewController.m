@@ -8,6 +8,7 @@
 
 #import "SearchResultViewController.h"
 #import "searchCell.h"
+#import "DetailViewController.h"
 @implementation SearchResultViewController
 @synthesize arraySearch;
 
@@ -90,7 +91,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    PropertyDescViewController  *propertyViewController = [[PropertyDescViewController  alloc] init];
+    DetailViewController  *propertyViewController = [[DetailViewController  alloc] init];
     
     propertyViewController.dictResult = [arraySearch  objectAtIndex:indexPath.row];
     

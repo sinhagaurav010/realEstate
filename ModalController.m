@@ -53,7 +53,7 @@
 //                                   startImmediately:YES];    
 //    [connection release];
 //    NSString *currSysVer = [[UIDevice currentDevice] systemVersion];
-//    NSLog(@"current version%@--%@",currSysVer,[[UIDevice currentDevice] systemName]);
+//    //NSLog(@"current version%@--%@",currSysVer,[[UIDevice currentDevice] systemName]);
 //}
 #pragma mark -ConvertToSystemTimeZone-
 
@@ -93,7 +93,7 @@
 //    
 //    double nC = 2 * atan2( sqrt(nA), sqrt( 1 - nA ));
 //    double nD = nRadius * nC;
-//    NSLog(@"%f",nD);
+//    //NSLog(@"%f",nD);
     
 //    CLLocation *userLoc = [[CLLocation alloc]initWithLatitude:latSource  longitude:longSource];
 //    CLLocation *poiLoc = [[CLLocation alloc] initWithLatitude:latDis longitude:londDis];
@@ -110,7 +110,7 @@
 -(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
 	[receivedData appendData:data];    
-    //////NSLog(@"Received data is now %d bytes", [receivedData length]); 	  
+    ////////NSLog(@"Received data is now %d bytes", [receivedData length]); 	  
 }
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
@@ -124,7 +124,7 @@
     
     stringRx = [[NSString alloc] initWithData:receivedData encoding:NSUTF8StringEncoding];
     
-    ////NSLog(@"GetString-%@",stringRx);
+    //////NSLog(@"GetString-%@",stringRx);
     [self.delegate getdata];
     //[[NSNotificationCenter defaultCenter] postNotificationName:GETXML 
     //                                                  object:nil];

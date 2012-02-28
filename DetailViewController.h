@@ -24,6 +24,7 @@
 
 @interface DetailViewController : UIViewController<MFMailComposeViewControllerDelegate,MKMapViewDelegate>
 {
+    NSMutableArray *arrayImages;
     UILabel *labelAddress;
     EGOImageView *imageMain;
     UILabel *labeltelephone;

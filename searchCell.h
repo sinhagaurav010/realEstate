@@ -12,6 +12,9 @@
 {
     
 }
+-(void)addLabel:(NSString *)stringprice withType:(NSString *)priceType withBedRoom:(NSString *)stringBedrooom withDesc:(NSString *)desc;
+
+-(void)addImage:(NSString *)stringurl;
 @property(strong,nonatomic)IBOutlet UILabel *lablePrice;
 @property(strong,nonatomic)IBOutlet UILabel *lablePricetype;
 @property(strong,nonatomic)IBOutlet UILabel *labelBedRoom;

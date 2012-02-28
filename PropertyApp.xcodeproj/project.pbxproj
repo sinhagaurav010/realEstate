@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5DBF49E114FD765800B92BA9 /* AppBg.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DBF49E014FD765800B92BA9 /* AppBg.png */; };
 		C905243E14F985F000D62E24 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C905243D14F985F000D62E24 /* UIKit.framework */; };
 		C905244014F985F000D62E24 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C905243F14F985F000D62E24 /* Foundation.framework */; };
 		C905244214F985F000D62E24 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C905244114F985F000D62E24 /* CoreGraphics.framework */; };
@@ -73,6 +74,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5DBF49E014FD765800B92BA9 /* AppBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppBg.png; sourceTree = "<group>"; };
 		C905243914F985F000D62E24 /* PropertyApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PropertyApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C905243D14F985F000D62E24 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C905243F14F985F000D62E24 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -203,9 +205,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5DBF49E314FD765D00B92BA9 /* ImagesApp */ = {
+			isa = PBXGroup;
+			children = (
+				5DBF49E014FD765800B92BA9 /* AppBg.png */,
+			);
+			name = ImagesApp;
+			sourceTree = "<group>";
+		};
 		C905242E14F985F000D62E24 = {
 			isa = PBXGroup;
 			children = (
+				5DBF49E314FD765D00B92BA9 /* ImagesApp */,
 				C9B7D9DA14FC3744003B6B8F /* DetailViewController */,
 				C9B7D9D414FC11BB003B6B8F /* BroucherViewController */,
 				C9B7D9BC14FBDBD8003B6B8F /* For Corrent Location */,
@@ -617,6 +628,7 @@
 				C9B7D9C814FBDCB5003B6B8F /* location.jpg in Resources */,
 				C9B7D9D314FC0D95003B6B8F /* BroucherViewController.xib in Resources */,
 				C9B7D9D914FC3736003B6B8F /* DetailViewController.xib in Resources */,
+				5DBF49E114FD765800B92BA9 /* AppBg.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -304,7 +304,7 @@ double convertToRadians(double val) {
     }
     else
     {
-        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Info" message:@"No Propert has been saved" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Info" message:@"No Property has been saved" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
         //[alert  release];
     }
@@ -321,7 +321,7 @@ double convertToRadians(double val) {
     
     
     NSDictionary * dictionary = [[CJSONDeserializer deserializer] deserializeAsDictionary:modal.dataXml error:&error];
-    
+//    NSLog(@"%@",dictionary);
     
     [[dictionary objectForKey:@"property"] isKindOfClass:[NSArray class]];
     arrayProperty=[[NSMutableArray alloc]initWithArray:[dictionary objectForKey:@"property"]];

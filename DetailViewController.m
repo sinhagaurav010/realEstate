@@ -120,6 +120,7 @@
             self.stringRightTitle = @"Save";   
         
     }
+    arrayImages = [[NSMutableArray alloc] init];
     
     NSInteger countPhotos = 0; 
     scrlView=[[UIScrollView alloc]initWithFrame:CGRectMake(30, 0, 260, 87)];
@@ -138,10 +139,26 @@
         //   [aView setBackgroundColor:[UIColor clearColor]];
         EGOImageView *imgEgo=[[EGOImageView alloc]initWithFrame:CGRectMake(inX,10, 80,60)];
         [imgEgo setBackgroundColor:[UIColor clearColor]];
+        imgEgo.userInteractionEnabled = YES;
+        imgEgo.tag = i;
+        ////Put gesture recognizer
+        UITapGestureRecognizer *singleTapOne = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
+        
+        singleTapOne.numberOfTouchesRequired = 1; 
+        //    singleTapOne.delegate = self;
+        [imgEgo addGestureRecognizer:singleTapOne];
+        [singleTapOne release];
+        
+        
         imgEgo.placeholderImage = [UIImage imageNamed:@"place_holder_small.jpg"];
         NSURL *imageUrl=[NSURL URLWithString:[dictResult objectForKey:[NSString stringWithFormat:@"photo%d",i]]];
         imgEgo.imageURL=imageUrl;
         [scrlView addSubview:imgEgo];
+        
+       
+        
+        [arrayImages addObject:imgEgo];
+        
         //  [scrlView addSubview:aView];
         inX=inX+90;
         
@@ -185,6 +202,20 @@
     
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+}
+
+#pragma mark -handleLongPressGesture-
+
+-(void)handleSingleTap:(UILongPressGestureRecognizer*)sender 
+{
+    
+//    if(UIGestureRecognizerStateEnded == sender.state)
+//    {
+        imageMain.imageURL = [(EGOImageView *)sender.view imageURL]  ;
+    
+        //        //NSLog(@"%d%@",[[sender view]tag],[[sender view] stringImageDes]);
+        
+//    }   
 }
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -322,8 +353,6 @@
         [cell addSubview:l1];
         [cell addSubview:labeltelephone];
         [cell addSubview:labelAgentDescp];
-        
-        
     }
     else  if(indexPath.section==5 )            
     {

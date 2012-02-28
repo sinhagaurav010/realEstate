@@ -33,6 +33,7 @@
 
 - (void)viewDidLoad
 {
+    NSLog(@"here i csdc");
     self.navigationItem.title = TITLENAV;
     self.view.backgroundColor   = COLORBAC;
     self.navigationController.navigationBar.tintColor   = COLORBAC;
@@ -45,7 +46,6 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
-    [tableViewSearch reloadData];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -75,14 +75,14 @@
         cell = [[[NSBundle mainBundle] loadNibNamed:@"searchCell" owner:self options:nil] lastObject] ;
 	}
     
-    cell.imageMain.placeholderImage = [UIImage  imageNamed:@"place_holder_small.jpg"];
-    NSURL *imageUrl=[NSURL URLWithString:[[arraySearch objectAtIndex:indexPath.row]objectForKey:@"main_ photo"]];
-    cell.imageMain.imageURL=imageUrl;
-    cell.lablePrice.text=[NSString stringWithFormat:@"£%@",[[arraySearch objectAtIndex:indexPath.row]objectForKey:kprice]];
-    cell.lablePricetype.text=[[arraySearch objectAtIndex:indexPath.row]objectForKey:kpricetype];
-    cell.labelBedRoom.text=[NSString stringWithFormat:@"%@ Bed Rooms",[[arraySearch objectAtIndex:indexPath.row]objectForKey:kbedrooms]];
-    cell.labelDescription.text=[[arraySearch objectAtIndex:indexPath.row]objectForKey:kaddress];
+    [cell  addImage:[[arraySearch objectAtIndex:indexPath.row]objectForKey:@"main_ photo"]];
     
+    [cell  addLabel:[NSString stringWithFormat:@"£%@",[[arraySearch objectAtIndex:indexPath.row]objectForKey:kprice]] withType:[NSString stringWithFormat:@"%@",[[arraySearch objectAtIndex:indexPath.row]objectForKey:kpricetype]] withBedRoom:[NSString stringWithFormat:@"%@ Bed Rooms",[[arraySearch objectAtIndex:indexPath.row]objectForKey:kbedrooms]] withDesc:[[arraySearch objectAtIndex:indexPath.row]objectForKey:kaddress]];
+//    cell.lablePrice.text=[NSString stringWithFormat:@"£%@",[[arraySearch objectAtIndex:indexPath.row]objectForKey:kprice]];
+//    cell.lablePricetype.text=[[arraySearch objectAtIndex:indexPath.row]objectForKey:kpricetype];
+//    cell.labelBedRoom.text=[NSString stringWithFormat:@"%@ Bed Rooms",[[arraySearch objectAtIndex:indexPath.row]objectForKey:kbedrooms]];
+//    cell.labelDescription.text=[[arraySearch objectAtIndex:indexPath.row]objectForKey:kaddress];
+//    
     cell.accessoryType = 1;
     
     return (UITableViewCell *)cell;

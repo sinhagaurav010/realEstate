@@ -20,6 +20,21 @@
     return self;
 }
 
+-(void)addImage:(NSString *)stringurl
+{
+    self.imageMain.placeholderImage = [UIImage  imageNamed:@"place_holder_small.jpg"];
+    NSURL *imageUrl=[NSURL URLWithString:stringurl];
+    self.imageMain.imageURL=imageUrl;
+}
+-(void)addLabel:(NSString *)stringprice withType:(NSString *)priceType withBedRoom:(NSString *)stringBedrooom withDesc:(NSString *)desc
+{
+    self.labelDescription.text = desc;
+    self.lablePrice.text = stringprice;
+    self.lablePricetype.text = priceType;
+    self.labelBedRoom.text = stringBedrooom;
+    
+
+}
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];

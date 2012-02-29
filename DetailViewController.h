@@ -36,6 +36,8 @@
     NSInteger savedAtIndex;
     EGOImageView *imageMAin2;
     UILabel *labelAgentDescp;
+    UIWebView *webViewDescp;
+    
 }
 -(IBAction)callAgent:(id)sender;
 

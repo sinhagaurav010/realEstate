@@ -115,7 +115,6 @@ double convertToRadians(double val) {
     
     double a = ( pow(sin(dlat / 2), 2) + cos(convertToRadians(place1.latitude))) * cos(convertToRadians(place2.latitude)) * pow(sin(dlon / 2), 2);
     double angle = 2 * asin(sqrt(a));
-    
     return angle * RADIO;
 }
 
@@ -164,6 +163,7 @@ double convertToRadians(double val) {
                 corrd2.latitude=[[[arrayProperty objectAtIndex:i] objectForKey:@"latitude"] doubleValue];
                 corrd2.longitude=[[[arrayProperty objectAtIndex:i] objectForKey:@"longitude"] doubleValue];
                 if (([self kilometresBetweenPlace1:corrd andPlace2:corrd2] < 10) && ([[[arrayProperty objectAtIndex:i] objectForKey:@"transaction_type"] integerValue] == 1) ) {
+                    NSLog(@"filter=======%f",[self kilometresBetweenPlace1:corrd andPlace2:corrd2]);
                     [arrayHome addObject:[arrayProperty objectAtIndex:i]];
                 }
             }
@@ -190,9 +190,9 @@ double convertToRadians(double val) {
         }  
         if([arrayHome count]>0)
         {
-            //NSLog(@"array home=%@",arrayHome);
             NSSortDescriptor *myDescriptor = [[NSSortDescriptor alloc] initWithKey:@"price" ascending:NO];
             [arrayHome sortUsingDescriptors:[NSArray arrayWithObject:myDescriptor]];
+            // NSLog(@"array home=%@",arrayHome);
             SearchResultViewController *sdvc=[[SearchResultViewController alloc]init];
             [sdvc setArraySearch:arrayHome];
             [self.navigationController pushViewController:sdvc animated:YES];
@@ -289,8 +289,7 @@ double convertToRadians(double val) {
 }
 -(IBAction)clickToSavedSearches:(id)sender
 {
-    UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Info" message:@"Not implemented yet!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    [alert show];
+    
     // [alert release];
 }
 -(IBAction)clickToSavedProperties:(id)sender

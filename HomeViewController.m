@@ -61,7 +61,14 @@ double convertToRadians(double val) {
     MBProgressHUD *hud=[MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     [hud setLabelText:@"Loading..."];
 }
+-(void)viewWillAppear:(BOOL)animated
+{
+    self.navigationController.navigationBarHidden=YES;
+    strPrice= @"Any Price";
+    strBedrooms=@"0 or more";
+    strSortBy=@"Price Ascending";
 
+}
 - (void)viewDidUnload
 {
     [super viewDidUnload];
@@ -194,7 +201,8 @@ double convertToRadians(double val) {
             [arrayHome sortUsingDescriptors:[NSArray arrayWithObject:myDescriptor]];
             // NSLog(@"array home=%@",arrayHome);
             SearchResultViewController *sdvc=[[SearchResultViewController alloc]init];
-            [sdvc setArraySearch:arrayHome];
+            arraySearch = [[NSMutableArray alloc] initWithArray:arrayHome];
+            NSLog(@"array search=%@",arraySearch);
             [self.navigationController pushViewController:sdvc animated:YES];
         }
         
@@ -211,11 +219,14 @@ double convertToRadians(double val) {
         [alert show];
     }
 }
+
+#pragma mark -clickToToLet-
+
 -(IBAction)clickToToLet:(id)sender
 {
     [txtFldLoc resignFirstResponder];
     [arrayHome removeAllObjects];
-    arrayHome=[[NSMutableArray alloc]init ];
+    arrayHome = [[NSMutableArray alloc]init ];
     
     if([txtFldLoc.text length]>0)
     {
@@ -223,7 +234,6 @@ double convertToRadians(double val) {
         {
             for(int i=0;i<[arrayProperty count];i++)
             {
-                
                 CLLocationCoordinate2D corrd2;
                 corrd2.latitude=[[[arrayProperty objectAtIndex:i] objectForKey:@"latitude"] doubleValue];
                 corrd2.longitude=[[[arrayProperty objectAtIndex:i] objectForKey:@"longitude"] doubleValue];
@@ -257,7 +267,8 @@ double convertToRadians(double val) {
             NSSortDescriptor *myDescriptor = [[NSSortDescriptor alloc] initWithKey:@"price" ascending:NO];
             [arrayHome sortUsingDescriptors:[NSArray arrayWithObject:myDescriptor]];
             SearchResultViewController *sdvc=[[SearchResultViewController alloc]init];
-            [sdvc setArraySearch:arrayHome];
+            arraySearch = [[NSMutableArray alloc] initWithArray:arrayHome];
+            //[sdvc setArraySearch:arrayHome];
             [self.navigationController pushViewController:sdvc animated:YES];
         }
         
@@ -268,7 +279,6 @@ double convertToRadians(double val) {
         }
         
     }
-    
     else
     {
         UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Info" message:@"Please enter postal code" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
@@ -298,7 +308,7 @@ double convertToRadians(double val) {
     if([arraySavedProperty count]>0)
     {
         SearchResultViewController *sdvc=[[SearchResultViewController alloc]init];
-        [sdvc setArraySearch:arraySavedProperty];
+        arraySearch = [[NSMutableArray alloc] initWithArray:arrayHome];        //[sdvc setArraySearch:arraySavedProperty];
         [self.navigationController pushViewController:sdvc animated:YES];
     }
     else

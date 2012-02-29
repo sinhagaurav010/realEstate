@@ -32,6 +32,10 @@
 //#define kmainURL @"http://www.bspc.co.uk/sspc_feed/sspc_feed.asp"
 #define  kmainURL @"http://www.bspc.co.uk/sspc_feed/iphone_feed.asp"
 
+NSString *strPrice;
+NSString *strBedrooms;
+NSString *strSortBy;
+NSMutableArray *arraySearch;
 
 /*
  address = "1 Broomie Dell";

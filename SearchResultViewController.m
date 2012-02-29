@@ -9,8 +9,10 @@
 #import "SearchResultViewController.h"
 #import "searchCell.h"
 #import "DetailViewController.h"
+#import "RefineSearchViewController.h"
+
 @implementation SearchResultViewController
-@synthesize arraySearch;
+//@synthesize arraySearch;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -37,10 +39,16 @@
     self.navigationItem.title = TITLENAV;
     self.view.backgroundColor   = COLORBAC;
     self.navigationController.navigationBar.tintColor   = COLORBAC;
+    tableViewSearch.tableHeaderView=ViewHeader;
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 }
-
+-(void)viewWillAppear:(BOOL)animated
+{
+    self.navigationController.navigationBarHidden=NO;
+    labelPrice.text=strPrice;
+    labelBedrooms.text=strBedrooms;
+}
 - (void)viewDidUnload
 {
     [super viewDidUnload];
@@ -98,13 +106,10 @@
     
     [self.navigationController  pushViewController:propertyViewController animated:YES];
     
-   // [propertyViewController release];
-    
-   /* DetailViewController *detail=[[DetailViewController alloc]init];
-    [detail setPidNo:[[arrayHome objectAtIndex:indexPath.row]objectForKey:@"PID"]];
-    [self.navigationController pushViewController:detail animated:YES];
-    [detail release]; */
-    
 }
-
+-(IBAction)clickToHeaderBtn:(id)sender
+{
+    RefineSearchViewController *refine=[[RefineSearchViewController alloc]init];    
+    [self.navigationController pushViewController:refine animated:YES];
+}
 @end

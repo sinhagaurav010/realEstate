@@ -57,6 +57,8 @@
 		C9B7D9D314FC0D95003B6B8F /* BroucherViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9B7D9D114FC0D94003B6B8F /* BroucherViewController.xib */; };
 		C9B7D9D814FC3736003B6B8F /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B7D9D614FC3736003B6B8F /* DetailViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C9B7D9D914FC3736003B6B8F /* DetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9B7D9D714FC3736003B6B8F /* DetailViewController.xib */; };
+		C9DE44B114FE9E0F00E13B30 /* RefineSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9DE44AF14FE9E0F00E13B30 /* RefineSearchViewController.m */; };
+		C9DE44B214FE9E0F00E13B30 /* RefineSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9DE44B014FE9E0F00E13B30 /* RefineSearchViewController.xib */; };
 		C9E136C914FA5AA60016F018 /* cellDescpImg.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E136C814FA5AA60016F018 /* cellDescpImg.m */; };
 		C9E136CC14FA5ADA0016F018 /* cellDescpImg.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9E136CB14FA5ADA0016F018 /* cellDescpImg.xib */; };
 		C9E136DD14FA72970016F018 /* cellSummary.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E136DC14FA72970016F018 /* cellSummary.m */; };
@@ -164,6 +166,9 @@
 		C9B7D9D514FC3736003B6B8F /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		C9B7D9D614FC3736003B6B8F /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		C9B7D9D714FC3736003B6B8F /* DetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailViewController.xib; sourceTree = "<group>"; };
+		C9DE44AE14FE9E0F00E13B30 /* RefineSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RefineSearchViewController.h; sourceTree = "<group>"; };
+		C9DE44AF14FE9E0F00E13B30 /* RefineSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RefineSearchViewController.m; sourceTree = "<group>"; };
+		C9DE44B014FE9E0F00E13B30 /* RefineSearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RefineSearchViewController.xib; sourceTree = "<group>"; };
 		C9E136C714FA5AA60016F018 /* cellDescpImg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cellDescpImg.h; sourceTree = "<group>"; };
 		C9E136C814FA5AA60016F018 /* cellDescpImg.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = cellDescpImg.m; sourceTree = "<group>"; };
 		C9E136CB14FA5ADA0016F018 /* cellDescpImg.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = cellDescpImg.xib; sourceTree = "<group>"; };
@@ -216,6 +221,7 @@
 		C905242E14F985F000D62E24 = {
 			isa = PBXGroup;
 			children = (
+				C9DE44B314FE9E1900E13B30 /* RefineSearchViewController */,
 				5DBF49E314FD765D00B92BA9 /* ImagesApp */,
 				C9B7D9DA14FC3744003B6B8F /* DetailViewController */,
 				C9B7D9D414FC11BB003B6B8F /* BroucherViewController */,
@@ -295,9 +301,9 @@
 		C905245F14F98A2400D62E24 /* SearchResultViewController */ = {
 			isa = PBXGroup;
 			children = (
+				C905245A14F98A1F00D62E24 /* SearchResultViewController.h */,
 				C905245B14F98A1F00D62E24 /* SearchResultViewController.m */,
 				C905245C14F98A1F00D62E24 /* SearchResultViewController.xib */,
-				C905245A14F98A1F00D62E24 /* SearchResultViewController.h */,
 			);
 			name = SearchResultViewController;
 			sourceTree = "<group>";
@@ -484,6 +490,16 @@
 			name = DetailViewController;
 			sourceTree = "<group>";
 		};
+		C9DE44B314FE9E1900E13B30 /* RefineSearchViewController */ = {
+			isa = PBXGroup;
+			children = (
+				C9DE44AE14FE9E0F00E13B30 /* RefineSearchViewController.h */,
+				C9DE44AF14FE9E0F00E13B30 /* RefineSearchViewController.m */,
+				C9DE44B014FE9E0F00E13B30 /* RefineSearchViewController.xib */,
+			);
+			name = RefineSearchViewController;
+			sourceTree = "<group>";
+		};
 		C9E136C414FA5A340016F018 /* images */ = {
 			isa = PBXGroup;
 			children = (
@@ -629,6 +645,7 @@
 				C9B7D9D314FC0D95003B6B8F /* BroucherViewController.xib in Resources */,
 				C9B7D9D914FC3736003B6B8F /* DetailViewController.xib in Resources */,
 				5DBF49E114FD765800B92BA9 /* AppBg.png in Resources */,
+				C9DE44B214FE9E0F00E13B30 /* RefineSearchViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -680,6 +697,7 @@
 				C9B7D9C614FBDBFE003B6B8F /* SVPlacemark.m in Sources */,
 				C9B7D9D214FC0D95003B6B8F /* BroucherViewController.m in Sources */,
 				C9B7D9D814FC3736003B6B8F /* DetailViewController.m in Sources */,
+				C9DE44B114FE9E0F00E13B30 /* RefineSearchViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

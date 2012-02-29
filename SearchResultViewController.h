@@ -12,6 +12,13 @@
 @interface SearchResultViewController : UIViewController
 {
     IBOutlet UITableView *tableViewSearch;
+    IBOutlet UILabel *labelPrice;
+    IBOutlet UILabel *labelBedrooms;
+    IBOutlet UIButton *btnHeader;
+    IBOutlet UIView *ViewHeader;
 }
-@property(strong,nonatomic)NSMutableArray *arraySearch;
+-(IBAction)clickToHeaderBtn:(id)sender;
+//@property(strong,nonatomic)NSMutableArray *arraySearch;
+
+
 @end

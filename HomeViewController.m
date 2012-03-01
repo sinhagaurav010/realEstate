@@ -65,8 +65,11 @@ double convertToRadians(double val) {
 {
     self.navigationController.navigationBarHidden=YES;
     strPrice= @"Any Price";
-    strBedrooms=@"0 or more";
-    strSortBy=@"Price Ascending";
+    strPriceMax=@"1000000";
+    strPriceMin=@"0";
+    strBedrooms=@"0";
+    strSortBy=@"price";
+    strAscending=@"Ascending";
 
 }
 - (void)viewDidUnload
@@ -169,12 +172,11 @@ double convertToRadians(double val) {
                 CLLocationCoordinate2D corrd2;
                 corrd2.latitude=[[[arrayProperty objectAtIndex:i] objectForKey:@"latitude"] doubleValue];
                 corrd2.longitude=[[[arrayProperty objectAtIndex:i] objectForKey:@"longitude"] doubleValue];
-                if (([self kilometresBetweenPlace1:corrd andPlace2:corrd2] < 10) && ([[[arrayProperty objectAtIndex:i] objectForKey:@"transaction_type"] integerValue] == 1) ) {
+                if (([self kilometresBetweenPlace1:corrd andPlace2:corrd2] < KMRANGE) && ([[[arrayProperty objectAtIndex:i] objectForKey:@"transaction_type"] integerValue] == 1) ) {
                     NSLog(@"filter=======%f",[self kilometresBetweenPlace1:corrd andPlace2:corrd2]);
                     [arrayHome addObject:[arrayProperty objectAtIndex:i]];
                 }
             }
-           
           //  NSLog(@"for current loc array temp=%@",arrayHome);
         }
         else
@@ -197,12 +199,13 @@ double convertToRadians(double val) {
         }  
         if([arrayHome count]>0)
         {
-            NSSortDescriptor *myDescriptor = [[NSSortDescriptor alloc] initWithKey:@"price" ascending:NO];
+            NSSortDescriptor *myDescriptor = [[NSSortDescriptor alloc] initWithKey:@"price" ascending:YES];
             [arrayHome sortUsingDescriptors:[NSArray arrayWithObject:myDescriptor]];
             // NSLog(@"array home=%@",arrayHome);
             SearchResultViewController *sdvc=[[SearchResultViewController alloc]init];
             arraySearch = [[NSMutableArray alloc] initWithArray:arrayHome];
-            NSLog(@"array search=%@",arraySearch);
+            [sdvc setArraySearchResult:arraySearch];
+           // NSLog(@"array search=%@",arraySearch);
             [self.navigationController pushViewController:sdvc animated:YES];
         }
         
@@ -264,11 +267,11 @@ double convertToRadians(double val) {
         if([arrayHome count]>0)
         {
             //NSLog(@"array home=%@",arrayHome);
-            NSSortDescriptor *myDescriptor = [[NSSortDescriptor alloc] initWithKey:@"price" ascending:NO];
+            NSSortDescriptor *myDescriptor = [[NSSortDescriptor alloc] initWithKey:@"price" ascending:YES];
             [arrayHome sortUsingDescriptors:[NSArray arrayWithObject:myDescriptor]];
             SearchResultViewController *sdvc=[[SearchResultViewController alloc]init];
             arraySearch = [[NSMutableArray alloc] initWithArray:arrayHome];
-            //[sdvc setArraySearch:arrayHome];
+            [sdvc setArraySearchResult:arraySearch];
             [self.navigationController pushViewController:sdvc animated:YES];
         }
         
@@ -308,7 +311,9 @@ double convertToRadians(double val) {
     if([arraySavedProperty count]>0)
     {
         SearchResultViewController *sdvc=[[SearchResultViewController alloc]init];
-        arraySearch = [[NSMutableArray alloc] initWithArray:arrayHome];        //[sdvc setArraySearch:arraySavedProperty];
+      //  arraySearch = [[NSMutableArray alloc] initWithArray:arrayHome];  
+        [sdvc setArraySearchResult:arraySavedProperty];
+        //[sdvc setArraySearch:arraySavedProperty];
         [self.navigationController pushViewController:sdvc animated:YES];
     }
     else

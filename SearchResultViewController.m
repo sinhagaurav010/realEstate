@@ -9,10 +9,9 @@
 #import "SearchResultViewController.h"
 #import "searchCell.h"
 #import "DetailViewController.h"
-#import "RefineSearchViewController.h"
 
 @implementation SearchResultViewController
-//@synthesize arraySearch;
+@synthesize arraySearchResult;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -45,9 +44,18 @@
 }
 -(void)viewWillAppear:(BOOL)animated
 {
+    
     self.navigationController.navigationBarHidden=NO;
-    labelPrice.text=strPrice;
-    labelBedrooms.text=strBedrooms;
+    labelPrice.text=[NSString stringWithFormat:@"£%dk - £%dk ",[strPriceMin integerValue]/1000,[strPriceMax integerValue]/1000];
+    labelBedrooms.text=[NSString stringWithFormat:@"%d or more",[strBedrooms integerValue]];
+    if(refine)
+        arraySearchResult = [[NSMutableArray  alloc] initWithArray:refine.arrayRefine];
+    else
+    {
+        arraySearchResult = [[NSMutableArray  alloc] initWithArray:arraySearch];
+
+    }
+    [tableViewSearch reloadData];
 }
 - (void)viewDidUnload
 {
@@ -70,7 +78,7 @@
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [arraySearch count];
+    return [arraySearchResult count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -83,13 +91,13 @@
         cell = [[[NSBundle mainBundle] loadNibNamed:@"searchCell" owner:self options:nil] lastObject] ;
 	}
     
-    [cell  addImage:[[arraySearch objectAtIndex:indexPath.row]objectForKey:@"main_ photo"]];
+    [cell  addImage:[[arraySearchResult objectAtIndex:indexPath.row]objectForKey:@"main_ photo"]];
     
-    [cell  addLabel:[NSString stringWithFormat:@"£%@",[[arraySearch objectAtIndex:indexPath.row]objectForKey:kprice]] withType:[NSString stringWithFormat:@"%@",[[arraySearch objectAtIndex:indexPath.row]objectForKey:kpricetype]] withBedRoom:[NSString stringWithFormat:@"%@ Bed Rooms",[[arraySearch objectAtIndex:indexPath.row]objectForKey:kbedrooms]] withDesc:[[arraySearch objectAtIndex:indexPath.row]objectForKey:kaddress]];
-//    cell.lablePrice.text=[NSString stringWithFormat:@"£%@",[[arraySearch objectAtIndex:indexPath.row]objectForKey:kprice]];
-//    cell.lablePricetype.text=[[arraySearch objectAtIndex:indexPath.row]objectForKey:kpricetype];
-//    cell.labelBedRoom.text=[NSString stringWithFormat:@"%@ Bed Rooms",[[arraySearch objectAtIndex:indexPath.row]objectForKey:kbedrooms]];
-//    cell.labelDescription.text=[[arraySearch objectAtIndex:indexPath.row]objectForKey:kaddress];
+    [cell  addLabel:[NSString stringWithFormat:@"£%@",[[arraySearchResult objectAtIndex:indexPath.row]objectForKey:kprice]] withType:[NSString stringWithFormat:@"%@",[[arraySearchResult objectAtIndex:indexPath.row]objectForKey:kpricetype]] withBedRoom:[NSString stringWithFormat:@"%@ Bed Rooms",[[arraySearchResult objectAtIndex:indexPath.row]objectForKey:kbedrooms]] withDesc:[[arraySearchResult objectAtIndex:indexPath.row]objectForKey:kaddress]];
+//    cell.lablePrice.text=[NSString stringWithFormat:@"£%@",[[arraySearchResult objectAtIndex:indexPath.row]objectForKey:kprice]];
+//    cell.lablePricetype.text=[[arraySearchResult objectAtIndex:indexPath.row]objectForKey:kpricetype];
+//    cell.labelBedRoom.text=[NSString stringWithFormat:@"%@ Bed Rooms",[[arraySearchResult objectAtIndex:indexPath.row]objectForKey:kbedrooms]];
+//    cell.labelDescription.text=[[arraySearchResult objectAtIndex:indexPath.row]objectForKey:kaddress];
 //    
     cell.accessoryType = 1;
     
@@ -101,7 +109,7 @@
     
     DetailViewController  *propertyViewController = [[DetailViewController  alloc] init];
     
-    propertyViewController.dictResult = [arraySearch  objectAtIndex:indexPath.row];
+    propertyViewController.dictResult = [arraySearchResult  objectAtIndex:indexPath.row];
     
     
     [self.navigationController  pushViewController:propertyViewController animated:YES];
@@ -109,7 +117,7 @@
 }
 -(IBAction)clickToHeaderBtn:(id)sender
 {
-    RefineSearchViewController *refine=[[RefineSearchViewController alloc]init];    
+     refine=[[RefineSearchViewController alloc]init];    
     [self.navigationController pushViewController:refine animated:YES];
 }
 @end

@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "PropertyDescViewController.h"
 #import "Constant.h"
+#import "RefineSearchViewController.h"
+
 @interface SearchResultViewController : UIViewController
 {
     IBOutlet UITableView *tableViewSearch;
@@ -16,9 +18,10 @@
     IBOutlet UILabel *labelBedrooms;
     IBOutlet UIButton *btnHeader;
     IBOutlet UIView *ViewHeader;
+    RefineSearchViewController *refine;
 }
 -(IBAction)clickToHeaderBtn:(id)sender;
-//@property(strong,nonatomic)NSMutableArray *arraySearch;
+@property(strong,nonatomic)NSMutableArray *arraySearchResult;
 
 
 @end

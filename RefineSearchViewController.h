@@ -12,12 +12,16 @@
     IBOutlet UITableView *tableViewRefine;
     IBOutlet UIPickerView *pickerViewRefine;
     IBOutlet UIToolbar *toolBarRefine;
-    NSMutableArray *arrayPicker1;
-    NSMutableArray *arrayPicker2;
     IBOutlet UILabel *labelTitle;
-    NSMutableArray *arrayRefine;
+   
     
 }
+@property(strong,nonatomic) NSMutableArray *arrayRefine;
+@property(strong,nonatomic) NSMutableArray *arrayPicker1;
+@property(strong,nonatomic) NSMutableArray *arrayPicker2;
+
+@property(strong,nonatomic)NSString *strPickerSec1;
+@property(strong,nonatomic)NSString *strPickerSec2;
 -(IBAction)clickTosearchBarBtn:(id)sender;
 -(IBAction)clickToDoneToolBarBtn:(id)sender;
 -(IBAction)clickToCancelToolBarBtn:(id)sender;

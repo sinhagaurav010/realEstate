@@ -26,6 +26,8 @@
 #define ktransaction_type @"transaction_type"
 #define kurl @"url"
 
+#define KMRANGE 10.79
+
 #define TITLENAV @"BSPC"
 
 #define COLORBAC [UIColor colorWithRed:0.0f/255.0f green:51.0f/255.0f blue:87.0f/255.0f alpha:1.0f]
@@ -35,6 +37,11 @@
 NSString *strPrice;
 NSString *strBedrooms;
 NSString *strSortBy;
+NSString *strPriceMax;
+NSString *strPriceMin;
+NSString *strSortByMax;
+NSString *strSortByMin;
+NSString *strAscending;
 NSMutableArray *arraySearch;
 
 /*

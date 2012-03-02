@@ -199,6 +199,8 @@ double convertToRadians(double val) {
         }  
         if([arrayHome count]>0)
         {
+            strFor=@"Sale";
+            strLocation=txtFldLoc.text;
             NSSortDescriptor *myDescriptor = [[NSSortDescriptor alloc] initWithKey:@"price" ascending:YES];
             [arrayHome sortUsingDescriptors:[NSArray arrayWithObject:myDescriptor]];
             // NSLog(@"array home=%@",arrayHome);
@@ -267,6 +269,8 @@ double convertToRadians(double val) {
         if([arrayHome count]>0)
         {
             //NSLog(@"array home=%@",arrayHome);
+            strFor=@"To Let";
+            strLocation=txtFldLoc.text;
             NSSortDescriptor *myDescriptor = [[NSSortDescriptor alloc] initWithKey:@"price" ascending:YES];
             [arrayHome sortUsingDescriptors:[NSArray arrayWithObject:myDescriptor]];
             SearchResultViewController *sdvc=[[SearchResultViewController alloc]init];

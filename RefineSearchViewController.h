@@ -16,7 +16,7 @@
    
     
 }
-@property(strong,nonatomic) NSMutableArray *arrayRefine;
+//@property(strong,nonatomic) NSMutableArray *arrayRefine;
 @property(strong,nonatomic) NSMutableArray *arrayPicker1;
 @property(strong,nonatomic) NSMutableArray *arrayPicker2;
 
@@ -26,4 +26,5 @@
 -(IBAction)clickToDoneToolBarBtn:(id)sender;
 -(IBAction)clickToCancelToolBarBtn:(id)sender;
 -(void)searchPropertyAfterRefining;
+-(IBAction)clickToCancelNavBtn:(id)sender;
 @end

@@ -10,7 +10,7 @@
 #import "constant.h"
 #import "SearchResultViewController.h"
 @implementation RefineSearchViewController
-@synthesize strPickerSec1,strPickerSec2,arrayRefine,arrayPicker2,arrayPicker1;
+@synthesize strPickerSec1,strPickerSec2,arrayPicker2,arrayPicker1;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -36,10 +36,12 @@
     // Do any additional setup after loading the view from its nib.
     [self.navigationItem setTitle:TITLENAV];
     self.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc]initWithTitle:@"Search" style:UIBarButtonItemStyleBordered target:self action:@selector(clickTosearchBarBtn:)];
-    self.arrayRefine=[[NSMutableArray alloc]initWithArray:arraySearch];
+    self.navigationItem.leftBarButtonItem=[[UIBarButtonItem alloc]initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:self action:@selector(clickToCancelNavBtn:)];
+    //  arrayRefine=[[NSMutableArray alloc]initWithArray:arrayRefineFromSearchResult];
 }
 -(void)viewWillAppear:(BOOL)animated
 {
+    self.navigationItem.hidesBackButton=YES;
     pickerViewRefine.hidden=YES;
     toolBarRefine.hidden=YES;
 }
@@ -78,7 +80,14 @@
     if(indexPath.row==0)
     {
         cell.textLabel.text=@"Price Range";
-        cell.detailTextLabel.text=[NSString stringWithFormat:@"£%dk - £%dk ",[strPriceMin integerValue]/1000,[strPriceMax integerValue]/1000];
+        if([strPriceMax integerValue]==1000001)
+        {
+            cell.detailTextLabel.text=[NSString stringWithFormat:@"£%dk or over ",[strPriceMin integerValue]/1000];
+        }
+        else
+        {
+            cell.detailTextLabel.text=[NSString stringWithFormat:@"£%dk - £%dk ",[strPriceMin integerValue]/1000,[strPriceMax integerValue]/1000];
+        }
     }
     if(indexPath.row==1)
     {
@@ -103,8 +112,10 @@
     
     if (indexPath.row==0) {
         labelTitle.text=@"Price Range";
-        self.arrayPicker1=[[NSMutableArray alloc]initWithObjects:@"0",@"50000",@"70000",@"85000",@"100000",@"115000",@"125000",@"135000",@"150000",@"160000",@"175000",@"185000",@"200000",@"225000",@"250000",@"275000",@"300000",@"325000",@"350000",@"350000",@"375000",@"400000",@"450000",@"500000",@"700000",@"1000000" ,nil];
-        self.self.arrayPicker2=[[NSMutableArray alloc]initWithObjects:@"0",@"50000",@"70000",@"85000",@"100000",@"115000",@"125000",@"135000",@"150000",@"160000",@"175000",@"185000",@"200000",@"225000",@"250000",@"275000",@"300000",@"325000",@"350000",@"350000",@"375000",@"400000",@"450000",@"500000",@"700000",@"1000000" ,nil];
+        
+        self.arrayPicker1=[[NSMutableArray alloc]initWithObjects:@"0",@"50000",@"70000",@"85000",@"100000",@"115000",@"125000",@"135000",@"150000",@"160000",@"175000",@"185000",@"200000",@"225000",@"250000",@"275000",@"300000",@"325000",@"350000",@"375000",@"400000",@"450000",@"500000",@"700000",@"1000000" ,nil];
+        self.arrayPicker2=[[NSMutableArray alloc]initWithObjects:@"0",@"50000",@"70000",@"85000",@"100000",@"115000",@"125000",@"135000",@"150000",@"160000",@"175000",@"185000",@"200000",@"225000",@"250000",@"275000",@"300000",@"325000",@"350000",@"375000",@"400000",@"450000",@"500000",@"700000",@"1000000" ,nil];
+        
         for(int i=0;i< [self.arrayPicker1 count];i++)
         {
             if([[self.arrayPicker1 objectAtIndex:i] isEqualToString:strPriceMin])
@@ -115,8 +126,9 @@
                 indexInPckSel2=i;
         }
         [pickerViewRefine reloadAllComponents];
-        [pickerViewRefine  selectRow:indexInPckSel1 inComponent:0 animated:NO];
-        [pickerViewRefine  selectRow:indexInPckSel2 inComponent:1 animated:NO];
+       
+        [pickerViewRefine  selectRow:0 inComponent:0 animated:NO];
+        [pickerViewRefine  selectRow:0 inComponent:1 animated:NO];
         strPickerSec1=strPriceMin;
         strPickerSec2=strPriceMax;
         
@@ -159,6 +171,25 @@
 
 #pragma mark - PickerView Delegate
 // tell the picker how many components it will have
+-(void)changePicker
+{
+    if([labelTitle.text isEqualToString:@"Price Range"])
+    {
+        [self.arrayPicker2 removeAllObjects];
+        self.arrayPicker2=[[NSMutableArray alloc]init];
+        for(int i=0;i< [self.arrayPicker1 count];i++)
+        {
+            if(i==0)
+                [arrayPicker2 addObject:[arrayPicker1 objectAtIndex:0]];
+            
+            if([self.strPickerSec1 integerValue]<=[[arrayPicker1 objectAtIndex:i] integerValue])
+                [arrayPicker2 addObject:[arrayPicker1 objectAtIndex:i]];
+        }
+    }
+    NSLog(@"array picker2=%@",arrayPicker2);
+    [pickerViewRefine  selectRow:0 inComponent:1 animated:NO];
+    [pickerViewRefine reloadComponent:1];
+}
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
     if([labelTitle.text isEqualToString:@"Bedrooms"])
         return 1;
@@ -190,17 +221,33 @@
 }
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow: (NSInteger)row inComponent:(NSInteger)component {
     // Handle the selection
-    
-    if(component==0)
+    if([labelTitle.text isEqualToString:@"Price Range"])
     {
-        NSLog(@"selection picker view self.arrayPicker1 =====%@",[self.arrayPicker1 objectAtIndex:row]);
-        self.strPickerSec1=[self.arrayPicker1 objectAtIndex:row];
-        
+        if(component==0)
+        {
+            
+            self.strPickerSec1=[self.arrayPicker1 objectAtIndex:row];
+            [self changePicker];
+        }
+        else
+        {
+            self.strPickerSec2=[self.arrayPicker2 objectAtIndex:row];
+            
+        }
     }
     else
     {
-        NSLog(@"selection picker view self.arrayPicker2 =====%@",[self.arrayPicker2 objectAtIndex:row]);
-        self.strPickerSec2=[self.arrayPicker2 objectAtIndex:row];
+        if(component==0)
+        {
+            NSLog(@"selection picker view self.arrayPicker1 =====%@",[self.arrayPicker1 objectAtIndex:row]);
+            self.strPickerSec1=[self.arrayPicker1 objectAtIndex:row];
+            
+        }
+        else
+        {
+            NSLog(@"selection picker view self.arrayPicker2 =====%@",[self.arrayPicker2 objectAtIndex:row]);
+            self.strPickerSec2=[self.arrayPicker2 objectAtIndex:row];
+        }
     }
 }
 
@@ -214,7 +261,7 @@
     [self.arrayPicker1 removeAllObjects];
     [self.arrayPicker2 removeAllObjects];
     tableViewRefine.userInteractionEnabled = YES;
-
+    
     
 }
 -(IBAction)clickToCancelToolBarBtn:(id)sender
@@ -230,9 +277,12 @@
     NSLog(@"---------------------------");
     if([labelTitle.text isEqualToString:@"Price Range"])
     {
-        
         strPriceMin=self.strPickerSec1;
         strPriceMax=self.strPickerSec2;
+        if([strPriceMax integerValue]==0)
+        {
+            strPriceMax=@"1000001";
+        }
     }
     if([labelTitle.text isEqualToString:@"Bedrooms"])
     {
@@ -251,13 +301,14 @@
 -(IBAction)clickTosearchBarBtn:(id)sender
 {
     
-    [self.arrayRefine removeAllObjects];
+    [arrayRefine removeAllObjects];
     NSLog(@"strBedrooms==%@",strBedrooms);
+    
     for(int i=0;i<[arraySearch count];i++)
     {
         if([[[arraySearch objectAtIndex:i] objectForKey:kbedrooms] integerValue] > [strBedrooms integerValue] && (([[[arraySearch objectAtIndex:i] objectForKey:@"price"] integerValue]<[strPriceMax integerValue]) && ([[[arraySearch objectAtIndex:i] objectForKey:@"price"] integerValue]>[strPriceMin integerValue])))
         {
-            [self.arrayRefine addObject:[arraySearch objectAtIndex:i]];  
+            [arrayRefine addObject:[arraySearch objectAtIndex:i]];  
         }
         
     }
@@ -270,12 +321,24 @@
     {
         myDescriptor = [[NSSortDescriptor alloc] initWithKey:[NSString stringWithFormat:@"%@",strSortBy] ascending:YES];   
     }
-    [self.arrayRefine sortUsingDescriptors:[NSArray arrayWithObject:myDescriptor]];
+    [arrayRefine sortUsingDescriptors:[NSArray arrayWithObject:myDescriptor]];
     NSLog(@"array refine=%@",arrayRefine);
     NSLog(@"array refine count=%d",[arrayRefine count]);
     //    SearchResultViewController *srvc=[[SearchResultViewController alloc]init];
     //    [srvc setArraySearchResult:arrayRefine];
     [self.navigationController popViewControllerAnimated:YES];
 }
-
+-(IBAction)clickToCancelNavBtn:(id)sender;
+{
+    NSLog(@"array refine=%@",arrayRefine);
+    NSLog(@"array refine count=%d",[arrayRefine count]);
+    strPriceMin=[[arraySavedSearches objectAtIndex:0]objectForKey:@"MINPRICE"];
+    strPriceMax=[[arraySavedSearches objectAtIndex:0]objectForKey:@"MAXPRICE"];
+    strBedrooms=[[arraySavedSearches objectAtIndex:0]objectForKey:@"BEDROOMS"];
+    strAscending=[[arraySavedSearches objectAtIndex:0]objectForKey:@"ORDERARRANGE"];
+    strSortBy=[[arraySavedSearches objectAtIndex:0]objectForKey:@"SORTBY"];
+    [self.navigationController popViewControllerAnimated:YES];
+    
+    
+}
 @end

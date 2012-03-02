@@ -46,14 +46,33 @@
 {
     
     self.navigationController.navigationBarHidden=NO;
-    labelPrice.text=[NSString stringWithFormat:@"£%dk - £%dk ",[strPriceMin integerValue]/1000,[strPriceMax integerValue]/1000];
-    labelBedrooms.text=[NSString stringWithFormat:@"%d or more",[strBedrooms integerValue]];
+    self.navigationItem.hidesBackButton=NO;
+//    self.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc]initWithTitle:@"Save" style:UIBarButtonItemStyleBordered target:self action:@selector(clickToSaveNavBarBtn:)];
+    NSMutableDictionary *dictSaved=[[NSMutableDictionary alloc]init];
+    [dictSaved setValue:strFor forKey:@"FOR"];
+    [dictSaved setValue:strLocation forKey:@"LOCATION"];
+    [dictSaved setValue:strPriceMax forKey:@"MAXPRICE"];
+    [dictSaved setValue:strPriceMin forKey:@"MINPRICE"];
+    [dictSaved setValue:strBedrooms forKey:@"BEDROOMS"];
+    [dictSaved setValue:strAscending forKey:@"ORDERARRANGE"];
+    [dictSaved setValue:strSortBy forKey:@"SORTBY"];
+    arraySavedSearches =[[NSMutableArray alloc]initWithObjects:dictSaved, nil];
+    NSLog(@"arraySavedSearches=%@",arraySavedSearches);
+    if([strPriceMax integerValue]==1000001)
+    { 
+        labelPrice.text=[NSString stringWithFormat:@"£%dk or over ",[[[arraySavedSearches objectAtIndex:0] objectForKey:@"MINPRICE"] integerValue]/1000];
+    }
+    else
+    {
+     labelPrice.text=[NSString stringWithFormat:@"£%dk - £%dk ",[[[arraySavedSearches objectAtIndex:0] objectForKey:@"MINPRICE"] integerValue]/1000,[[[arraySavedSearches objectAtIndex:0] objectForKey:@"MAXPRICE"] integerValue]/1000];
+    }
+    labelBedrooms.text=[NSString stringWithFormat:@"%d or more",[[[arraySavedSearches objectAtIndex:0] objectForKey:@"BEDROOMS"] integerValue]];
     if(refine)
-        arraySearchResult = [[NSMutableArray  alloc] initWithArray:refine.arrayRefine];
+        arraySearchResult = [[NSMutableArray  alloc] initWithArray:arrayRefine];
     else
     {
         arraySearchResult = [[NSMutableArray  alloc] initWithArray:arraySearch];
-
+        
     }
     [tableViewSearch reloadData];
 }
@@ -94,11 +113,11 @@
     [cell  addImage:[[arraySearchResult objectAtIndex:indexPath.row]objectForKey:@"main_ photo"]];
     
     [cell  addLabel:[NSString stringWithFormat:@"£%@",[[arraySearchResult objectAtIndex:indexPath.row]objectForKey:kprice]] withType:[NSString stringWithFormat:@"%@",[[arraySearchResult objectAtIndex:indexPath.row]objectForKey:kpricetype]] withBedRoom:[NSString stringWithFormat:@"%@ Bed Rooms",[[arraySearchResult objectAtIndex:indexPath.row]objectForKey:kbedrooms]] withDesc:[[arraySearchResult objectAtIndex:indexPath.row]objectForKey:kaddress]];
-//    cell.lablePrice.text=[NSString stringWithFormat:@"£%@",[[arraySearchResult objectAtIndex:indexPath.row]objectForKey:kprice]];
-//    cell.lablePricetype.text=[[arraySearchResult objectAtIndex:indexPath.row]objectForKey:kpricetype];
-//    cell.labelBedRoom.text=[NSString stringWithFormat:@"%@ Bed Rooms",[[arraySearchResult objectAtIndex:indexPath.row]objectForKey:kbedrooms]];
-//    cell.labelDescription.text=[[arraySearchResult objectAtIndex:indexPath.row]objectForKey:kaddress];
-//    
+    //    cell.lablePrice.text=[NSString stringWithFormat:@"£%@",[[arraySearchResult objectAtIndex:indexPath.row]objectForKey:kprice]];
+    //    cell.lablePricetype.text=[[arraySearchResult objectAtIndex:indexPath.row]objectForKey:kpricetype];
+    //    cell.labelBedRoom.text=[NSString stringWithFormat:@"%@ Bed Rooms",[[arraySearchResult objectAtIndex:indexPath.row]objectForKey:kbedrooms]];
+    //    cell.labelDescription.text=[[arraySearchResult objectAtIndex:indexPath.row]objectForKey:kaddress];
+    //    
     cell.accessoryType = 1;
     
     return (UITableViewCell *)cell;
@@ -115,9 +134,18 @@
     [self.navigationController  pushViewController:propertyViewController animated:YES];
     
 }
+-(IBAction)clickToSaveNavBarBtn:(id)sender
+{
+    [ModalController saveTheContent:arraySavedSearches withKey:SAVESEARCHES]; 
+    NSLog(@"********");
+    SavedSearchesViewController *ssvc=[[SavedSearchesViewController alloc]init];
+    [self.navigationController pushViewController:ssvc animated:YES];
+    
+}
 -(IBAction)clickToHeaderBtn:(id)sender
 {
-     refine=[[RefineSearchViewController alloc]init];    
+    refine=[[RefineSearchViewController alloc]init];   
+    arrayRefine=[[NSMutableArray alloc]initWithArray:arraySearchResult];
     [self.navigationController pushViewController:refine animated:YES];
 }
 @end

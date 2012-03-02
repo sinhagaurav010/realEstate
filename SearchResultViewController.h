@@ -10,7 +10,8 @@
 #import "PropertyDescViewController.h"
 #import "Constant.h"
 #import "RefineSearchViewController.h"
-
+#import "ModalController.h"
+#import "SavedSearchesViewController.h"
 @interface SearchResultViewController : UIViewController
 {
     IBOutlet UITableView *tableViewSearch;
@@ -21,6 +22,7 @@
     RefineSearchViewController *refine;
 }
 -(IBAction)clickToHeaderBtn:(id)sender;
+-(IBAction)clickToSaveNavBarBtn:(id)sender;
 @property(strong,nonatomic)NSMutableArray *arraySearchResult;
 
 

@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #define SAVEDATA @"savedata"
 #define SAVEDPROP @"savedProp"
+#define SAVESEARCHES @"savesearches"
 #define TESTING 1
 
 #define kaddress @"address"
@@ -42,7 +43,13 @@ NSString *strPriceMin;
 NSString *strSortByMax;
 NSString *strSortByMin;
 NSString *strAscending;
+NSString *strFor;
+NSString *strLocation;
+
 NSMutableArray *arraySearch;
+NSMutableArray *arraySavedSearches;
+NSMutableArray *arrayRefine;
+NSMutableArray *arrayRefineFromSearchResult;
 
 /*
  address = "1 Broomie Dell";

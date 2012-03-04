@@ -78,7 +78,7 @@
 								<string key="NSFrame">{{37, 19}, {64, 21}}</string>
 								<reference key="NSSuperview" ref="709728296"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="62259167"/>
+								<reference key="NSNextKeyView" ref="1069353143"/>
 								<string key="NSReuseIdentifierKey">_NS:328</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -120,7 +120,7 @@
 								<string key="NSFrame">{{37, 76}, {64, 21}}</string>
 								<reference key="NSSuperview" ref="709728296"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
+								<reference key="NSNextKeyView" ref="436724339"/>
 								<string key="NSReuseIdentifierKey">_NS:328</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -141,7 +141,7 @@
 								<string key="NSFrame">{{37, 58}, {73, 21}}</string>
 								<reference key="NSSuperview" ref="709728296"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="923922486"/>
+								<reference key="NSNextKeyView" ref="538674724"/>
 								<string key="NSReuseIdentifierKey">_NS:328</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -162,6 +162,7 @@
 								<string key="NSFrame">{{139, 1}, {161, 21}}</string>
 								<reference key="NSSuperview" ref="709728296"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="445658450"/>
 								<string key="NSReuseIdentifierKey">_NS:328</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -189,6 +190,7 @@
 								<string key="NSFrame">{{139, 18}, {161, 21}}</string>
 								<reference key="NSSuperview" ref="709728296"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="62259167"/>
 								<string key="NSReuseIdentifierKey">_NS:328</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -209,6 +211,7 @@
 								<string key="NSFrame">{{139, 38}, {161, 21}}</string>
 								<reference key="NSSuperview" ref="709728296"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="923922486"/>
 								<string key="NSReuseIdentifierKey">_NS:328</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -229,6 +232,7 @@
 								<string key="NSFrame">{{139, 57}, {161, 21}}</string>
 								<reference key="NSSuperview" ref="709728296"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:328</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -246,9 +250,10 @@
 							<object class="IBUILabel" id="913447817">
 								<reference key="NSNextResponder" ref="709728296"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{139, 76}, {161, 23}}</string>
+								<string key="NSFrame">{{139, 76}, {161, 22}}</string>
 								<reference key="NSSuperview" ref="709728296"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:328</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -442,7 +447,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">17</int>
+			<int key="maxID">21</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -454,7 +459,9 @@
 						<string key="labelFor">UILabel</string>
 						<string key="labelLocation">UILabel</string>
 						<string key="labelPrice">UILabel</string>
+						<string key="labelRadius">UILabel</string>
 						<string key="labelSortBy">UILabel</string>
+						<string key="radiusTitle">UILabel</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
 						<object class="IBToOneOutletInfo" key="labelBedrooms">
@@ -473,8 +480,16 @@
 							<string key="name">labelPrice</string>
 							<string key="candidateClassName">UILabel</string>
 						</object>
+						<object class="IBToOneOutletInfo" key="labelRadius">
+							<string key="name">labelRadius</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
 						<object class="IBToOneOutletInfo" key="labelSortBy">
 							<string key="name">labelSortBy</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="radiusTitle">
+							<string key="name">radiusTitle</string>
 							<string key="candidateClassName">UILabel</string>
 						</object>
 					</dictionary>

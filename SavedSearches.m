@@ -9,7 +9,7 @@
 #import "SavedSearches.h"
 
 @implementation SavedSearches
-@synthesize labelSortBy,labelPrice,labelLocation,labelFor,labelBedrooms;
+@synthesize labelSortBy,labelPrice,labelLocation,labelFor,labelBedrooms,labelRadius,radiusTitle;
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];

@@ -12,6 +12,9 @@
 #import "RefineSearchViewController.h"
 #import "ModalController.h"
 #import "SavedSearchesViewController.h"
+#import "SearchPattren.h"
+#import "HomeViewController.h"
+@class SavedSearchesViewController;
 @interface SearchResultViewController : UIViewController
 {
     IBOutlet UITableView *tableViewSearch;
@@ -20,9 +23,16 @@
     IBOutlet UIButton *btnHeader;
     IBOutlet UIView *ViewHeader;
     RefineSearchViewController *refine;
+   
+    NSMutableDictionary *dictSaved;
+     SavedSearchesViewController *ssvc;
+    SearchPattren *srcPtrn;
+    HomeViewController *home;
+    
 }
 -(IBAction)clickToHeaderBtn:(id)sender;
 -(IBAction)clickToSaveNavBarBtn:(id)sender;
+-(IBAction)clickToBackBarBtn:(id)sender;
 @property(strong,nonatomic)NSMutableArray *arraySearchResult;
 
 

@@ -13,18 +13,19 @@
 #import "SBJSON.h"
 #import "JSONKit.h"
 #import "CJSONDeserializer.h"
-#import "constants.h"
+#import "constant.h"
 #import "SVGeocoder.h"
+#import "SavedSearches.h"
 @implementation HomeViewController
 @synthesize strUserAdd,strUserLat,strUserLong;
-const double PIx = 3.141592653589793;
-const double RADIO = 6371; // Mean radius of Earth in Km
+//const double PIx = 3.141592653589793;
+//const double RADIO = 6371; // Mean radius of Earth in Km
+
 
 double convertToRadians(double val) {
     
     return val * PIx / 180;
 }
-
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -59,18 +60,20 @@ double convertToRadians(double val) {
     //        if([ModalController  getContforKey:SAVEDATA ])
     
     MBProgressHUD *hud=[MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-    [hud setLabelText:@"Loading..."];
+    [hud setLabelText:@"Loading..."]; 
+    arraySavedSearchesForSaveBtn =[[NSMutableArray alloc]initWithArray:[ModalController getContforKey:SAVESEARCHES]];
+    
 }
 -(void)viewWillAppear:(BOOL)animated
 {
     self.navigationController.navigationBarHidden=YES;
     strPrice= @"Any Price";
-    strPriceMax=@"1000000";
     strPriceMin=@"0";
     strBedrooms=@"0";
     strSortBy=@"price";
     strAscending=@"Ascending";
-
+    strRadius=@"10.79";
+    
 }
 - (void)viewDidUnload
 {
@@ -100,7 +103,6 @@ double convertToRadians(double val) {
                             txtFldLoc.text=placemark.formattedAddress;
                             corrd.latitude=placemark.coordinate.latitude;
                             corrd.longitude=placemark.coordinate.longitude;
-                            /* alertView = [[UIAlertView alloc] initWithTitle:@"Placemark Found!" message:[placemark description] delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];   */
                         } else {
                             UIAlertView *alertView;
                             alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:[error description] delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
@@ -132,6 +134,7 @@ double convertToRadians(double val) {
 #pragma mark - User Defined Functions
 -(IBAction)clickToFindCurrentLocation:(id)sender
 {
+     strGPS=@"GPS";
     [txtFldLoc resignFirstResponder];
     isFromCrrntLoc=YES;
     if(TARGET_IPHONE_SIMULATOR)
@@ -148,6 +151,7 @@ double convertToRadians(double val) {
     }
     else
     {
+       
         locmanager = [[CLLocationManager alloc] init];
         [locmanager setDelegate:self];
         [locmanager setDesiredAccuracy:kCLLocationAccuracyBest];
@@ -159,6 +163,7 @@ double convertToRadians(double val) {
 
 -(IBAction)clickToForSale:(id)sender
 {
+    strPriceMax=@"1000000";
     [txtFldLoc resignFirstResponder];
     [arrayHome removeAllObjects];
     arrayHome=[[NSMutableArray alloc]init ];
@@ -169,15 +174,16 @@ double convertToRadians(double val) {
             for(int i=0;i<[arrayProperty count];i++)
             {
                 
-                CLLocationCoordinate2D corrd2;
-                corrd2.latitude=[[[arrayProperty objectAtIndex:i] objectForKey:@"latitude"] doubleValue];
-                corrd2.longitude=[[[arrayProperty objectAtIndex:i] objectForKey:@"longitude"] doubleValue];
-                if (([self kilometresBetweenPlace1:corrd andPlace2:corrd2] < KMRANGE) && ([[[arrayProperty objectAtIndex:i] objectForKey:@"transaction_type"] integerValue] == 1) ) {
-                    NSLog(@"filter=======%f",[self kilometresBetweenPlace1:corrd andPlace2:corrd2]);
-                    [arrayHome addObject:[arrayProperty objectAtIndex:i]];
+                if([[[arrayProperty objectAtIndex:i] objectForKey:@"transaction_type"] integerValue] == 1)
+                {
+                    CLLocationCoordinate2D corrd2;
+                    corrd2.latitude=[[[arrayProperty objectAtIndex:i] objectForKey:@"latitude"] doubleValue];
+                    corrd2.longitude=[[[arrayProperty objectAtIndex:i] objectForKey:@"longitude"] doubleValue];
+                    if (([self kilometresBetweenPlace1:corrd andPlace2:corrd2] < KMRANGE) && ([[[arrayProperty objectAtIndex:i] objectForKey:@"transaction_type"] integerValue] == 1) ) {
+                        [arrayHome addObject:[arrayProperty objectAtIndex:i]];
+                    }
                 }
             }
-          //  NSLog(@"for current loc array temp=%@",arrayHome);
         }
         else
         {
@@ -199,7 +205,7 @@ double convertToRadians(double val) {
         }  
         if([arrayHome count]>0)
         {
-            strFor=@"Sale";
+            strFor=@"SALE";
             strLocation=txtFldLoc.text;
             NSSortDescriptor *myDescriptor = [[NSSortDescriptor alloc] initWithKey:@"price" ascending:YES];
             [arrayHome sortUsingDescriptors:[NSArray arrayWithObject:myDescriptor]];
@@ -207,7 +213,7 @@ double convertToRadians(double val) {
             SearchResultViewController *sdvc=[[SearchResultViewController alloc]init];
             arraySearch = [[NSMutableArray alloc] initWithArray:arrayHome];
             [sdvc setArraySearchResult:arraySearch];
-           // NSLog(@"array search=%@",arraySearch);
+            // NSLog(@"array search=%@",arraySearch);
             [self.navigationController pushViewController:sdvc animated:YES];
         }
         
@@ -229,6 +235,7 @@ double convertToRadians(double val) {
 
 -(IBAction)clickToToLet:(id)sender
 {
+    strPriceMax=@"1000";
     [txtFldLoc resignFirstResponder];
     [arrayHome removeAllObjects];
     arrayHome = [[NSMutableArray alloc]init ];
@@ -239,14 +246,16 @@ double convertToRadians(double val) {
         {
             for(int i=0;i<[arrayProperty count];i++)
             {
-                CLLocationCoordinate2D corrd2;
-                corrd2.latitude=[[[arrayProperty objectAtIndex:i] objectForKey:@"latitude"] doubleValue];
-                corrd2.longitude=[[[arrayProperty objectAtIndex:i] objectForKey:@"longitude"] doubleValue];
-                if (([self kilometresBetweenPlace1:corrd andPlace2:corrd2] < 10) && ([[[arrayProperty objectAtIndex:i] objectForKey:@"transaction_type"] integerValue] == 2) ) {
-                    [arrayHome addObject:[arrayProperty objectAtIndex:i]];
+                if([[[arrayProperty objectAtIndex:i] objectForKey:@"transaction_type"] integerValue] == 2)
+                {
+                    CLLocationCoordinate2D corrd2;
+                    corrd2.latitude=[[[arrayProperty objectAtIndex:i] objectForKey:@"latitude"] doubleValue];
+                    corrd2.longitude=[[[arrayProperty objectAtIndex:i] objectForKey:@"longitude"] doubleValue];
+                    if (([self kilometresBetweenPlace1:corrd andPlace2:corrd2] < 10) && ([[[arrayProperty objectAtIndex:i] objectForKey:@"transaction_type"] integerValue] == 2) ) {
+                        [arrayHome addObject:[arrayProperty objectAtIndex:i]];
+                    }
                 }
             }
-            //NSLog(@"for current loc array home=%@",arrayHome);
         }
         
         else
@@ -269,7 +278,7 @@ double convertToRadians(double val) {
         if([arrayHome count]>0)
         {
             //NSLog(@"array home=%@",arrayHome);
-            strFor=@"To Let";
+            strFor=@"TO LET";
             strLocation=txtFldLoc.text;
             NSSortDescriptor *myDescriptor = [[NSSortDescriptor alloc] initWithKey:@"price" ascending:YES];
             [arrayHome sortUsingDescriptors:[NSArray arrayWithObject:myDescriptor]];
@@ -306,7 +315,9 @@ double convertToRadians(double val) {
 }
 -(IBAction)clickToSavedSearches:(id)sender
 {
-    
+    SavedSearchesViewController *ssvc=[[SavedSearchesViewController alloc]init];
+    [ssvc setArraySavedSearchesResult:arraySavedSearchesForSaveBtn];
+    [self.navigationController pushViewController:ssvc animated:YES];
     // [alert release];
 }
 -(IBAction)clickToSavedProperties:(id)sender
@@ -315,7 +326,7 @@ double convertToRadians(double val) {
     if([arraySavedProperty count]>0)
     {
         SearchResultViewController *sdvc=[[SearchResultViewController alloc]init];
-      //  arraySearch = [[NSMutableArray alloc] initWithArray:arrayHome];  
+        //  arraySearch = [[NSMutableArray alloc] initWithArray:arrayHome];  
         [sdvc setArraySearchResult:arraySavedProperty];
         //[sdvc setArraySearch:arraySavedProperty];
         [self.navigationController pushViewController:sdvc animated:YES];
@@ -339,7 +350,7 @@ double convertToRadians(double val) {
     
     
     NSDictionary * dictionary = [[CJSONDeserializer deserializer] deserializeAsDictionary:modal.dataXml error:&error];
-//    NSLog(@"%@",dictionary);
+    //    NSLog(@"%@",dictionary);
     
     [[dictionary objectForKey:@"property"] isKindOfClass:[NSArray class]];
     arrayProperty=[[NSMutableArray alloc]initWithArray:[dictionary objectForKey:@"property"]];
@@ -364,6 +375,7 @@ double convertToRadians(double val) {
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
     //NSLog(@"in textFieldShouldBeginEditing");
+    strGPS=nil;
     isFromCrrntLoc=NO; 
     return YES;
 }

@@ -7,13 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreLocation/CLLocationManagerDelegate.h>
+#import <CoreLocation/CoreLocation.h>
+#import "SearchPattren.h"
 @interface RefineSearchViewController : UIViewController
 {
     IBOutlet UITableView *tableViewRefine;
     IBOutlet UIPickerView *pickerViewRefine;
     IBOutlet UIToolbar *toolBarRefine;
     IBOutlet UILabel *labelTitle;
-   
+    SearchPattren *srcPtrn;
     
 }
 //@property(strong,nonatomic) NSMutableArray *arrayRefine;
@@ -27,4 +30,6 @@
 -(IBAction)clickToCancelToolBarBtn:(id)sender;
 -(void)searchPropertyAfterRefining;
 -(IBAction)clickToCancelNavBtn:(id)sender;
+
+-(double)kilometresBetweenPlace1:(CLLocationCoordinate2D) place1 andPlace2:(CLLocationCoordinate2D) place2 ;
 @end

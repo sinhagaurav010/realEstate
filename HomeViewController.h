@@ -18,8 +18,8 @@
     ModalController *modal;
     NSMutableArray *arrayHome;
     CLLocationManager *locmanager;
-    BOOL isFromCrrntLoc;
-    CLLocationCoordinate2D corrd;
+  
+    
 }
 -(BOOL)checkForExistance:(NSString *)stringTocheck withStringFromArray:(NSString *)stringFrmArray;
 
@@ -31,6 +31,6 @@
 -(IBAction)clickToSavedSearches:(id)sender;
 -(IBAction)clickToSavedProperties:(id)sender;
 -(IBAction)clickToFindCurrentLocation:(id)sender;
-double convertToRadians(double val);
+//double convertToRadians(double val);
 -(double)kilometresBetweenPlace1:(CLLocationCoordinate2D) place1 andPlace2:(CLLocationCoordinate2D) place2;
 @end

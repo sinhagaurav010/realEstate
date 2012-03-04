@@ -9,4 +9,3 @@
 #import <Foundation/Foundation.h>
 
 
-NSMutableArray *arrayProperty;

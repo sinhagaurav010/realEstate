@@ -10,6 +10,7 @@
 #import "searchCell.h"
 #import "DetailViewController.h"
 
+
 @implementation SearchResultViewController
 @synthesize arraySearchResult;
 
@@ -39,6 +40,7 @@
     self.view.backgroundColor   = COLORBAC;
     self.navigationController.navigationBar.tintColor   = COLORBAC;
     tableViewSearch.tableHeaderView=ViewHeader;
+    
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 }
@@ -46,9 +48,10 @@
 {
     
     self.navigationController.navigationBarHidden=NO;
-    self.navigationItem.hidesBackButton=NO;
-//    self.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc]initWithTitle:@"Save" style:UIBarButtonItemStyleBordered target:self action:@selector(clickToSaveNavBarBtn:)];
-    NSMutableDictionary *dictSaved=[[NSMutableDictionary alloc]init];
+    self.navigationItem.hidesBackButton=YES;
+   self.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc]initWithTitle:@"Save" style:UIBarButtonItemStyleBordered target:self action:@selector(clickToSaveNavBarBtn:)];
+     self.navigationItem.leftBarButtonItem=[[UIBarButtonItem alloc]initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self action:@selector(clickToBackBarBtn:)];
+    dictSaved=[[NSMutableDictionary alloc]init];
     [dictSaved setValue:strFor forKey:@"FOR"];
     [dictSaved setValue:strLocation forKey:@"LOCATION"];
     [dictSaved setValue:strPriceMax forKey:@"MAXPRICE"];
@@ -56,20 +59,38 @@
     [dictSaved setValue:strBedrooms forKey:@"BEDROOMS"];
     [dictSaved setValue:strAscending forKey:@"ORDERARRANGE"];
     [dictSaved setValue:strSortBy forKey:@"SORTBY"];
+    [dictSaved setValue:strRadius forKey:@"RADIUS"];
+    [dictSaved setValue:strGPS forKey:@"GPSENABLED"];
     arraySavedSearches =[[NSMutableArray alloc]initWithObjects:dictSaved, nil];
     NSLog(@"arraySavedSearches=%@",arraySavedSearches);
     if([strPriceMax integerValue]==1000001)
     { 
         labelPrice.text=[NSString stringWithFormat:@"£%dk or over ",[[[arraySavedSearches objectAtIndex:0] objectForKey:@"MINPRICE"] integerValue]/1000];
     }
+    else if(([strPriceMax integerValue]==1000000 && [strPriceMin integerValue]==0 )||([strPriceMax integerValue]==1000 && [strPriceMin integerValue]==0 ) )
+    {
+        labelPrice.text=@"Any Price";
+    }
     else
     {
+        if([strFor isEqualToString:@"TO LET"])
+        {
+            labelPrice.text=[NSString stringWithFormat:@"£%d - £%d ",[[[arraySavedSearches objectAtIndex:0] objectForKey:@"MINPRICE"] integerValue],[[[arraySavedSearches objectAtIndex:0] objectForKey:@"MAXPRICE"] integerValue]];
+        }
+        else
+        {
      labelPrice.text=[NSString stringWithFormat:@"£%dk - £%dk ",[[[arraySavedSearches objectAtIndex:0] objectForKey:@"MINPRICE"] integerValue]/1000,[[[arraySavedSearches objectAtIndex:0] objectForKey:@"MAXPRICE"] integerValue]/1000];
+        }
     }
     labelBedrooms.text=[NSString stringWithFormat:@"%d or more",[[[arraySavedSearches objectAtIndex:0] objectForKey:@"BEDROOMS"] integerValue]];
     if(refine)
         arraySearchResult = [[NSMutableArray  alloc] initWithArray:arrayRefine];
-    else
+//    else if(ssvc)
+//    {
+//        srcPtrn=[[SearchPattren alloc]init];
+//        arraySearchResult=[[NSMutableArray alloc]initWithArray:srcPtrn.arrayResult];
+//    }
+    else if(home)
     {
         arraySearchResult = [[NSMutableArray  alloc] initWithArray:arraySearch];
         
@@ -134,11 +155,14 @@
     [self.navigationController  pushViewController:propertyViewController animated:YES];
     
 }
+#pragma marks-User Defined functions
 -(IBAction)clickToSaveNavBarBtn:(id)sender
 {
-    [ModalController saveTheContent:arraySavedSearches withKey:SAVESEARCHES]; 
+    [arraySavedSearchesForSaveBtn addObject:dictSaved];
+    [ModalController saveTheContent:arraySavedSearchesForSaveBtn withKey:SAVESEARCHES]; 
     NSLog(@"********");
-    SavedSearchesViewController *ssvc=[[SavedSearchesViewController alloc]init];
+    ssvc=[[SavedSearchesViewController alloc]init];
+    [ssvc setArraySavedSearchesResult:arraySavedSearchesForSaveBtn];
     [self.navigationController pushViewController:ssvc animated:YES];
     
 }
@@ -147,5 +171,9 @@
     refine=[[RefineSearchViewController alloc]init];   
     arrayRefine=[[NSMutableArray alloc]initWithArray:arraySearchResult];
     [self.navigationController pushViewController:refine animated:YES];
+}
+-(IBAction)clickToBackBarBtn:(id)sender
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 @end

@@ -120,6 +120,8 @@
             self.stringRightTitle = @"Save";   
         
     }
+    
+    [self  save];
     arrayImages = [[NSMutableArray alloc] init];
     
     NSInteger countPhotos = 0; 
@@ -219,8 +221,9 @@
 }
 -(void)viewWillAppear:(BOOL)animated
 {
+     self.stringRightTitle = @"Save";
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:stringRightTitle style:UIBarButtonItemStyleDone target:self  action:@selector(save)];
-    self.stringRightTitle = @"Save";
+   
 }
 - (void)viewDidUnload
 {

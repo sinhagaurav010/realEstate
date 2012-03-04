@@ -9,10 +9,16 @@
 #import <UIKit/UIKit.h>
 #import "ModalController.h"
 #import "constant.h"
+#import "SearchPattren.h"
+#import "SearchResultViewController.h"
+#import "ModalController.h"
 @interface SavedSearchesViewController : UIViewController
 {
     IBOutlet UITableView *tableViewSavedSearches;
-    NSMutableArray *arraySavedSearchesResult;
+   
+   
 }
+@property(strong,nonatomic) NSMutableArray *arraySavedSearchesResult;
+@property(strong,nonatomic)  SearchPattren *searchPattern;
 -(IBAction)clickToEditBarBtn:(id)sender;
 @end

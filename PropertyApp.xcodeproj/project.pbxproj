@@ -57,6 +57,7 @@
 		C9B7D9D314FC0D95003B6B8F /* BroucherViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9B7D9D114FC0D94003B6B8F /* BroucherViewController.xib */; };
 		C9B7D9D814FC3736003B6B8F /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B7D9D614FC3736003B6B8F /* DetailViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C9B7D9D914FC3736003B6B8F /* DetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9B7D9D714FC3736003B6B8F /* DetailViewController.xib */; };
+		C9C92931150215890005EB67 /* SearchPattren.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C92930150215890005EB67 /* SearchPattren.m */; };
 		C9CB203415014F430014AD72 /* SavedSearchesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9CB203215014F430014AD72 /* SavedSearchesViewController.m */; };
 		C9CB203515014F430014AD72 /* SavedSearchesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9CB203315014F430014AD72 /* SavedSearchesViewController.xib */; };
 		C9CB203A150153470014AD72 /* SavedSearches.m in Sources */ = {isa = PBXBuildFile; fileRef = C9CB2039150153470014AD72 /* SavedSearches.m */; };
@@ -170,6 +171,8 @@
 		C9B7D9D514FC3736003B6B8F /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		C9B7D9D614FC3736003B6B8F /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		C9B7D9D714FC3736003B6B8F /* DetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailViewController.xib; sourceTree = "<group>"; };
+		C9C9292F150215890005EB67 /* SearchPattren.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchPattren.h; sourceTree = "<group>"; };
+		C9C92930150215890005EB67 /* SearchPattren.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchPattren.m; sourceTree = "<group>"; };
 		C9CB203115014F430014AD72 /* SavedSearchesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SavedSearchesViewController.h; sourceTree = "<group>"; };
 		C9CB203215014F430014AD72 /* SavedSearchesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SavedSearchesViewController.m; sourceTree = "<group>"; };
 		C9CB203315014F430014AD72 /* SavedSearchesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SavedSearchesViewController.xib; sourceTree = "<group>"; };
@@ -231,6 +234,7 @@
 		C905242E14F985F000D62E24 = {
 			isa = PBXGroup;
 			children = (
+				C9C92933150215950005EB67 /* SearchPattern */,
 				C9CB203715014F490014AD72 /* SavedSearchesViewController */,
 				C9DE44B314FE9E1900E13B30 /* RefineSearchViewController */,
 				5DBF49E314FD765D00B92BA9 /* ImagesApp */,
@@ -502,6 +506,15 @@
 			name = DetailViewController;
 			sourceTree = "<group>";
 		};
+		C9C92933150215950005EB67 /* SearchPattern */ = {
+			isa = PBXGroup;
+			children = (
+				C9C9292F150215890005EB67 /* SearchPattren.h */,
+				C9C92930150215890005EB67 /* SearchPattren.m */,
+			);
+			name = SearchPattern;
+			sourceTree = "<group>";
+		};
 		C9CB203715014F490014AD72 /* SavedSearchesViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -734,6 +747,7 @@
 				C9DE44B114FE9E0F00E13B30 /* RefineSearchViewController.m in Sources */,
 				C9CB203415014F430014AD72 /* SavedSearchesViewController.m in Sources */,
 				C9CB203A150153470014AD72 /* SavedSearches.m in Sources */,
+				C9C92931150215890005EB67 /* SearchPattren.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

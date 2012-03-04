@@ -7,6 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreLocation/CLLocationManagerDelegate.h>
+#import <CoreLocation/CoreLocation.h>
+
 #define SAVEDATA @"savedata"
 #define SAVEDPROP @"savedProp"
 #define SAVESEARCHES @"savesearches"
@@ -28,7 +31,9 @@
 #define kurl @"url"
 
 #define KMRANGE 10.79
-
+#define PIx 3.141592653589793
+#define RADIO 6371
+double convertToRadians(double val);
 #define TITLENAV @"BSPC"
 
 #define COLORBAC [UIColor colorWithRed:0.0f/255.0f green:51.0f/255.0f blue:87.0f/255.0f alpha:1.0f]
@@ -45,11 +50,19 @@ NSString *strSortByMin;
 NSString *strAscending;
 NSString *strFor;
 NSString *strLocation;
+NSString *strGPS;
+NSString *strLatitude;
+NSString *strLongitude;
+NSString *strRadius;
 
 NSMutableArray *arraySearch;
 NSMutableArray *arraySavedSearches;
 NSMutableArray *arrayRefine;
 NSMutableArray *arrayRefineFromSearchResult;
+NSMutableArray *arrayProperty;
+NSMutableArray *arraySavedSearchesForSaveBtn;
+CLLocationCoordinate2D corrd;
+BOOL isFromCrrntLoc;
 
 /*
  address = "1 Broomie Dell";

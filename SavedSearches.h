@@ -17,6 +17,6 @@
 @property(strong,nonatomic)IBOutlet UILabel *labelPrice;
 @property(strong,nonatomic)IBOutlet UILabel *labelBedrooms;
 @property(strong,nonatomic)IBOutlet UILabel *labelSortBy;
-
-
+@property(strong,nonatomic)IBOutlet UILabel *labelRadius;
+@property(strong,nonatomic)IBOutlet UILabel *radiusTitle;
 @end

@@ -9,8 +9,11 @@
 #import "RefineSearchViewController.h"
 #import "constant.h"
 #import "SearchResultViewController.h"
+
+
 @implementation RefineSearchViewController
 @synthesize strPickerSec1,strPickerSec2,arrayPicker2,arrayPicker1;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -32,6 +35,9 @@
 
 - (void)viewDidLoad
 {
+    labelTitle.frame = CGRectMake(110, 10, labelTitle.frame.size.width, labelTitle.frame.size.height);
+    [toolBarRefine  addSubview:labelTitle];
+    
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self.navigationItem setTitle:TITLENAV];
@@ -66,13 +72,19 @@
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 3;
+    if(isFromCrrntLoc==YES)
+        return 4;
+    else
+        return 3;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"cell";
-    
+    NSLog(@"***********************************");
+    NSLog(@"minPrice=%d,maxPrice=%d,bedrooms=%d,sort by=%@,strAscending=%@,strRadius=%f",[strPriceMin integerValue],[strPriceMax integerValue],[strBedrooms integerValue],strSortBy,strAscending,[strRadius floatValue]);
+    NSLog(@"***********************************");
+
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
@@ -81,13 +93,40 @@
     {
         cell.textLabel.text=@"Price Range";
         if([strPriceMax integerValue]==1000001)
+        { 
+            cell.detailTextLabel.text=[NSString stringWithFormat:@"£%dk or over ",[strPriceMin  integerValue]/1000];
+        }
+        else if(([strPriceMax integerValue]==1000000 && [strPriceMin integerValue]==0 )||([strPriceMax integerValue]==1000 && [strPriceMin integerValue]==0 ) )
         {
-            cell.detailTextLabel.text=[NSString stringWithFormat:@"£%dk or over ",[strPriceMin integerValue]/1000];
+            cell.detailTextLabel.text=@"Any Price";
         }
         else
         {
-            cell.detailTextLabel.text=[NSString stringWithFormat:@"£%dk - £%dk ",[strPriceMin integerValue]/1000,[strPriceMax integerValue]/1000];
+            if([strFor isEqualToString:@"TO LET"])
+            {
+                cell.detailTextLabel.text=[NSString stringWithFormat:@"£%d - £%d ",[strPriceMin integerValue],[strPriceMax integerValue]];
+            }
+            else
+            {
+                cell.detailTextLabel.text=[NSString stringWithFormat:@"£%dk - £%dk ",[strPriceMin integerValue]/1000,[strPriceMax integerValue]/1000];
+            }
         }
+
+     /*   if([strFor isEqualToString:@"SALE"])
+        {
+            if([strPriceMax integerValue]==1000001)
+            {
+                cell.detailTextLabel.text=[NSString stringWithFormat:@"£%dk or over ",[strPriceMin integerValue]/1000];
+            }
+            else
+            {
+                cell.detailTextLabel.text=[NSString stringWithFormat:@"£%dk - £%dk ",[strPriceMin integerValue]/1000,[strPriceMax integerValue]/1000];
+            }
+        }
+        else
+        {
+            cell.detailTextLabel.text=[NSString stringWithFormat:@"£%d - £%d",[strPriceMin integerValue],[strPriceMax integerValue]];   
+        } */
     }
     if(indexPath.row==1)
     {
@@ -98,6 +137,11 @@
     {
         cell.textLabel.text= @"Sort By";
         cell.detailTextLabel.text=[NSString stringWithFormat:@"%@ %@",strSortBy,strAscending];
+    }
+    if(indexPath.row==3)
+    {
+        cell.textLabel.text= @"Radius";
+        cell.detailTextLabel.text=[NSString stringWithFormat:[NSString stringWithFormat:@"%@ KM",strRadius]];
     }
     cell.textLabel.font=[UIFont boldSystemFontOfSize:14.0];
     cell.detailTextLabel.font=[UIFont boldSystemFontOfSize:14.0];
@@ -112,10 +156,17 @@
     
     if (indexPath.row==0) {
         labelTitle.text=@"Price Range";
-        
-        self.arrayPicker1=[[NSMutableArray alloc]initWithObjects:@"0",@"50000",@"70000",@"85000",@"100000",@"115000",@"125000",@"135000",@"150000",@"160000",@"175000",@"185000",@"200000",@"225000",@"250000",@"275000",@"300000",@"325000",@"350000",@"375000",@"400000",@"450000",@"500000",@"700000",@"1000000" ,nil];
-        self.arrayPicker2=[[NSMutableArray alloc]initWithObjects:@"0",@"50000",@"70000",@"85000",@"100000",@"115000",@"125000",@"135000",@"150000",@"160000",@"175000",@"185000",@"200000",@"225000",@"250000",@"275000",@"300000",@"325000",@"350000",@"375000",@"400000",@"450000",@"500000",@"700000",@"1000000" ,nil];
-        
+        if([strFor isEqualToString:@"SALE"])
+        {
+            self.arrayPicker1=[[NSMutableArray alloc]initWithObjects:@"0",@"50000",@"70000",@"85000",@"100000",@"115000",@"125000",@"135000",@"150000",@"160000",@"175000",@"185000",@"200000",@"225000",@"250000",@"275000",@"300000",@"325000",@"350000",@"375000",@"400000",@"450000",@"500000",@"700000",@"1000000" ,nil];
+            self.arrayPicker2=[[NSMutableArray alloc]initWithObjects:@"0",@"50000",@"70000",@"85000",@"100000",@"115000",@"125000",@"135000",@"150000",@"160000",@"175000",@"185000",@"200000",@"225000",@"250000",@"275000",@"300000",@"325000",@"350000",@"375000",@"400000",@"450000",@"500000",@"700000",@"1000000" ,nil];
+        }
+        else
+        {
+            self.arrayPicker1=[[NSMutableArray alloc]initWithObjects:@"0",@"250",@"300",@"400",@"500",@"600",@"700",@"800",@"1000",nil];
+             self.arrayPicker2=[[NSMutableArray alloc]initWithObjects:@"0",@"250",@"300",@"400",@"500",@"600",@"700",@"800",@"1000",nil];
+            
+        }
         for(int i=0;i< [self.arrayPicker1 count];i++)
         {
             if([[self.arrayPicker1 objectAtIndex:i] isEqualToString:strPriceMin])
@@ -126,7 +177,7 @@
                 indexInPckSel2=i;
         }
         [pickerViewRefine reloadAllComponents];
-       
+        
         [pickerViewRefine  selectRow:0 inComponent:0 animated:NO];
         [pickerViewRefine  selectRow:0 inComponent:1 animated:NO];
         strPickerSec1=strPriceMin;
@@ -162,6 +213,18 @@
         strPickerSec1=strSortBy;
         strPickerSec2=strAscending;
     } 
+    if (indexPath.row==3) {
+        labelTitle.text=@"Radius";
+        self.arrayPicker1=[[NSMutableArray alloc]initWithObjects:@"1.0",@"2.0",@"3.0",@"4.0",@"5.0",@"6.0",@"7.0",@"8.0",@"9.0",@"10.79",nil];
+        for(int i=0;i< [self.arrayPicker1 count];i++)
+        {
+            if([[self.arrayPicker1 objectAtIndex:i] isEqualToString:strRadius])
+                indexInPckSel1=i;
+        }
+        [pickerViewRefine reloadAllComponents];
+        [pickerViewRefine  selectRow:indexInPckSel1 inComponent:0 animated:NO];
+        strPickerSec1=strRadius;
+    }
     pickerViewRefine.hidden=NO;
     toolBarRefine.hidden=NO;
     tableViewRefine.userInteractionEnabled = NO;
@@ -186,12 +249,14 @@
                 [arrayPicker2 addObject:[arrayPicker1 objectAtIndex:i]];
         }
     }
-    NSLog(@"array picker2=%@",arrayPicker2);
+   // NSLog(@"array picker2=%@",arrayPicker2);
     [pickerViewRefine  selectRow:0 inComponent:1 animated:NO];
     [pickerViewRefine reloadComponent:1];
 }
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
     if([labelTitle.text isEqualToString:@"Bedrooms"])
+        return 1;
+    else if([labelTitle.text isEqualToString:@"Radius"])
         return 1;
     else
         return 2;
@@ -200,7 +265,8 @@
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
     if([labelTitle.text isEqualToString:@"Bedrooms"])
         return [self.arrayPicker1 count];
-    
+    else if([labelTitle.text isEqualToString:@"Radius"])
+        return [self.arrayPicker1 count];
     else
     {
         if(component==0)
@@ -212,11 +278,19 @@
 // tell the picker the title for a given component
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
     NSString *title;
-    
-    if(component==0)
-        title=[self.arrayPicker1 objectAtIndex:row];
+    if([labelTitle.text isEqualToString:@"Bedrooms"])
+    {
+        title=[NSString stringWithFormat:@"%@ or more",[self.arrayPicker1 objectAtIndex:row]];   
+    }
+    else if ([labelTitle.text isEqualToString:@"Radius"])
+        title=[NSString stringWithFormat:@"%@ KM",[self.arrayPicker1 objectAtIndex:row]];
     else
-        title=[self.arrayPicker2 objectAtIndex:row];
+    {
+        if(component==0)
+            title=[self.arrayPicker1 objectAtIndex:row];
+        else
+            title=[self.arrayPicker2 objectAtIndex:row];
+    }
     return title;
 }
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow: (NSInteger)row inComponent:(NSInteger)component {
@@ -293,24 +367,56 @@
         strSortBy=self.strPickerSec1;
         strAscending=self.strPickerSec2;
     }
-    NSLog(@"minPrice=%d,maxPrice=%d,bedrooms=%d,sort by=%@,strAscending=%@",[strPriceMin integerValue],[strPriceMax integerValue],[strBedrooms integerValue],strSortBy,strAscending);
+    if([labelTitle.text isEqualToString:@"Radius"])
+    {
+        strRadius=self.strPickerSec1;
+    }
+    NSLog(@"minPrice=%d,maxPrice=%d,bedrooms=%d,sort by=%@,strAscending=%@,strRadius=%f",[strPriceMin integerValue],[strPriceMax integerValue],[strBedrooms integerValue],strSortBy,strAscending,[strRadius floatValue]);
     NSLog(@"---------------------------");
     [tableViewRefine reloadData];
     
 }
 -(IBAction)clickTosearchBarBtn:(id)sender
 {
-    
-    [arrayRefine removeAllObjects];
-    NSLog(@"strBedrooms==%@",strBedrooms);
-    
-    for(int i=0;i<[arraySearch count];i++)
+    if([strGPS isEqualToString:@"GPS"])
     {
-        if([[[arraySearch objectAtIndex:i] objectForKey:kbedrooms] integerValue] > [strBedrooms integerValue] && (([[[arraySearch objectAtIndex:i] objectForKey:@"price"] integerValue]<[strPriceMax integerValue]) && ([[[arraySearch objectAtIndex:i] objectForKey:@"price"] integerValue]>[strPriceMin integerValue])))
+        isFromCrrntLoc=YES;   
+    }
+    else
+    {
+        isFromCrrntLoc=NO;
+    }
+    srcPtrn=[[SearchPattren alloc]init];
+    [srcPtrn searchPropertyWheretransaction_type:strFor fromLocation:strLocation fromMinPrice:strPriceMin toMaxPrice:strPriceMax withBedrooms:strBedrooms withSorting:strSortBy arrangeWithOrder:strAscending gpsEnabled:isFromCrrntLoc Inarray:arrayRefine];
+    [arrayRefine removeAllObjects];
+    arrayRefine=[[NSMutableArray alloc]initWithArray:srcPtrn.arrayResult];
+    [self.navigationController popViewControllerAnimated:YES];
+   /* [arrayRefine removeAllObjects];
+    if(isFromCrrntLoc==YES)
+    {
+        for(int i=0;i<[arraySearch count];i++)
         {
-            [arrayRefine addObject:[arraySearch objectAtIndex:i]];  
+            CLLocationCoordinate2D corrd2;
+            corrd2.latitude=[[[arraySearch objectAtIndex:i] objectForKey:@"latitude"] doubleValue];
+            corrd2.longitude=[[[arraySearch objectAtIndex:i] objectForKey:@"longitude"] doubleValue];
+            if (([self kilometresBetweenPlace1:corrd andPlace2:corrd2] < [strRadius doubleValue])) {
+                if([[[arraySearch objectAtIndex:i] objectForKey:kbedrooms] integerValue] >= [strBedrooms integerValue] && (([[[arraySearch objectAtIndex:i] objectForKey:@"price"] integerValue]<=[strPriceMax integerValue]) && ([[[arraySearch objectAtIndex:i] objectForKey:@"price"] integerValue]>=[strPriceMin integerValue])))
+                [arrayRefine addObject:[arraySearch objectAtIndex:i]];
+            }
         }
         
+    }
+    else
+    {
+        for(int i=0;i<[arraySearch count];i++)
+        {
+            NSLog(@"test1");
+            if([[[arraySearch objectAtIndex:i] objectForKey:kbedrooms] integerValue] >= [strBedrooms integerValue] && (([[[arraySearch objectAtIndex:i] objectForKey:@"price"] integerValue]<=[strPriceMax integerValue]) && ([[[arraySearch objectAtIndex:i] objectForKey:@"price"] integerValue]>=[strPriceMin integerValue])))
+            {
+                [arrayRefine addObject:[arraySearch objectAtIndex:i]];  
+            }
+            
+        }
     }
     NSSortDescriptor *myDescriptor;
     if([strAscending isEqualToString:@"Descending"])
@@ -325,20 +431,34 @@
     NSLog(@"array refine=%@",arrayRefine);
     NSLog(@"array refine count=%d",[arrayRefine count]);
     //    SearchResultViewController *srvc=[[SearchResultViewController alloc]init];
-    //    [srvc setArraySearchResult:arrayRefine];
-    [self.navigationController popViewControllerAnimated:YES];
+    //    [srvc setArraySearchResult:arrayRefine]; */
+    
 }
 -(IBAction)clickToCancelNavBtn:(id)sender;
 {
-    NSLog(@"array refine=%@",arrayRefine);
+    //NSLog(@"array refine=%@",arrayRefine);
     NSLog(@"array refine count=%d",[arrayRefine count]);
     strPriceMin=[[arraySavedSearches objectAtIndex:0]objectForKey:@"MINPRICE"];
     strPriceMax=[[arraySavedSearches objectAtIndex:0]objectForKey:@"MAXPRICE"];
     strBedrooms=[[arraySavedSearches objectAtIndex:0]objectForKey:@"BEDROOMS"];
     strAscending=[[arraySavedSearches objectAtIndex:0]objectForKey:@"ORDERARRANGE"];
     strSortBy=[[arraySavedSearches objectAtIndex:0]objectForKey:@"SORTBY"];
+    strRadius=[[arraySavedSearches objectAtIndex:0]objectForKey:@"RADIUS"];
     [self.navigationController popViewControllerAnimated:YES];
     
     
 }
+#pragma mark - To find distace between Locations(b/w 10KM)
+
+-(double)kilometresBetweenPlace1:(CLLocationCoordinate2D) place1 andPlace2:(CLLocationCoordinate2D) place2 {
+    
+    double dlon = convertToRadians(place2.longitude - place1.longitude);
+    double dlat = convertToRadians(place2.latitude - place1.latitude);
+    
+    double a = ( pow(sin(dlat / 2), 2) + cos(convertToRadians(place1.latitude))) * cos(convertToRadians(place2.latitude)) * pow(sin(dlon / 2), 2);
+    double angle = 2 * asin(sqrt(a));
+    return angle * RADIO;
+}
+
+
 @end

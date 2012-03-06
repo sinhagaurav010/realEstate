@@ -16,7 +16,7 @@
     
 }
 @property(strong,nonatomic)NSMutableArray *arrayResult;
--(void)searchPropertyWheretransaction_type:(NSString *)transactionType fromLocation :(NSString *)loc fromMinPrice:(NSString *)maxPrice toMaxPrice:(NSString *)minPrice  withBedrooms:(NSString *)bedrooms withSorting:(NSString *)sortBy arrangeWithOrder:(NSString *)orderArrange gpsEnabled:(BOOL)gpsEnabled Inarray:(NSMutableArray *)arraySelect;
+-(void)searchPropertyWheretransaction_type:(NSString *)transactionType fromLocation :(NSString *)loc fromMinPrice:(NSString *)maxPrice toMaxPrice:(NSString *)minPrice  withBedrooms:(NSString *)bedrooms withSorting:(NSString *)sortBy arrangeWithOrder:(NSString *)orderArrange gpsEnabled:(NSString *)gpsEnable Inarray:(NSMutableArray *)arraySelect;
 -(BOOL)checkForExistance:(NSString *)stringTocheck withStringFromArray:(NSString *)stringFrmArray;
 double convertToRadians(double val) ;
 -(double)kilometresBetweenPlace1:(CLLocationCoordinate2D) place1 andPlace2:(CLLocationCoordinate2D) place2;

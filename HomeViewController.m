@@ -17,15 +17,12 @@
 #import "SVGeocoder.h"
 #import "SavedSearches.h"
 @implementation HomeViewController
-@synthesize strUserAdd,strUserLat,strUserLong;
+@synthesize strUserAdd,strUserLat,strUserLong,strformattedAddress;
 //const double PIx = 3.141592653589793;
 //const double RADIO = 6371; // Mean radius of Earth in Km
 
 
-double convertToRadians(double val) {
-    
-    return val * PIx / 180;
-}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -62,6 +59,11 @@ double convertToRadians(double val) {
     MBProgressHUD *hud=[MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     [hud setLabelText:@"Loading..."]; 
     arraySavedSearchesForSaveBtn =[[NSMutableArray alloc]initWithArray:[ModalController getContforKey:SAVESEARCHES]];
+    //find current location
+    locmanager = [[CLLocationManager alloc] init];
+    [locmanager setDelegate:self];
+    [locmanager setDesiredAccuracy:kCLLocationAccuracyBest];
+    [locmanager startUpdatingLocation];
     
 }
 -(void)viewWillAppear:(BOOL)animated
@@ -73,6 +75,7 @@ double convertToRadians(double val) {
     strSortBy=@"price";
     strAscending=@"Ascending";
     strRadius=@"10.79";
+    strGPS=nil;
     
 }
 - (void)viewDidUnload
@@ -100,7 +103,8 @@ double convertToRadians(double val) {
                     completion:^(NSArray *placemarks, NSError *error) {
                         if(!error && placemarks) {
                             SVPlacemark *placemark = [placemarks objectAtIndex:0];
-                            txtFldLoc.text=placemark.formattedAddress;
+                            self.strformattedAddress=placemark.formattedAddress;
+                            NSLog(@"formattedAddress=%@",strformattedAddress);
                             corrd.latitude=placemark.coordinate.latitude;
                             corrd.longitude=placemark.coordinate.longitude;
                         } else {
@@ -151,11 +155,8 @@ double convertToRadians(double val) {
     }
     else
     {
-       
-        locmanager = [[CLLocationManager alloc] init];
-        [locmanager setDelegate:self];
-        [locmanager setDesiredAccuracy:kCLLocationAccuracyBest];
-        [locmanager startUpdatingLocation];
+        txtFldLoc.text=[NSString stringWithFormat:@"%@ (GPS)",self.strformattedAddress];
+        
     }
 }
 
@@ -163,143 +164,60 @@ double convertToRadians(double val) {
 
 -(IBAction)clickToForSale:(id)sender
 {
-    strPriceMax=@"1000000";
+    
     [txtFldLoc resignFirstResponder];
-    [arrayHome removeAllObjects];
-    arrayHome=[[NSMutableArray alloc]init ];
+    strFor=@"SALE";
+    strPriceMax=@"1000000";
     if([txtFldLoc.text length]>0)
     {
+        strLocation=txtFldLoc.text;
         if(isFromCrrntLoc == YES)
         {
-            for(int i=0;i<[arrayProperty count];i++)
-            {
-                
-                if([[[arrayProperty objectAtIndex:i] objectForKey:@"transaction_type"] integerValue] == 1)
-                {
-                    CLLocationCoordinate2D corrd2;
-                    corrd2.latitude=[[[arrayProperty objectAtIndex:i] objectForKey:@"latitude"] doubleValue];
-                    corrd2.longitude=[[[arrayProperty objectAtIndex:i] objectForKey:@"longitude"] doubleValue];
-                    if (([self kilometresBetweenPlace1:corrd andPlace2:corrd2] < KMRANGE) && ([[[arrayProperty objectAtIndex:i] objectForKey:@"transaction_type"] integerValue] == 1) ) {
-                        [arrayHome addObject:[arrayProperty objectAtIndex:i]];
-                    }
-                }
-            }
-        }
-        else
-        {
+            strGPS=@"GPS";
             
-            for (int i=0; i<[arrayProperty count]; i++)
-            {
-                if([[[arrayProperty objectAtIndex:i] objectForKey:@"transaction_type"] integerValue] == 1)
-                {
-                    if([self checkForExistance:txtFldLoc.text withStringFromArray:[[arrayProperty objectAtIndex:i] objectForKey:kpostcode]])
-                        [arrayHome  addObject:[arrayProperty  objectAtIndex:i]];
-                    
-                    else if([self checkForExistance:txtFldLoc.text withStringFromArray:[[arrayProperty objectAtIndex:i] objectForKey:kaddress]])
-                        [arrayHome  addObject:[arrayProperty  objectAtIndex:i]];
-                    
-                    else if([self checkForExistance:txtFldLoc.text withStringFromArray:[[arrayProperty objectAtIndex:i] objectForKey:@"town"]])
-                        [arrayHome  addObject:[arrayProperty  objectAtIndex:i]];
-                }
-            }
-        }  
-        if([arrayHome count]>0)
-        {
-            strFor=@"SALE";
-            strLocation=txtFldLoc.text;
-            NSSortDescriptor *myDescriptor = [[NSSortDescriptor alloc] initWithKey:@"price" ascending:YES];
-            [arrayHome sortUsingDescriptors:[NSArray arrayWithObject:myDescriptor]];
-            // NSLog(@"array home=%@",arrayHome);
-            SearchResultViewController *sdvc=[[SearchResultViewController alloc]init];
-            arraySearch = [[NSMutableArray alloc] initWithArray:arrayHome];
-            [sdvc setArraySearchResult:arraySearch];
-            // NSLog(@"array search=%@",arraySearch);
-            [self.navigationController pushViewController:sdvc animated:YES];
         }
-        
         else
         {
-            UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Info" message:@"No data found." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [alert show];
+            strGPS=nil;
         }
-        
     }
     else
     {
-        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Info" message:@"Please enter postal code" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Info" message:@"Please enter postal code or Location." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
     }
+    SearchResultViewController *sdvc=[[SearchResultViewController alloc]init];
+    [self.navigationController pushViewController:sdvc animated:YES];
 }
 
 #pragma mark -clickToToLet-
 
 -(IBAction)clickToToLet:(id)sender
 {
-    strPriceMax=@"1000";
     [txtFldLoc resignFirstResponder];
-    [arrayHome removeAllObjects];
-    arrayHome = [[NSMutableArray alloc]init ];
     
+    strFor=@"TO LET";
+    strPriceMax=@"1000";
     if([txtFldLoc.text length]>0)
     {
+        strLocation=txtFldLoc.text;
         if(isFromCrrntLoc == YES)
         {
-            for(int i=0;i<[arrayProperty count];i++)
-            {
-                if([[[arrayProperty objectAtIndex:i] objectForKey:@"transaction_type"] integerValue] == 2)
-                {
-                    CLLocationCoordinate2D corrd2;
-                    corrd2.latitude=[[[arrayProperty objectAtIndex:i] objectForKey:@"latitude"] doubleValue];
-                    corrd2.longitude=[[[arrayProperty objectAtIndex:i] objectForKey:@"longitude"] doubleValue];
-                    if (([self kilometresBetweenPlace1:corrd andPlace2:corrd2] < 10) && ([[[arrayProperty objectAtIndex:i] objectForKey:@"transaction_type"] integerValue] == 2) ) {
-                        [arrayHome addObject:[arrayProperty objectAtIndex:i]];
-                    }
-                }
-            }
+            strGPS=@"GPS";
+            
         }
-        
         else
         {
-            for (int i=0; i<[arrayProperty count]; i++)
-            {
-                if([[[arrayProperty objectAtIndex:i] objectForKey:@"transaction_type"] integerValue] == 2)
-                {
-                    if([self checkForExistance:txtFldLoc.text withStringFromArray:[[arrayProperty objectAtIndex:i] objectForKey:kpostcode]])
-                        [arrayHome  addObject:[arrayProperty  objectAtIndex:i]];
-                    
-                    else if([self checkForExistance:txtFldLoc.text withStringFromArray:[[arrayProperty objectAtIndex:i] objectForKey:kaddress]])
-                        [arrayHome  addObject:[arrayProperty  objectAtIndex:i]];
-                    
-                    else if([self checkForExistance:txtFldLoc.text withStringFromArray:[[arrayProperty objectAtIndex:i] objectForKey:@"town"]])
-                        [arrayHome  addObject:[arrayProperty  objectAtIndex:i]];
-                }
-            }
-        } 
-        if([arrayHome count]>0)
-        {
-            //NSLog(@"array home=%@",arrayHome);
-            strFor=@"TO LET";
-            strLocation=txtFldLoc.text;
-            NSSortDescriptor *myDescriptor = [[NSSortDescriptor alloc] initWithKey:@"price" ascending:YES];
-            [arrayHome sortUsingDescriptors:[NSArray arrayWithObject:myDescriptor]];
-            SearchResultViewController *sdvc=[[SearchResultViewController alloc]init];
-            arraySearch = [[NSMutableArray alloc] initWithArray:arrayHome];
-            [sdvc setArraySearchResult:arraySearch];
-            [self.navigationController pushViewController:sdvc animated:YES];
+            strGPS=nil;
         }
-        
-        else
-        {
-            UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Info" message:@"No data found." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [alert show];
-        }
-        
     }
     else
     {
-        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Info" message:@"Please enter postal code" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Info" message:@"Please enter postal code or Location." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
     }
+    SearchResultViewController *sdvc=[[SearchResultViewController alloc]init];
+    [self.navigationController pushViewController:sdvc animated:YES];
 }
 
 
@@ -325,11 +243,11 @@ double convertToRadians(double val) {
     NSMutableArray *arraySavedProperty = [[NSMutableArray alloc] initWithArray:[ModalController getContforKey:SAVEDPROP]];
     if([arraySavedProperty count]>0)
     {
-        SearchResultViewController *sdvc=[[SearchResultViewController alloc]init];
+        SavePropertyViewController *spvc=[[SavePropertyViewController alloc]init];
         //  arraySearch = [[NSMutableArray alloc] initWithArray:arrayHome];  
-        [sdvc setArraySearchResult:arraySavedProperty];
+        [spvc setArraySaveProResult:arraySavedProperty];
         //[sdvc setArraySearch:arraySavedProperty];
-        [self.navigationController pushViewController:sdvc animated:YES];
+        [self.navigationController pushViewController:spvc animated:YES];
     }
     else
     {

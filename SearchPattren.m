@@ -8,22 +8,33 @@
 
 #import "SearchPattren.h"
 #import "constant.h"
-
+double convertToRadians(double val) {
+    
+    return val * PIx / 180;
+}
 
 @implementation SearchPattren
 @synthesize arrayResult;
--(void)searchPropertyWheretransaction_type:(NSString *)transactionType fromLocation :(NSString *)loc fromMinPrice:(NSString *)minPrice toMaxPrice:(NSString *)maxPrice  withBedrooms:(NSString *)bedrooms withSorting:(NSString *)sortBy arrangeWithOrder:(NSString *)orderArrange gpsEnabled:(BOOL)gpsEnabled Inarray:(NSMutableArray *)arraySelect
+-(void)searchPropertyWheretransaction_type:(NSString *)transactionType fromLocation :(NSString *)loc fromMinPrice:(NSString *)minPrice toMaxPrice:(NSString *)maxPrice  withBedrooms:(NSString *)bedrooms withSorting:(NSString *)sortBy arrangeWithOrder:(NSString *)orderArrange gpsEnabled:(NSString *)gpsEnable Inarray:(NSMutableArray *)arraySelect
 {
   
     self.arrayResult=[[NSMutableArray alloc]init];
     NSLog(@"array select count=%d",[arraySelect count]);
-    NSLog(@"transaction type=%@,\n location=%@,\n minPrice=%@ \n maxPrice=%@ \n bedrooms=%@ \n sort by=%@ \n arrange order=%@ \n gps=%d",transactionType,loc,minPrice,maxPrice,bedrooms,sortBy,orderArrange,gpsEnabled);
+    NSLog(@"transaction type=%@,\n location=%@,\n minPrice=%@ \n maxPrice=%@ \n bedrooms=%@ \n sort by=%@ \n arrange order=%@ \n gps=%@",transactionType,loc,minPrice,maxPrice,bedrooms,sortBy,orderArrange,gpsEnable);
     NSMutableArray *arrayTemp=[[NSMutableArray alloc]init];
     if( [transactionType isEqualToString:@"SALE"])
         transactionType=@"1";
     else
         transactionType=@"2";
     
+    if ([gpsEnable isEqualToString:@"GPS"]) {
+        isFromCrrntLoc=YES;
+    }
+    else
+    {
+        isFromCrrntLoc=NO;
+   
+    }
     if(isFromCrrntLoc==YES)
     {
         for(int i=0;i<[arraySelect count];i++)

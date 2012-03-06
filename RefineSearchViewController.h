@@ -31,5 +31,5 @@
 -(void)searchPropertyAfterRefining;
 -(IBAction)clickToCancelNavBtn:(id)sender;
 
--(double)kilometresBetweenPlace1:(CLLocationCoordinate2D) place1 andPlace2:(CLLocationCoordinate2D) place2 ;
+
 @end

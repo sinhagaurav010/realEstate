@@ -62,6 +62,8 @@
 		C9CB203515014F430014AD72 /* SavedSearchesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9CB203315014F430014AD72 /* SavedSearchesViewController.xib */; };
 		C9CB203A150153470014AD72 /* SavedSearches.m in Sources */ = {isa = PBXBuildFile; fileRef = C9CB2039150153470014AD72 /* SavedSearches.m */; };
 		C9CB203D1501536F0014AD72 /* SavedSearches.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9CB203C1501536F0014AD72 /* SavedSearches.xib */; };
+		C9D207F115055875001A2854 /* SavePropertyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9D207EF15055875001A2854 /* SavePropertyViewController.m */; };
+		C9D207F215055875001A2854 /* SavePropertyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9D207F015055875001A2854 /* SavePropertyViewController.xib */; };
 		C9DE44B114FE9E0F00E13B30 /* RefineSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9DE44AF14FE9E0F00E13B30 /* RefineSearchViewController.m */; };
 		C9DE44B214FE9E0F00E13B30 /* RefineSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9DE44B014FE9E0F00E13B30 /* RefineSearchViewController.xib */; };
 		C9E136C914FA5AA60016F018 /* cellDescpImg.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E136C814FA5AA60016F018 /* cellDescpImg.m */; };
@@ -179,6 +181,9 @@
 		C9CB2038150153470014AD72 /* SavedSearches.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SavedSearches.h; sourceTree = "<group>"; };
 		C9CB2039150153470014AD72 /* SavedSearches.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SavedSearches.m; sourceTree = "<group>"; };
 		C9CB203C1501536F0014AD72 /* SavedSearches.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SavedSearches.xib; sourceTree = "<group>"; };
+		C9D207EE15055875001A2854 /* SavePropertyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SavePropertyViewController.h; sourceTree = "<group>"; };
+		C9D207EF15055875001A2854 /* SavePropertyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SavePropertyViewController.m; sourceTree = "<group>"; };
+		C9D207F015055875001A2854 /* SavePropertyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SavePropertyViewController.xib; sourceTree = "<group>"; };
 		C9DE44AE14FE9E0F00E13B30 /* RefineSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RefineSearchViewController.h; sourceTree = "<group>"; };
 		C9DE44AF14FE9E0F00E13B30 /* RefineSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RefineSearchViewController.m; sourceTree = "<group>"; };
 		C9DE44B014FE9E0F00E13B30 /* RefineSearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RefineSearchViewController.xib; sourceTree = "<group>"; };
@@ -234,6 +239,7 @@
 		C905242E14F985F000D62E24 = {
 			isa = PBXGroup;
 			children = (
+				C9D207F315055879001A2854 /* SavePropertyViewController */,
 				C9C92933150215950005EB67 /* SearchPattern */,
 				C9CB203715014F490014AD72 /* SavedSearchesViewController */,
 				C9DE44B314FE9E1900E13B30 /* RefineSearchViewController */,
@@ -535,6 +541,16 @@
 			name = SavedSearches;
 			sourceTree = "<group>";
 		};
+		C9D207F315055879001A2854 /* SavePropertyViewController */ = {
+			isa = PBXGroup;
+			children = (
+				C9D207EE15055875001A2854 /* SavePropertyViewController.h */,
+				C9D207EF15055875001A2854 /* SavePropertyViewController.m */,
+				C9D207F015055875001A2854 /* SavePropertyViewController.xib */,
+			);
+			name = SavePropertyViewController;
+			sourceTree = "<group>";
+		};
 		C9DE44B314FE9E1900E13B30 /* RefineSearchViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -693,6 +709,7 @@
 				C9DE44B214FE9E0F00E13B30 /* RefineSearchViewController.xib in Resources */,
 				C9CB203515014F430014AD72 /* SavedSearchesViewController.xib in Resources */,
 				C9CB203D1501536F0014AD72 /* SavedSearches.xib in Resources */,
+				C9D207F215055875001A2854 /* SavePropertyViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -748,6 +765,7 @@
 				C9CB203415014F430014AD72 /* SavedSearchesViewController.m in Sources */,
 				C9CB203A150153470014AD72 /* SavedSearches.m in Sources */,
 				C9C92931150215890005EB67 /* SearchPattren.m in Sources */,
+				C9D207F115055875001A2854 /* SavePropertyViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

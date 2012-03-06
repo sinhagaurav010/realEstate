@@ -45,14 +45,10 @@ NSString *strBedrooms;
 NSString *strSortBy;
 NSString *strPriceMax;
 NSString *strPriceMin;
-NSString *strSortByMax;
-NSString *strSortByMin;
 NSString *strAscending;
 NSString *strFor;
 NSString *strLocation;
 NSString *strGPS;
-NSString *strLatitude;
-NSString *strLongitude;
 NSString *strRadius;
 
 NSMutableArray *arraySearch;

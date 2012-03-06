@@ -14,6 +14,7 @@
 #import "SavedSearchesViewController.h"
 #import "SearchPattren.h"
 #import "HomeViewController.h"
+
 @class SavedSearchesViewController;
 @interface SearchResultViewController : UIViewController
 {
@@ -30,6 +31,7 @@
     HomeViewController *home;
     
 }
+-(void)search;
 -(IBAction)clickToHeaderBtn:(id)sender;
 -(IBAction)clickToSaveNavBarBtn:(id)sender;
 -(IBAction)clickToBackBarBtn:(id)sender;

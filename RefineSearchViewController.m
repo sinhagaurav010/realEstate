@@ -72,7 +72,7 @@
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if(isFromCrrntLoc==YES)
+    if([strGPS isEqualToString:@"GPS"])
         return 4;
     else
         return 3;
@@ -92,42 +92,15 @@
     if(indexPath.row==0)
     {
         cell.textLabel.text=@"Price Range";
-        if([strPriceMax integerValue]==1000001)
-        { 
-            cell.detailTextLabel.text=[NSString stringWithFormat:@"£%dk or over ",[strPriceMin  integerValue]/1000];
-        }
-        else if(([strPriceMax integerValue]==1000000 && [strPriceMin integerValue]==0 )||([strPriceMax integerValue]==1000 && [strPriceMin integerValue]==0 ) )
+        if([strFor isEqualToString:@"SALE"])
         {
-            cell.detailTextLabel.text=@"Any Price";
+            cell.detailTextLabel.text=[NSString stringWithFormat:@"£%dk - £%dk ",[strPriceMin integerValue]/1000,[strPriceMax integerValue]/1000];
         }
         else
         {
-            if([strFor isEqualToString:@"TO LET"])
-            {
-                cell.detailTextLabel.text=[NSString stringWithFormat:@"£%d - £%d ",[strPriceMin integerValue],[strPriceMax integerValue]];
-            }
-            else
-            {
-                cell.detailTextLabel.text=[NSString stringWithFormat:@"£%dk - £%dk ",[strPriceMin integerValue]/1000,[strPriceMax integerValue]/1000];
-            }
+             cell.detailTextLabel.text=[NSString stringWithFormat:@"£%d - £%d ",[strPriceMin integerValue],[strPriceMax integerValue]];
         }
-
-     /*   if([strFor isEqualToString:@"SALE"])
-        {
-            if([strPriceMax integerValue]==1000001)
-            {
-                cell.detailTextLabel.text=[NSString stringWithFormat:@"£%dk or over ",[strPriceMin integerValue]/1000];
-            }
-            else
-            {
-                cell.detailTextLabel.text=[NSString stringWithFormat:@"£%dk - £%dk ",[strPriceMin integerValue]/1000,[strPriceMax integerValue]/1000];
-            }
-        }
-        else
-        {
-            cell.detailTextLabel.text=[NSString stringWithFormat:@"£%d - £%d",[strPriceMin integerValue],[strPriceMax integerValue]];   
-        } */
-    }
+         }
     if(indexPath.row==1)
     {
         cell.textLabel.text=@"Bedrooms";
@@ -185,7 +158,6 @@
         
     } 
     if (indexPath.row==1) {
-        NSLog(@"%d",[strBedrooms  integerValue] );
         labelTitle.text=@"Bedrooms";
         self.arrayPicker1=[[NSMutableArray alloc]initWithObjects:@"0",@"1",@"2",@"3",@"4",@"5" ,nil];
         [pickerViewRefine reloadAllComponents];
@@ -244,8 +216,7 @@
         {
             if(i==0)
                 [arrayPicker2 addObject:[arrayPicker1 objectAtIndex:0]];
-            
-            if([self.strPickerSec1 integerValue]<=[[arrayPicker1 objectAtIndex:i] integerValue])
+              else if([self.strPickerSec1 integerValue]<=[[arrayPicker1 objectAtIndex:i] integerValue])
                 [arrayPicker2 addObject:[arrayPicker1 objectAtIndex:i]];
         }
     }
@@ -329,11 +300,16 @@
 #pragma mark-User Defined Functions
 -(IBAction)clickToDoneToolBarBtn:(id)sender
 {
+    NSLog(@"strPickerSec1=%@",self.strPickerSec1);
+    NSLog(@"strPickerSec2=%@",self.strPickerSec2);
+
     [self searchPropertyAfterRefining];
     pickerViewRefine.hidden=YES;
     toolBarRefine.hidden=YES;
     [self.arrayPicker1 removeAllObjects];
     [self.arrayPicker2 removeAllObjects];
+    self.strPickerSec1 =nil;
+    self.strPickerSec2=nil;
     tableViewRefine.userInteractionEnabled = YES;
     
     
@@ -355,7 +331,11 @@
         strPriceMax=self.strPickerSec2;
         if([strPriceMax integerValue]==0)
         {
+            if([strFor isEqualToString:@"SALE"])
             strPriceMax=@"1000001";
+            else
+                strPriceMax=@"1000";
+                
         }
     }
     if([labelTitle.text isEqualToString:@"Bedrooms"])
@@ -378,61 +358,8 @@
 }
 -(IBAction)clickTosearchBarBtn:(id)sender
 {
-    if([strGPS isEqualToString:@"GPS"])
-    {
-        isFromCrrntLoc=YES;   
-    }
-    else
-    {
-        isFromCrrntLoc=NO;
-    }
-    srcPtrn=[[SearchPattren alloc]init];
-    [srcPtrn searchPropertyWheretransaction_type:strFor fromLocation:strLocation fromMinPrice:strPriceMin toMaxPrice:strPriceMax withBedrooms:strBedrooms withSorting:strSortBy arrangeWithOrder:strAscending gpsEnabled:isFromCrrntLoc Inarray:arrayRefine];
-    [arrayRefine removeAllObjects];
-    arrayRefine=[[NSMutableArray alloc]initWithArray:srcPtrn.arrayResult];
     [self.navigationController popViewControllerAnimated:YES];
-   /* [arrayRefine removeAllObjects];
-    if(isFromCrrntLoc==YES)
-    {
-        for(int i=0;i<[arraySearch count];i++)
-        {
-            CLLocationCoordinate2D corrd2;
-            corrd2.latitude=[[[arraySearch objectAtIndex:i] objectForKey:@"latitude"] doubleValue];
-            corrd2.longitude=[[[arraySearch objectAtIndex:i] objectForKey:@"longitude"] doubleValue];
-            if (([self kilometresBetweenPlace1:corrd andPlace2:corrd2] < [strRadius doubleValue])) {
-                if([[[arraySearch objectAtIndex:i] objectForKey:kbedrooms] integerValue] >= [strBedrooms integerValue] && (([[[arraySearch objectAtIndex:i] objectForKey:@"price"] integerValue]<=[strPriceMax integerValue]) && ([[[arraySearch objectAtIndex:i] objectForKey:@"price"] integerValue]>=[strPriceMin integerValue])))
-                [arrayRefine addObject:[arraySearch objectAtIndex:i]];
-            }
-        }
-        
-    }
-    else
-    {
-        for(int i=0;i<[arraySearch count];i++)
-        {
-            NSLog(@"test1");
-            if([[[arraySearch objectAtIndex:i] objectForKey:kbedrooms] integerValue] >= [strBedrooms integerValue] && (([[[arraySearch objectAtIndex:i] objectForKey:@"price"] integerValue]<=[strPriceMax integerValue]) && ([[[arraySearch objectAtIndex:i] objectForKey:@"price"] integerValue]>=[strPriceMin integerValue])))
-            {
-                [arrayRefine addObject:[arraySearch objectAtIndex:i]];  
-            }
-            
-        }
-    }
-    NSSortDescriptor *myDescriptor;
-    if([strAscending isEqualToString:@"Descending"])
-    {
-        myDescriptor = [[NSSortDescriptor alloc] initWithKey:[NSString stringWithFormat:@"%@",strSortBy] ascending:NO];
-    }
-    else
-    {
-        myDescriptor = [[NSSortDescriptor alloc] initWithKey:[NSString stringWithFormat:@"%@",strSortBy] ascending:YES];   
-    }
-    [arrayRefine sortUsingDescriptors:[NSArray arrayWithObject:myDescriptor]];
-    NSLog(@"array refine=%@",arrayRefine);
-    NSLog(@"array refine count=%d",[arrayRefine count]);
-    //    SearchResultViewController *srvc=[[SearchResultViewController alloc]init];
-    //    [srvc setArraySearchResult:arrayRefine]; */
-    
+  
 }
 -(IBAction)clickToCancelNavBtn:(id)sender;
 {
@@ -447,17 +374,6 @@
     [self.navigationController popViewControllerAnimated:YES];
     
     
-}
-#pragma mark - To find distace between Locations(b/w 10KM)
-
--(double)kilometresBetweenPlace1:(CLLocationCoordinate2D) place1 andPlace2:(CLLocationCoordinate2D) place2 {
-    
-    double dlon = convertToRadians(place2.longitude - place1.longitude);
-    double dlat = convertToRadians(place2.latitude - place1.latitude);
-    
-    double a = ( pow(sin(dlat / 2), 2) + cos(convertToRadians(place1.latitude))) * cos(convertToRadians(place2.latitude)) * pow(sin(dlon / 2), 2);
-    double angle = 2 * asin(sqrt(a));
-    return angle * RADIO;
 }
 
 

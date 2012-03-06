@@ -52,5 +52,5 @@
 @property(retain)NSString *stringLat;
 @property(retain)NSString *stringLong;
 
-@property(retain,nonatomic)IBOutlet MKMapView *mpView;
+@property(retain,nonatomic)MKMapView *mpView;
 @end

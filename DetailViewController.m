@@ -89,12 +89,13 @@
 - (void)viewDidLoad
 {
     
+    NSLog(@"in detail view controller");
     self.navigationItem.title = TITLENAV;
     toolbar.tintColor = COLORBAC;
     self.navigationController.navigationBar.tintColor   = COLORBAC;
     self.view.backgroundColor = COLORBAC;
     arraySavedProperty = [[NSMutableArray alloc] initWithArray:[ModalController getContforKey:SAVEDPROP]];
-    
+    NSLog(@"%@",arraySavedProperty  );
     
     ///for cell section 0
     imageMain=[[EGOImageView alloc]initWithFrame:CGRectMake(25, 11, 265, 145)];
@@ -107,6 +108,7 @@
     [labelAddress setBackgroundColor:[UIColor clearColor]];
     labelAddress.text=[dictResult objectForKey:@"address"];
 
+      self.stringRightTitle = @"Save"; 
     ///for cell section 1
     for(int i=0;i<[arraySavedProperty   count];i++)
     {
@@ -121,7 +123,9 @@
         
     }
     
-    [self  save];
+    self.navigationItem.rightBarButtonItem.title = self.stringRightTitle;
+    
+    
     arrayImages = [[NSMutableArray alloc] init];
     
     NSInteger countPhotos = 0; 
@@ -200,7 +204,7 @@
     ///for cell section 2
     self.stringDescSection4 = [NSString stringWithFormat:@"%@",[NSString stringWithFormat:@"%@, £%@            %@\nReference: %d \n \nDescription: \n%@",[dictResult objectForKey:@"property_type"],[dictResult objectForKey:@"price"],[dictResult objectForKey:@"pricetype"],[[dictResult objectForKey:@"id"] integerValue],[dictResult objectForKey:ksummary]]];
     
-    //NSLog(@"%@",dictResult);
+  
     
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
@@ -300,6 +304,7 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSLog(@"in cell");
     static NSString *CellIdentifier = @"cell";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];

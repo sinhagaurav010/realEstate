@@ -167,7 +167,7 @@
     
     [txtFldLoc resignFirstResponder];
     strFor=@"SALE";
-    strPriceMax=@"1000000";
+    strPriceMax=MAXPRICE;
     if([txtFldLoc.text length]>0)
     {
         strLocation=txtFldLoc.text;
@@ -180,14 +180,15 @@
         {
             strGPS=nil;
         }
+        SearchResultViewController *sdvc=[[SearchResultViewController alloc]init];
+        [self.navigationController pushViewController:sdvc animated:YES];
     }
     else
     {
         UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Info" message:@"Please enter postal code or Location." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
     }
-    SearchResultViewController *sdvc=[[SearchResultViewController alloc]init];
-    [self.navigationController pushViewController:sdvc animated:YES];
+   
 }
 
 #pragma mark -clickToToLet-
@@ -197,7 +198,7 @@
     [txtFldLoc resignFirstResponder];
     
     strFor=@"TO LET";
-    strPriceMax=@"1000";
+    strPriceMax=MAXPRICE;
     if([txtFldLoc.text length]>0)
     {
         strLocation=txtFldLoc.text;
@@ -210,14 +211,15 @@
         {
             strGPS=nil;
         }
+        SearchResultViewController *sdvc=[[SearchResultViewController alloc]init];
+        [self.navigationController pushViewController:sdvc animated:YES];
     }
     else
     {
         UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Info" message:@"Please enter postal code or Location." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
     }
-    SearchResultViewController *sdvc=[[SearchResultViewController alloc]init];
-    [self.navigationController pushViewController:sdvc animated:YES];
+
 }
 
 
@@ -292,6 +294,8 @@
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
+    if(isFromCrrntLoc==YES)
+        txtFldLoc.text=nil;
     //NSLog(@"in textFieldShouldBeginEditing");
     strGPS=nil;
     isFromCrrntLoc=NO; 

@@ -62,13 +62,23 @@
     [dictSaved setValue:strRadius forKey:@"RADIUS"];
     [dictSaved setValue:strGPS forKey:@"GPSENABLED"];
     arraySavedSearches =[[NSMutableArray alloc]initWithObjects:dictSaved, nil];
-    if([strFor isEqualToString:@"SALE"])
+    if([[[arraySavedSearches objectAtIndex:0]objectForKey:@"FOR"] isEqualToString:@"SALE"])
     {
-        labelPrice.text=[NSString stringWithFormat:@"£%dk - £%dk ",[strPriceMin integerValue]/1000,[strPriceMax integerValue]/1000];
+        if([[[arraySavedSearches objectAtIndex:0]objectForKey:@"MINPRICE"] integerValue] ==0 && [[[arraySavedSearches objectAtIndex:0]objectForKey:@"MAXPRICE"] integerValue]==[MAXPRICE integerValue])
+            labelPrice.text=@"Any Price";
+        else if([[[arraySavedSearches objectAtIndex:0]objectForKey:@"MINPRICE"] integerValue] >0 && [[[arraySavedSearches objectAtIndex:0]objectForKey:@"MAXPRICE"] integerValue]==[MAXPRICE integerValue])
+           labelPrice.text=[NSString stringWithFormat:@"£%dk and over",[[[arraySavedSearches objectAtIndex:0]objectForKey:@"MINPRICE"] integerValue]/1000];
+        else   
+            labelPrice.text=[NSString stringWithFormat:@"£%dk - £%dk ",[[[arraySavedSearches objectAtIndex:0]objectForKey:@"MINPRICE"] integerValue]/1000,[[[arraySavedSearches objectAtIndex:0]objectForKey:@"MAXPRICE"] integerValue]/1000];
     }
     else
     {
-        labelPrice.text=[NSString stringWithFormat:@"£%d - £%d ",[strPriceMin integerValue],[strPriceMax integerValue]];
+        if([[[arraySavedSearches objectAtIndex:0]objectForKey:@"MINPRICE"] integerValue] ==0 && [[[arraySavedSearches objectAtIndex:0]objectForKey:@"MAXPRICE"] integerValue]==[MAXPRICE integerValue])
+            labelPrice.text=@"Any Price";
+        else if([[[arraySavedSearches objectAtIndex:0]objectForKey:@"MINPRICE"] integerValue] >0 && [[[arraySavedSearches objectAtIndex:0]objectForKey:@"MAXPRICE"] integerValue]==[MAXPRICE integerValue])
+            labelPrice.text=[NSString stringWithFormat:@"£%d and over",[[[arraySavedSearches objectAtIndex:0]objectForKey:@"MINPRICE"] integerValue]];
+        else   
+            labelPrice.text=[NSString stringWithFormat:@"£%d - £%d ",[[[arraySavedSearches objectAtIndex:0]objectForKey:@"MINPRICE"] integerValue],[[[arraySavedSearches objectAtIndex:0]objectForKey:@"MAXPRICE"] integerValue]];
     }
     NSLog(@"arraySavedSearches=%@",arraySavedSearches);
     labelBedrooms.text=[NSString stringWithFormat:@"%d or more",[[[arraySavedSearches objectAtIndex:0] objectForKey:@"BEDROOMS"] integerValue]];
@@ -111,13 +121,13 @@
 	}
     
     [cell  addImage:[[arraySearchResult objectAtIndex:indexPath.row]objectForKey:@"main_ photo"]];
-    
-    [cell  addLabel:[NSString stringWithFormat:@"£%@",[[arraySearchResult objectAtIndex:indexPath.row]objectForKey:kprice]] withType:[NSString stringWithFormat:@"%@",[[arraySearchResult objectAtIndex:indexPath.row]objectForKey:kpricetype]] withBedRoom:[NSString stringWithFormat:@"%@ Bedrooms",[[arraySearchResult objectAtIndex:indexPath.row]objectForKey:kbedrooms]] withDesc:[[arraySearchResult objectAtIndex:indexPath.row]objectForKey:kaddress]];
-    //    cell.lablePrice.text=[NSString stringWithFormat:@"£%@",[[arraySearchResult objectAtIndex:indexPath.row]objectForKey:kprice]];
-    //    cell.lablePricetype.text=[[arraySearchResult objectAtIndex:indexPath.row]objectForKey:kpricetype];
-    //    cell.labelBedRoom.text=[NSString stringWithFormat:@"%@ Bed Rooms",[[arraySearchResult objectAtIndex:indexPath.row]objectForKey:kbedrooms]];
-    //    cell.labelDescription.text=[[arraySearchResult objectAtIndex:indexPath.row]objectForKey:kaddress];
-    //    
+    NSString *priceTemp;
+    if([[[arraySearchResult objectAtIndex:indexPath.row]objectForKey:kprice] integerValue]>=10000)
+       priceTemp=[NSString stringWithFormat:@"%d,000",[[[arraySearchResult objectAtIndex:indexPath.row]objectForKey:kprice]integerValue]/1000];   
+    else
+        priceTemp=[NSString stringWithFormat:@"%d",[[[arraySearchResult objectAtIndex:indexPath.row]objectForKey:kprice]integerValue]];
+        
+    [cell  addLabel:[NSString stringWithFormat:@"Price £%@",priceTemp] withType:[NSString stringWithFormat:@"%@",[[arraySearchResult objectAtIndex:indexPath.row]objectForKey:kpricetype]] withBedRoom:[NSString stringWithFormat:@"%@ Bedrooms",[[arraySearchResult objectAtIndex:indexPath.row]objectForKey:kbedrooms]] withDesc:[NSString stringWithFormat:@"%@, %@",[[arraySearchResult objectAtIndex:indexPath.row]objectForKey:kaddress],[[arraySearchResult objectAtIndex:indexPath.row]objectForKey:ktown]]];
     cell.accessoryType = 1;
     
     return (UITableViewCell *)cell;

@@ -77,16 +77,26 @@
     {
         cell = [[[NSBundle mainBundle] loadNibNamed:@"SavedSearches" owner:self options:nil] lastObject] ;
     }
- 
-    if([[[arraySavedSearchesResult objectAtIndex:indexPath.row] objectForKey:@"FOR"] isEqualToString:@"SALE"])
+    
+   if([[[arraySavedSearchesResult objectAtIndex:indexPath.row] objectForKey:@"FOR"] isEqualToString:@"SALE"])
     {
-        cell.labelPrice.text=[NSString stringWithFormat:@"£%dk - £%dk ",[[[arraySavedSearchesResult objectAtIndex:indexPath.row] objectForKey:@"MINPRICE"] integerValue]/1000,[[[arraySavedSearchesResult objectAtIndex:indexPath.row] objectForKey:@"MAXPRICE"] integerValue]/1000];
+        if([[[arraySavedSearchesResult objectAtIndex:indexPath.row]objectForKey:@"MINPRICE"] integerValue] ==0 && [[[arraySavedSearchesResult objectAtIndex:indexPath.row]objectForKey:@"MAXPRICE"] integerValue]==[MAXPRICE integerValue])
+            cell.labelPrice.text=@"Any Price";
+        else if([[[arraySavedSearchesResult objectAtIndex:indexPath.row]objectForKey:@"MINPRICE"] integerValue] >0 && [[[arraySavedSearchesResult objectAtIndex:indexPath.row]objectForKey:@"MAXPRICE"] integerValue]==[MAXPRICE integerValue])
+            cell.labelPrice.text=[NSString stringWithFormat:@"£%dk and over",[[[arraySavedSearchesResult objectAtIndex:indexPath.row]objectForKey:@"MINPRICE"] integerValue]/1000];
+        else   
+            cell.labelPrice.text=[NSString stringWithFormat:@"£%dk - £%dk ",[[[arraySavedSearchesResult objectAtIndex:indexPath.row]objectForKey:@"MINPRICE"] integerValue]/1000,[[[arraySavedSearchesResult objectAtIndex:indexPath.row]objectForKey:@"MAXPRICE"] integerValue]/1000];
     }
     else
     {
-        cell.labelPrice.text=[NSString stringWithFormat:@"£%d - £%d ",[[[arraySavedSearchesResult objectAtIndex:indexPath.row] objectForKey:@"MINPRICE"] integerValue],[[[arraySavedSearchesResult objectAtIndex:indexPath.row] objectForKey:@"MAXPRICE"] integerValue]];
+        if([[[arraySavedSearchesResult objectAtIndex:indexPath.row]objectForKey:@"MINPRICE"] integerValue] ==0 && [[[arraySavedSearchesResult objectAtIndex:indexPath.row]objectForKey:@"MAXPRICE"] integerValue]==[MAXPRICE integerValue])
+            cell.labelPrice.text=@"Any Price";
+        else if([[[arraySavedSearchesResult objectAtIndex:indexPath.row]objectForKey:@"MINPRICE"] integerValue] >0 && [[[arraySavedSearchesResult objectAtIndex:indexPath.row]objectForKey:@"MAXPRICE"] integerValue]==[MAXPRICE integerValue])
+            cell.labelPrice.text=[NSString stringWithFormat:@"£%d and over",[[[arraySavedSearchesResult objectAtIndex:indexPath.row]objectForKey:@"MINPRICE"] integerValue]/1000];
+        else   
+            cell.labelPrice.text=[NSString stringWithFormat:@"£%d - £%d ",[[[arraySavedSearchesResult objectAtIndex:indexPath.row]objectForKey:@"MINPRICE"] integerValue],[[[arraySavedSearchesResult objectAtIndex:indexPath.row]objectForKey:@"MAXPRICE"] integerValue]];
     }
-    
+
     cell.labelFor.text=[[arraySavedSearchesResult objectAtIndex:indexPath.row] objectForKey:@"FOR"];
    
     cell.labelLocation.text=[[arraySavedSearchesResult objectAtIndex:indexPath.row] objectForKey:@"LOCATION"];
@@ -124,9 +134,8 @@
         // If I comment this line out the delete works but I no longer have the animation
         [arraySavedSearchesResult removeObjectAtIndex:indexPath.row];
         [tableViewSavedSearches deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        [ModalController saveTheContent:arraySavedSearchesResult withKey:SAVESEARCHES];
         //[ModalController removeContentForKey:SAVESEARCHES];
-        [tableViewSavedSearches reloadData];
+        [ModalController saveTheContent:arraySavedSearchesResult withKey:SAVESEARCHES];        [tableViewSavedSearches reloadData];
         
     }
     

@@ -78,8 +78,13 @@
 	}
     
     [cell  addImage:[[arraySaveProResult objectAtIndex:indexPath.row]objectForKey:@"main_ photo"]];
+    NSString *priceTemp;
+    if([[[arraySaveProResult objectAtIndex:indexPath.row]objectForKey:kprice] integerValue]>=10000)
+        priceTemp=[NSString stringWithFormat:@"%d,000",[[[arraySaveProResult objectAtIndex:indexPath.row]objectForKey:kprice]integerValue]/1000];   
+    else
+        priceTemp=[NSString stringWithFormat:@"%d",[[[arraySaveProResult objectAtIndex:indexPath.row]objectForKey:kprice]integerValue]];
     
-    [cell  addLabel:[NSString stringWithFormat:@"£%@",[[arraySaveProResult objectAtIndex:indexPath.row]objectForKey:kprice]] withType:[NSString stringWithFormat:@"%@",[[arraySaveProResult objectAtIndex:indexPath.row]objectForKey:kpricetype]] withBedRoom:[NSString stringWithFormat:@"%@ Bedrooms",[[arraySaveProResult objectAtIndex:indexPath.row]objectForKey:kbedrooms]] withDesc:[[arraySaveProResult objectAtIndex:indexPath.row]objectForKey:kaddress]];
+    [cell  addLabel:[NSString stringWithFormat:@"Price £%@",priceTemp] withType:[NSString stringWithFormat:@"%@",[[arraySaveProResult objectAtIndex:indexPath.row]objectForKey:kpricetype]] withBedRoom:[NSString stringWithFormat:@"%@ Bedrooms",[[arraySaveProResult objectAtIndex:indexPath.row]objectForKey:kbedrooms]] withDesc:[[arraySaveProResult objectAtIndex:indexPath.row]objectForKey:kaddress]];
     //    cell.lablePrice.text=[NSString stringWithFormat:@"£%@",[[arraySearchResult objectAtIndex:indexPath.row]objectForKey:kprice]];
     //    cell.lablePricetype.text=[[arraySearchResult objectAtIndex:indexPath.row]objectForKey:kpricetype];
     //    cell.labelBedRoom.text=[NSString stringWithFormat:@"%@ Bed Rooms",[[arraySearchResult objectAtIndex:indexPath.row]objectForKey:kbedrooms]];
@@ -113,7 +118,6 @@
         // If I comment this line out the delete works but I no longer have the animation
         [arraySaveProResult removeObjectAtIndex:indexPath.row];
         [tableViewSaveProp deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        
         [ModalController saveTheContent:arraySaveProResult withKey:SAVEDPROP];
         [tableViewSaveProp reloadData];
         

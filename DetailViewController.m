@@ -95,21 +95,8 @@
     self.navigationController.navigationBar.tintColor   = COLORBAC;
     self.view.backgroundColor = COLORBAC;
     arraySavedProperty = [[NSMutableArray alloc] initWithArray:[ModalController getContforKey:SAVEDPROP]];
-    NSLog(@"%@",arraySavedProperty  );
+    self.stringRightTitle = @"Save"; 
     
-    ///for cell section 0
-    imageMain=[[EGOImageView alloc]initWithFrame:CGRectMake(25, 11, 265, 145)];
-    
-    imageMain.placeholderImage = [UIImage  imageNamed:@"place_holder_small.jpg"];
-    NSURL *imageUrl=[NSURL URLWithString:[dictResult objectForKey:@"main_ photo"]];
-    imageMain.imageURL=imageUrl;
-    
-    labelAddress =[[UILabel alloc]initWithFrame:CGRectMake(25, 161, 270, 21)];
-    [labelAddress setBackgroundColor:[UIColor clearColor]];
-    labelAddress.text=[dictResult objectForKey:@"address"];
-
-      self.stringRightTitle = @"Save"; 
-    ///for cell section 1
     for(int i=0;i<[arraySavedProperty   count];i++)
     {
         if([[[arraySavedProperty  objectAtIndex:i] objectForKey:kid] integerValue] ==[[dictResult objectForKey:kid] integerValue])
@@ -125,7 +112,24 @@
     
     self.navigationItem.rightBarButtonItem.title = self.stringRightTitle;
     
+
+   // NSLog(@"arraySavedProperty=%@",arraySavedProperty  );
     
+    ///for cell section 0
+    imageMain=[[EGOImageView alloc]initWithFrame:CGRectMake(40, 11,240, 150)];
+    
+    imageMain.placeholderImage = [UIImage  imageNamed:@"place_holder_small.jpg"];
+    NSURL *imageUrl=[NSURL URLWithString:[dictResult objectForKey:@"main_ photo"]];
+    imageMain.imageURL=imageUrl;
+    
+    labelAddress =[[UILabel alloc]initWithFrame:CGRectMake(30, 165, 270, 40)];
+    [labelAddress setBackgroundColor:[UIColor clearColor]];
+    labelAddress.font = [UIFont systemFontOfSize:15];  
+    labelAddress.numberOfLines = 2;  
+    labelAddress.lineBreakMode = UILineBreakModeWordWrap; 
+    labelAddress.text=[NSString stringWithFormat:@"%@, %@",[dictResult objectForKey:kaddress],[dictResult objectForKey:ktown]];
+   
+      ///for cell section 1 
     arrayImages = [[NSMutableArray alloc] init];
     
     NSInteger countPhotos = 0; 
@@ -153,7 +157,7 @@
         singleTapOne.numberOfTouchesRequired = 1; 
         //    singleTapOne.delegate = self;
         [imgEgo addGestureRecognizer:singleTapOne];
-        [singleTapOne release];
+      //  [singleTapOne release];
         
         
         imgEgo.placeholderImage = [UIImage imageNamed:@"place_holder_small.jpg"];
@@ -202,7 +206,13 @@
     
     
     ///for cell section 2
-    self.stringDescSection4 = [NSString stringWithFormat:@"%@",[NSString stringWithFormat:@"%@, £%@            %@\nReference: %d \n \nDescription: \n%@",[dictResult objectForKey:@"property_type"],[dictResult objectForKey:@"price"],[dictResult objectForKey:@"pricetype"],[[dictResult objectForKey:@"id"] integerValue],[dictResult objectForKey:ksummary]]];
+    NSString *priceTemp;
+    if([[dictResult objectForKey:kprice] integerValue]>=10000)
+        priceTemp=[NSString stringWithFormat:@"%d,000",[[dictResult objectForKey:kprice]integerValue]/1000];   
+    else
+        priceTemp=[NSString stringWithFormat:@"%d",[[dictResult objectForKey:kprice]integerValue]];
+
+    self.stringDescSection4 = [NSString stringWithFormat:@"%@",[NSString stringWithFormat:@"%@, Price £%@     %@\nReference: %d \n \nDescription: \n%@",[dictResult objectForKey:@"property_type"],priceTemp,[dictResult objectForKey:@"pricetype"],[[dictResult objectForKey:@"id"] integerValue],[dictResult objectForKey:ksummary]]];
     
   
     
@@ -248,7 +258,7 @@
     switch (indexPath.section) {
         case 0:
         {
-            return 193;
+            return 205;
             break;
         }
         case 1:
@@ -309,7 +319,7 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"hi"] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"hi"];
     }
     
     
@@ -396,8 +406,8 @@
 {
     MKCoordinateRegion region;
     MKCoordinateSpan span;
-    span.latitudeDelta=0.1;
-    span.longitudeDelta=0.1;
+    span.latitudeDelta=0.05;
+    span.longitudeDelta=0.05;
     self.mpView.delegate = self;
     CLLocationCoordinate2D location=self.mpView.userLocation.coordinate;
     
@@ -451,8 +461,6 @@
 	annView.calloutOffset = CGPointMake(-5, 5);
 	annView.animatesDrop=NO; 
 	return annView;
-    ;
-    
 }
 
 @end

@@ -17,7 +17,8 @@
     IBOutlet UIToolbar *toolBarRefine;
     IBOutlet UILabel *labelTitle;
     SearchPattren *srcPtrn;
-    
+    IBOutlet UIView *ViewRefine;
+      UIActionSheet *actionSheet;
 }
 //@property(strong,nonatomic) NSMutableArray *arrayRefine;
 @property(strong,nonatomic) NSMutableArray *arrayPicker1;
@@ -30,6 +31,6 @@
 -(IBAction)clickToCancelToolBarBtn:(id)sender;
 -(void)searchPropertyAfterRefining;
 -(IBAction)clickToCancelNavBtn:(id)sender;
-
+-(void)showActionPickerView;
 
 @end

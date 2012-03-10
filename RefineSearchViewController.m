@@ -48,8 +48,8 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     self.navigationItem.hidesBackButton=YES;
-    pickerViewRefine.hidden=YES;
-    toolBarRefine.hidden=YES;
+   // pickerViewRefine.hidden=YES;
+   // toolBarRefine.hidden=YES;
 }
 - (void)viewDidUnload
 {
@@ -84,7 +84,7 @@
     NSLog(@"***********************************");
     NSLog(@"minPrice=%d,maxPrice=%d,bedrooms=%d,sort by=%@,strAscending=%@,strRadius=%f",[strPriceMin integerValue],[strPriceMax integerValue],[strBedrooms integerValue],strSortBy,strAscending,[strRadius floatValue]);
     NSLog(@"***********************************");
-
+    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
@@ -94,13 +94,24 @@
         cell.textLabel.text=@"Price Range";
         if([strFor isEqualToString:@"SALE"])
         {
-            cell.detailTextLabel.text=[NSString stringWithFormat:@"£%dk - £%dk ",[strPriceMin integerValue]/1000,[strPriceMax integerValue]/1000];
+            if([strPriceMin integerValue] ==0 && [strPriceMax integerValue]==[MAXPRICE integerValue])
+                cell.detailTextLabel.text=@"Any Price";
+            else if([strPriceMin integerValue] >0 && [strPriceMax integerValue]==[MAXPRICE integerValue])
+                cell.detailTextLabel.text=[NSString stringWithFormat:@"£%dk and over",[strPriceMin integerValue]/1000];
+            else   
+                cell.detailTextLabel.text=[NSString stringWithFormat:@"£%dk - £%dk ",[strPriceMin integerValue]/1000,[strPriceMax integerValue]/1000];
         }
         else
         {
-             cell.detailTextLabel.text=[NSString stringWithFormat:@"£%d - £%d ",[strPriceMin integerValue],[strPriceMax integerValue]];
+            if([strPriceMin integerValue] ==0 && [strPriceMax integerValue]==[MAXPRICE integerValue])
+                cell.detailTextLabel.text=@"Any Price";
+            else if([strPriceMin integerValue] >0 && [strPriceMax integerValue]==[MAXPRICE integerValue])
+                cell.detailTextLabel.text=[NSString stringWithFormat:@"£%d and over",[strPriceMin integerValue]];
+            else
+            cell.detailTextLabel.text=[NSString stringWithFormat:@"£%d - £%d ",[strPriceMin integerValue],[strPriceMax integerValue]];
         }
-         }
+        
+    }
     if(indexPath.row==1)
     {
         cell.textLabel.text=@"Bedrooms";
@@ -137,7 +148,7 @@
         else
         {
             self.arrayPicker1=[[NSMutableArray alloc]initWithObjects:@"0",@"250",@"300",@"400",@"500",@"600",@"700",@"800",@"1000",nil];
-             self.arrayPicker2=[[NSMutableArray alloc]initWithObjects:@"0",@"250",@"300",@"400",@"500",@"600",@"700",@"800",@"1000",nil];
+            self.arrayPicker2=[[NSMutableArray alloc]initWithObjects:@"0",@"250",@"300",@"400",@"500",@"600",@"700",@"800",@"1000",nil];
             
         }
         for(int i=0;i< [self.arrayPicker1 count];i++)
@@ -197,9 +208,10 @@
         [pickerViewRefine  selectRow:indexInPckSel1 inComponent:0 animated:NO];
         strPickerSec1=strRadius;
     }
-    pickerViewRefine.hidden=NO;
-    toolBarRefine.hidden=NO;
-    tableViewRefine.userInteractionEnabled = NO;
+    [self showActionPickerView];
+  //  pickerViewRefine.hidden=NO;
+  //  toolBarRefine.hidden=NO;
+   // tableViewRefine.userInteractionEnabled = NO;
     
     
 }
@@ -216,11 +228,11 @@
         {
             if(i==0)
                 [arrayPicker2 addObject:[arrayPicker1 objectAtIndex:0]];
-              else if([self.strPickerSec1 integerValue]<=[[arrayPicker1 objectAtIndex:i] integerValue])
+            else if([self.strPickerSec1 integerValue]<=[[arrayPicker1 objectAtIndex:i] integerValue])
                 [arrayPicker2 addObject:[arrayPicker1 objectAtIndex:i]];
         }
     }
-   // NSLog(@"array picker2=%@",arrayPicker2);
+    // NSLog(@"array picker2=%@",arrayPicker2);
     [pickerViewRefine  selectRow:0 inComponent:1 animated:NO];
     [pickerViewRefine reloadComponent:1];
 }
@@ -298,14 +310,22 @@
 
 
 #pragma mark-User Defined Functions
+-(void)showActionPickerView
+{
+    actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:nil cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+    [actionSheet addSubview:ViewRefine];
+    [actionSheet showInView:self.view];
+    [actionSheet setBounds:CGRectMake(0, 0, 320, 485)];
+}
 -(IBAction)clickToDoneToolBarBtn:(id)sender
 {
     NSLog(@"strPickerSec1=%@",self.strPickerSec1);
     NSLog(@"strPickerSec2=%@",self.strPickerSec2);
-
+    
     [self searchPropertyAfterRefining];
-    pickerViewRefine.hidden=YES;
-    toolBarRefine.hidden=YES;
+    [actionSheet dismissWithClickedButtonIndex:0 animated:YES]; 
+   // pickerViewRefine.hidden=YES;
+   // toolBarRefine.hidden=YES;
     [self.arrayPicker1 removeAllObjects];
     [self.arrayPicker2 removeAllObjects];
     self.strPickerSec1 =nil;
@@ -319,8 +339,9 @@
     tableViewRefine.userInteractionEnabled = YES;
     [self.arrayPicker1 removeAllObjects];
     [self.arrayPicker2 removeAllObjects];
-    pickerViewRefine.hidden=YES;
-    toolBarRefine.hidden=YES;
+    [actionSheet dismissWithClickedButtonIndex:0 animated:YES]; 
+   // pickerViewRefine.hidden=YES;
+   // toolBarRefine.hidden=YES;
 }
 -(void)searchPropertyAfterRefining
 {
@@ -332,10 +353,10 @@
         if([strPriceMax integerValue]==0)
         {
             if([strFor isEqualToString:@"SALE"])
-            strPriceMax=@"1000001";
+                strPriceMax=MAXPRICE;
             else
-                strPriceMax=@"1000";
-                
+                strPriceMax=MAXPRICE;
+            
         }
     }
     if([labelTitle.text isEqualToString:@"Bedrooms"])
@@ -359,7 +380,7 @@
 -(IBAction)clickTosearchBarBtn:(id)sender
 {
     [self.navigationController popViewControllerAnimated:YES];
-  
+    
 }
 -(IBAction)clickToCancelNavBtn:(id)sender;
 {

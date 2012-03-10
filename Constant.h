@@ -29,7 +29,8 @@
 #define kthumb @"thumb"
 #define ktransaction_type @"transaction_type"
 #define kurl @"url"
-
+#define ktown @"town"
+#define MAXPRICE @"10000000"
 #define KMRANGE 10.79
 #define PIx 3.141592653589793
 #define RADIO 6371

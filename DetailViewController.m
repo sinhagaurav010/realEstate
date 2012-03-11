@@ -111,7 +111,7 @@
     }
     
     self.navigationItem.rightBarButtonItem.title = self.stringRightTitle;
-    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:stringRightTitle style:UIBarButtonItemStyleDone target:self  action:@selector(save)];
 
    // NSLog(@"arraySavedProperty=%@",arraySavedProperty  );
     
@@ -235,8 +235,7 @@
 }
 -(void)viewWillAppear:(BOOL)animated
 {
-     self.stringRightTitle = @"Save";
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:stringRightTitle style:UIBarButtonItemStyleDone target:self  action:@selector(save)];
+    
    
 }
 - (void)viewDidUnload

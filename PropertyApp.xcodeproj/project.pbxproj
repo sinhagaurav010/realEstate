@@ -140,7 +140,6 @@
 		C90524AB14F9A0B300D62E24 /* CJSONSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJSONSerializer.h; sourceTree = "<group>"; };
 		C90524AC14F9A0B300D62E24 /* CJSONSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJSONSerializer.m; sourceTree = "<group>"; };
 		C90524AD14F9A0B300D62E24 /* JSONRepresentation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONRepresentation.h; sourceTree = "<group>"; };
-		C98BCC9414FA0F4000E1E9F7 /* constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = constants.h; sourceTree = "<group>"; };
 		C98BCC9B14FA137100E1E9F7 /* searchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = searchCell.h; sourceTree = "<group>"; };
 		C98BCC9C14FA137100E1E9F7 /* searchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = searchCell.m; sourceTree = "<group>"; };
 		C98BCC9E14FA138800E1E9F7 /* searchCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = searchCell.xib; sourceTree = "<group>"; };
@@ -253,7 +252,6 @@
 				C98BCCBD14FA2E0100E1E9F7 /* PropertyDescViewController */,
 				C98BCCAF14FA14C500E1E9F7 /* EGOImageView */,
 				C98BCCB014FA14D800E1E9F7 /* cellView */,
-				C98BCC9214FA0F2900E1E9F7 /* constants */,
 				C905249514F9A0B300D62E24 /* Source */,
 				C905247F14F98D5200D62E24 /* MBProgressHud */,
 				C905247B14F98C2A00D62E24 /* Json */,
@@ -417,14 +415,6 @@
 				C90524AD14F9A0B300D62E24 /* JSONRepresentation.h */,
 			);
 			path = JSON;
-			sourceTree = "<group>";
-		};
-		C98BCC9214FA0F2900E1E9F7 /* constants */ = {
-			isa = PBXGroup;
-			children = (
-				C98BCC9414FA0F4000E1E9F7 /* constants.h */,
-			);
-			name = constants;
 			sourceTree = "<group>";
 		};
 		C98BCCAF14FA14C500E1E9F7 /* EGOImageView */ = {

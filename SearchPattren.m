@@ -78,7 +78,7 @@ double convertToRadians(double val) {
     }
    
     NSSortDescriptor *myDescriptor;
-    if(orderArrange==@"Ascending")
+    if([orderArrange isEqualToString:@"Ascending"])
     {
         myDescriptor = [[NSSortDescriptor alloc] initWithKey:[NSString stringWithFormat:@"%@",sortBy] ascending:YES];
     }

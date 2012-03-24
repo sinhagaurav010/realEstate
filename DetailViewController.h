@@ -22,13 +22,14 @@
 #import "BroucherViewController.h"
 
 
-@interface DetailViewController : UIViewController<MFMailComposeViewControllerDelegate,MKMapViewDelegate>
+@interface DetailViewController : UIViewController<MFMailComposeViewControllerDelegate,MKMapViewDelegate,UIScrollViewDelegate,UIWebViewDelegate>
 {
     NSMutableArray *arrayImages;
     UILabel *labelAddress;
     EGOImageView *imageMain;
     UILabel *labeltelephone;
     UILabel *l1;
+    NSInteger countPhotos;
     UIScrollView *scrlView;
     IBOutlet  UITableView *tableViewDesc;
     IBOutlet UIToolbar *toolbar;
@@ -37,7 +38,14 @@
     EGOImageView *imageMAin2;
     UILabel *labelAgentDescp;
     UIWebView *webViewDescp;
-    
+    // Paging
+    UIButton *leftBtn;
+    UIButton *rightBtn;
+	NSMutableSet *visiblePages, *recycledPages;
+    int currentPageIndex;
+    CGSize labelSize;
+    NSString *priceTemp;
+    int temp;
 }
 -(IBAction)callAgent:(id)sender;
 
@@ -46,11 +54,15 @@
 @property(retain)NSMutableDictionary *dictResult;
 @property(retain)    NSString *stringDescSection4;
 
-
 -(void)createMap;
 @property (nonatomic, assign) CLLocationCoordinate2D coordinate;
 @property(retain)NSString *stringLat;
 @property(retain)NSString *stringLong;
 
 @property(retain,nonatomic)MKMapView *mpView;
+
+-(void)tilePages;
+
+- (void)gotoPreviousPage;
+- (void)gotoNextPage;
 @end

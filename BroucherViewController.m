@@ -9,7 +9,7 @@
 #import "BroucherViewController.h"
 #import "MBProgressHUD.h"
 @implementation BroucherViewController
-@synthesize strUrlBroucher;
+@synthesize strUrlBroucher,webViewBroucher;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -34,7 +34,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     navBarBroucher.tintColor=[UIColor colorWithRed:0.0f/255.0f green:51.0f/255.0f blue:87.0f/255.0f alpha:1.0f];
-    [webViewBroucher loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:strUrlBroucher]]]; 
+    [self.webViewBroucher loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:strUrlBroucher]]]; 
 }
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {

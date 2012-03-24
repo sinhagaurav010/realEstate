@@ -43,7 +43,7 @@
 							<object class="IBUIImageView" id="424705322">
 								<reference key="NSNextResponder" ref="1064412699"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{9, 8}, {80, 80}}</string>
+								<string key="NSFrame">{{9, 7}, {106, 85}}</string>
 								<reference key="NSSuperview" ref="1064412699"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="973090319"/>
@@ -145,14 +145,21 @@
 								<int key="IBUIContentMode">7</int>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<string key="IBUIText">Label</string>
+								<string key="IBUIText"/>
 								<reference key="IBUITextColor" ref="215050054"/>
 								<nil key="IBUIHighlightedColor"/>
 								<int key="IBUIBaselineAdjustment">0</int>
 								<float key="IBUIMinimumFontSize">10</float>
 								<int key="IBUINumberOfLines">3</int>
-								<reference key="IBUIFontDescription" ref="776367252"/>
-								<reference key="IBUIFont" ref="620541003"/>
+								<object class="IBUIFontDescription" key="IBUIFontDescription">
+									<int key="type">1</int>
+									<double key="pointSize">12</double>
+								</object>
+								<object class="NSFont" key="IBUIFont">
+									<string key="NSName">Helvetica</string>
+									<double key="NSSize">12</double>
+									<int key="NSfFlags">16</int>
+								</object>
 							</object>
 						</array>
 						<string key="NSFrameSize">{320, 98}</string>

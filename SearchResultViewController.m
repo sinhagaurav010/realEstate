@@ -127,7 +127,7 @@
     else
         priceTemp=[NSString stringWithFormat:@"%d",[[[arraySearchResult objectAtIndex:indexPath.row]objectForKey:kprice]integerValue]];
         
-    [cell  addLabel:[NSString stringWithFormat:@"Price £%@",priceTemp] withType:[NSString stringWithFormat:@"%@",[[arraySearchResult objectAtIndex:indexPath.row]objectForKey:kpricetype]] withBedRoom:[NSString stringWithFormat:@"%@ Bedrooms",[[arraySearchResult objectAtIndex:indexPath.row]objectForKey:kbedrooms]] withDesc:[NSString stringWithFormat:@"%@, %@",[[arraySearchResult objectAtIndex:indexPath.row]objectForKey:kaddress],[[arraySearchResult objectAtIndex:indexPath.row]objectForKey:ktown]]];
+    [cell  addLabel:[NSString stringWithFormat:@"£%@",priceTemp] withType:[NSString stringWithFormat:@"%@",[[arraySearchResult objectAtIndex:indexPath.row]objectForKey:kpricetype]] withBedRoom:[NSString stringWithFormat:@"%@ Bedrooms",[[arraySearchResult objectAtIndex:indexPath.row]objectForKey:kbedrooms]] withDesc:[NSString stringWithFormat:@"%@, %@",[[arraySearchResult objectAtIndex:indexPath.row]objectForKey:kaddress],[[arraySearchResult objectAtIndex:indexPath.row]objectForKey:ktown]]];
     cell.accessoryType = 1;
     
     return (UITableViewCell *)cell;

@@ -7,6 +7,7 @@
 //
 
 #import "DetailViewController.h"
+#define PADDING 10
 
 @implementation DetailViewController
 @synthesize dictResult,stringRightTitle;
@@ -44,7 +45,7 @@
         
         MFMailComposeViewController *mailViewController = [[MFMailComposeViewController alloc] init];
         mailViewController.mailComposeDelegate = self;
-        [mailViewController setSubject:@"Subject "];
+        [mailViewController setSubject:@"A Property I found"];
         [mailViewController setMessageBody:[NSString stringWithFormat:@"%@",[dictResult objectForKey:@"description"]] isHTML:NO];
         
         [self presentModalViewController:mailViewController animated:YES];
@@ -90,6 +91,7 @@
 {
     
     NSLog(@"in detail view controller");
+    currentPageIndex=0;
     self.navigationItem.title = TITLENAV;
     toolbar.tintColor = COLORBAC;
     self.navigationController.navigationBar.tintColor   = COLORBAC;
@@ -116,13 +118,13 @@
    // NSLog(@"arraySavedProperty=%@",arraySavedProperty  );
     
     ///for cell section 0
-    imageMain=[[EGOImageView alloc]initWithFrame:CGRectMake(40, 11,240, 150)];
+    imageMain=[[EGOImageView alloc]initWithFrame:CGRectMake(40,8 ,245, 155)];
     
     imageMain.placeholderImage = [UIImage  imageNamed:@"place_holder_small.jpg"];
     NSURL *imageUrl=[NSURL URLWithString:[dictResult objectForKey:@"main_ photo"]];
     imageMain.imageURL=imageUrl;
     
-    labelAddress =[[UILabel alloc]initWithFrame:CGRectMake(30, 165, 270, 40)];
+    labelAddress =[[UILabel alloc]initWithFrame:CGRectMake(30, 163, 270, 40)];
     [labelAddress setBackgroundColor:[UIColor clearColor]];
     labelAddress.font = [UIFont systemFontOfSize:15];  
     labelAddress.numberOfLines = 2;  
@@ -132,16 +134,23 @@
       ///for cell section 1 
     arrayImages = [[NSMutableArray alloc] init];
     
-    NSInteger countPhotos = 0; 
-    scrlView=[[UIScrollView alloc]initWithFrame:CGRectMake(30, 0, 260, 87)];
+    countPhotos = 0; 
+    scrlView=[[UIScrollView alloc]initWithFrame:CGRectMake(30, 0, 265, 87)];
     [scrlView setPagingEnabled:YES];
+    [scrlView setDelegate:self];
     for (int i=1; i<=12; i++) {
         if([[dictResult objectForKey:[NSString stringWithFormat:@"photo%d",i]] length]>0)
         {
-            countPhotos++;
+            if([[dictResult objectForKey:[NSString stringWithFormat:@"photo%d",i]] isEqualToString:@"http://www.bspc.co.uk/propertyphotos/phototh.jpg"])
+            {
+                
+            }
+            else
+               countPhotos++;
         }
     }
-    [scrlView setContentSize:CGSizeMake(100*countPhotos,0)];
+    [scrlView setContentSize:CGSizeMake(90*countPhotos,0)];
+    NSLog(@"scrlView setContentSize = %f",scrlView.contentSize.width);
     int inX=0;
     for(int i=1;i<=countPhotos;i++)
     {
@@ -173,16 +182,16 @@
         inX=inX+90;
         
     }
-
-
-   
-///for cell section 5
-    self.mpView=[[MKMapView alloc]initWithFrame:CGRectMake(13, 3, 295, 307)];
-    [self.mpView setUserInteractionEnabled:NO];
-    self.stringLat = [dictResult objectForKey:klatitude];
-    self.stringLong = [dictResult objectForKey:klongitude]; 
-    [self createMap];
+    temp=(int)ceil(countPhotos/3.0);
+    NSLog(@"temp=%d",temp);
+    ///for cell section 2
     
+    if([[dictResult objectForKey:kprice] integerValue]>=10000)
+        priceTemp=[NSString stringWithFormat:@"%d,000",[[dictResult objectForKey:kprice]integerValue]/1000];   
+    else
+        priceTemp=[NSString stringWithFormat:@"%d",[[dictResult objectForKey:kprice]integerValue]];
+    self.stringDescSection4 = [NSString stringWithFormat:@"%@",[NSString stringWithFormat:@"\n\n\n\n%@",[dictResult objectForKey:ksummary]]];
+   
     ///for cell section 4
     imageMAin2=[[EGOImageView alloc]initWithFrame:CGRectMake(12, 42, 120, 90)];
     imageMAin2.placeholderImage = [UIImage imageNamed:@"place_holder_small.jpg"];
@@ -204,19 +213,18 @@
     [labeltelephone setBackgroundColor:[UIColor clearColor]];
     labeltelephone.text=[dictResult objectForKey:@"agent_telephone"];
     
+///for cell section 5
+    self.mpView=[[MKMapView alloc]initWithFrame:CGRectMake(13, 3, 295, 307)];
+    [self.mpView setUserInteractionEnabled:NO];
+    self.stringLat = [dictResult objectForKey:klatitude];
+    self.stringLong = [dictResult objectForKey:klongitude]; 
+    [self createMap];
     
-    ///for cell section 2
-    NSString *priceTemp;
-    if([[dictResult objectForKey:kprice] integerValue]>=10000)
-        priceTemp=[NSString stringWithFormat:@"%d,000",[[dictResult objectForKey:kprice]integerValue]/1000];   
-    else
-        priceTemp=[NSString stringWithFormat:@"%d",[[dictResult objectForKey:kprice]integerValue]];
-
-    self.stringDescSection4 = [NSString stringWithFormat:@"%@",[NSString stringWithFormat:@"%@, Price £%@     %@\nReference: %d \n \nDescription: \n%@",[dictResult objectForKey:@"property_type"],priceTemp,[dictResult objectForKey:@"pricetype"],[[dictResult objectForKey:@"id"] integerValue],[dictResult objectForKey:ksummary]]];
     
-  
     
-    [super viewDidLoad];
+    
+    
+           [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -251,6 +259,7 @@
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
+
 #pragma mark - UITableView Delegates
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -270,9 +279,10 @@
         {
             UIFont *cellFont = [UIFont fontWithName:@"Helvetica" size:15.0];
             CGSize constraintSize = CGSizeMake(280.0f, MAXFLOAT);
-            CGSize labelSize = [self.stringDescSection4 sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:UILineBreakModeWordWrap];
+            labelSize = [self.stringDescSection4 sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:UILineBreakModeWordWrap];
             
-            return labelSize.height + 50;
+            return labelSize.height + 50; 
+            //return webViewDescp.frame.size.height;
             break;
         }
         case 3:
@@ -333,6 +343,19 @@
     else if(indexPath.section==1 )
     {
         cell.selectionStyle  = UITableViewCellSelectionStyleNone;
+        leftBtn=[UIButton buttonWithType:UIButtonTypeCustom];
+        [leftBtn setFrame:CGRectMake(10, 35, 15,15)];
+        [leftBtn setTitle:@"<" forState:UIControlStateNormal];
+        [leftBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+        [leftBtn addTarget:self action:@selector(gotoPreviousPage) forControlEvents:UIControlEventTouchUpInside];
+        
+        rightBtn=[UIButton buttonWithType:UIButtonTypeCustom];
+        [rightBtn setFrame:CGRectMake(295, 35, 15,15)];
+        [rightBtn setTitle:@">" forState:UIControlStateNormal];
+        [rightBtn addTarget:self action:@selector(gotoNextPage) forControlEvents:UIControlEventTouchUpInside];
+        [rightBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+        [cell addSubview:rightBtn];
+        [cell addSubview:leftBtn];
         [cell  addSubview:scrlView];
     }
     
@@ -345,6 +368,33 @@
         cell.textLabel.numberOfLines = 0;
         cell.textLabel.font = [UIFont fontWithName:@"Helvetica" size:15.0];
         cell.textLabel.backgroundColor=[UIColor clearColor];
+        
+        UILabel *labelDescription=[[UILabel alloc]initWithFrame:CGRectMake(20, 70, 100, 20)];
+        labelDescription.font=[UIFont fontWithName:@"Helvetica-Bold" size:15.0];
+        [labelDescription setBackgroundColor:[UIColor clearColor]];
+        [labelDescription setText:@"Description:"];
+        
+        UILabel *labelProperty_type=[[UILabel alloc]initWithFrame:CGRectMake(20, 10, 130, 20)];
+        labelProperty_type.font=[UIFont fontWithName:@"Helvetica" size:15.0];
+        [labelProperty_type setBackgroundColor:[UIColor clearColor]];
+        labelProperty_type.adjustsFontSizeToFitWidth=YES;
+        [labelProperty_type setText:[NSString stringWithFormat:@"%@,  £%@",[dictResult objectForKey:@"property_type"],priceTemp]];
+        
+        UILabel *labelPriceType=[[UILabel alloc]initWithFrame:CGRectMake(170, 10, 100, 20)];
+        labelPriceType.font=[UIFont fontWithName:@"Helvetica" size:15.0];
+        [labelPriceType setBackgroundColor:[UIColor clearColor]];
+        labelPriceType.adjustsFontSizeToFitWidth=YES;
+        [labelPriceType setText:[NSString stringWithFormat:@"%@",[dictResult objectForKey:kpricetype]]];
+        UILabel *labelReference=[[UILabel alloc]initWithFrame:CGRectMake(20, 40, 200, 20)];
+        labelReference.font=[UIFont fontWithName:@"Helvetica" size:15.0];
+        [labelReference setBackgroundColor:[UIColor clearColor]];
+        labelReference.adjustsFontSizeToFitWidth=YES;
+        [labelReference setText:[NSString stringWithFormat:@"Reference: %d",[[dictResult objectForKey:@"id"]integerValue]]];
+        
+        [cell addSubview:labelPriceType];
+        [cell addSubview:labelReference];
+        [cell addSubview:labelProperty_type];
+        [cell addSubview:labelDescription];
         
     }
     else if(indexPath.section==3  )
@@ -462,4 +512,93 @@
 	return annView;
 }
 
+#pragma marks-UIScrollView Delegate
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+	if([scrollView isEqual:scrlView])
+    {
+        [self tilePages];
+        
+        // Calculate current page
+        CGRect visibleBounds = scrlView.bounds;
+        int index = (int)(floorf(CGRectGetMidX(visibleBounds) / CGRectGetWidth(visibleBounds)));
+        if (index < 0) index = 0;
+        if (index > countPhotos- 1) index = countPhotos - 1;
+        currentPageIndex = index;
+        NSLog(@"page No=%d",currentPageIndex);
+        if (currentPageIndex >= temp-1) {
+            rightBtn.enabled=NO;
+        }
+        else
+        {
+            rightBtn.enabled=YES;
+            
+        }
+        
+        if(currentPageIndex==0)
+            leftBtn.enabled=NO;
+        else
+            leftBtn.enabled=YES;
+    }
+
+	
+}
+- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView
+{
+    //if (performingLayout || rotating) return;
+	
+	// Tile pages
+        
+}
+#pragma mark -
+#pragma mark Paging
+
+- (void)tilePages {
+	
+	// Calculate which pages should be visible
+	// Ignore padding as paging bounces encroach on that
+	// and lead to false page loads
+	CGRect visibleBounds = scrlView.bounds;
+	int iFirstIndex = (int)floorf((CGRectGetMinX(visibleBounds)+PADDING*countPhotos) / CGRectGetWidth(visibleBounds));
+	int iLastIndex  = (int)floorf((CGRectGetMaxX(visibleBounds)-PADDING*countPhotos-1) / CGRectGetWidth(visibleBounds));
+    if (iFirstIndex < 0) iFirstIndex = 0;
+    if (iFirstIndex > countPhotos - 1) iFirstIndex = countPhotos - 1;
+    if (iLastIndex < 0) iLastIndex = 0;
+    if (iLastIndex > countPhotos - 1) iLastIndex = countPhotos - 1;
+	
+	// Recycle no longer needed pages
+	
+	[visiblePages minusSet:recycledPages];
+	
+	// Add missing pages
+	
+	
+}
+- (CGRect)frameForPageAtIndex:(NSUInteger)index {
+    // We have to use our paging scroll view's bounds, not frame, to calculate the page placement. When the device is in
+    // landscape orientation, the frame will still be in portrait because the pagingScrollView is the root view controller's
+    // view, so its frame is in window coordinate space, which is never rotated. Its bounds, however, will be in landscape
+    // because it has a rotation transform applied.
+    CGRect bounds = scrlView.bounds;
+    CGRect pageFrame = bounds;
+    pageFrame.size.width -= (countPhotos * PADDING);
+    pageFrame.origin.x = (bounds.size.width * index) + PADDING;
+    return pageFrame;
+}
+
+- (void)jumpToPageAtIndex:(NSUInteger)index {
+	
+	// Change page
+	if (index < countPhotos) {
+		CGRect pageFrame = [self frameForPageAtIndex:index];
+		scrlView.contentOffset = CGPointMake(pageFrame.origin.x - PADDING, 0);
+		//[self updateNavigation];
+	}
+	
+	// Update timer to give more time
+	//[self hideControlsAfterDelay];
+	
+}
+
+- (void)gotoPreviousPage { [self jumpToPageAtIndex:currentPageIndex-1]; }
+- (void)gotoNextPage { [self jumpToPageAtIndex:currentPageIndex+1]; } 
 @end

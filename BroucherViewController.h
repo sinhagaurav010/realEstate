@@ -11,9 +11,10 @@
 @interface BroucherViewController : UIViewController
 {
     IBOutlet UINavigationBar *navBarBroucher;
-    IBOutlet UIWebView *webViewBroucher;
+    //IBOutlet UIWebView *webViewBroucher;
     IBOutlet UIActivityIndicatorView *act;
 }
 @property(nonatomic,strong)NSString *strUrlBroucher;
+@property(nonatomic,assign)IBOutlet UIWebView *webViewBroucher;
 -(IBAction)clickToDone:(id)sender;
 @end

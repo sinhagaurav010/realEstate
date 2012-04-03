@@ -74,7 +74,7 @@
     strBedrooms=@"0";
     strSortBy=@"price";
     strAscending=@"Ascending";
-    strRadius=@"10.79";
+    strRadius=@"10";
     strGPS=nil;
     
 }

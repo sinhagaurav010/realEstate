@@ -130,6 +130,10 @@
     [cell  addLabel:[NSString stringWithFormat:@"£%@",priceTemp] withType:[NSString stringWithFormat:@"%@",[[arraySearchResult objectAtIndex:indexPath.row]objectForKey:kpricetype]] withBedRoom:[NSString stringWithFormat:@"%@ Bedrooms",[[arraySearchResult objectAtIndex:indexPath.row]objectForKey:kbedrooms]] withDesc:[NSString stringWithFormat:@"%@, %@",[[arraySearchResult objectAtIndex:indexPath.row]objectForKey:kaddress],[[arraySearchResult objectAtIndex:indexPath.row]objectForKey:ktown]]];
     cell.accessoryType = 1;
     
+    if([[arraySearchResult objectAtIndex:indexPath.row] objectForKey:kRadProp])
+    {
+        cell.labelDistance.text = [[arraySearchResult objectAtIndex:indexPath.row] objectForKey:kRadProp];
+    }
     return (UITableViewCell *)cell;
 }    
 
@@ -150,6 +154,7 @@
    SearchPattren *searchPattern=[[SearchPattren alloc]init];
     [searchPattern searchPropertyWheretransaction_type:[[arraySavedSearches  objectAtIndex:0] objectForKey:@"FOR"] fromLocation:[[arraySavedSearches  objectAtIndex:0] objectForKey:@"LOCATION"] fromMinPrice:[[arraySavedSearches  objectAtIndex:0] objectForKey:@"MINPRICE"] toMaxPrice:[[arraySavedSearches  objectAtIndex:0] objectForKey:@"MAXPRICE"] withBedrooms:[[arraySavedSearches  objectAtIndex:0] objectForKey:@"BEDROOMS"] withSorting:[[arraySavedSearches  objectAtIndex:0] objectForKey:@"SORTBY"] arrangeWithOrder:[[arraySavedSearches  objectAtIndex:0] objectForKey:@"ORDERARRANGE"]   gpsEnabled:[[arraySavedSearches  objectAtIndex:0] objectForKey:@"GPSENABLED"] Inarray:arrayProperty];
     self.arraySearchResult=[[NSMutableArray alloc]initWithArray:searchPattern.arrayResult];
+    NSLog(@"self.arraySearchResult=%@",self.arraySearchResult);
     [tableViewSearch reloadData];
     
 }

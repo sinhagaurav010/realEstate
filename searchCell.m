@@ -9,7 +9,7 @@
 #import "searchCell.h"
 
 @implementation searchCell
-@synthesize labelBedRoom,labelDescription,lablePricetype,lablePrice,imageMain;
+@synthesize labelBedRoom,labelDescription,lablePricetype,lablePrice,imageMain,labelDistance;
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];

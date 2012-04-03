@@ -46,7 +46,7 @@
         MFMailComposeViewController *mailViewController = [[MFMailComposeViewController alloc] init];
         mailViewController.mailComposeDelegate = self;
         [mailViewController setSubject:@"A Property I found"];
-        [mailViewController setMessageBody:[NSString stringWithFormat:@"%@",[dictResult objectForKey:@"description"]] isHTML:NO];
+        [mailViewController setMessageBody:[NSString stringWithFormat:@"%@ \n\n%@",[dictResult objectForKey:@"description"],[dictResult objectForKey:kproperty_brochure]] isHTML:NO];
         
         [self presentModalViewController:mailViewController animated:YES];
         

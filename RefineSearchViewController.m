@@ -198,7 +198,7 @@
     } 
     if (indexPath.row==3) {
         labelTitle.text=@"Radius";
-        self.arrayPicker1=[[NSMutableArray alloc]initWithObjects:@"1.0",@"2.0",@"3.0",@"4.0",@"5.0",@"6.0",@"7.0",@"8.0",@"9.0",@"10.79",nil];
+        self.arrayPicker1=[[NSMutableArray alloc]initWithObjects:@"1.0",@"2.0",@"3.0",@"4.0",@"5.0",@"6.0",@"7.0",@"8.0",@"9.0",@"10.0",nil];
         for(int i=0;i< [self.arrayPicker1 count];i++)
         {
             if([[self.arrayPicker1 objectAtIndex:i] isEqualToString:strRadius])

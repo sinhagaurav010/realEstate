@@ -45,7 +45,9 @@ double convertToRadians(double val) {
             corrd2.longitude=[[[arraySelect objectAtIndex:i] objectForKey:@"longitude"] doubleValue];
 
             if (([self kilometresBetweenPlace1:corrd andPlace2:corrd2] < [strRadius doubleValue]) && ([[[arraySelect objectAtIndex:i] objectForKey:@"transaction_type"] integerValue] == [transactionType integerValue]) ) {
-                [arrayTemp addObject:[arraySelect objectAtIndex:i]];
+                NSMutableDictionary *dictProp = [[NSMutableDictionary alloc] initWithDictionary:[arraySelect objectAtIndex:i]];
+                [dictProp setObject:[NSString stringWithFormat:@"%0.2fKm",[self kilometresBetweenPlace1:corrd andPlace2:corrd2]] forKey:kRadProp];
+                [arrayTemp addObject:dictProp];
             }
         }
         

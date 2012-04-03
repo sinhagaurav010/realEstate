@@ -19,5 +19,6 @@
 @property(strong,nonatomic)IBOutlet UILabel *lablePricetype;
 @property(strong,nonatomic)IBOutlet UILabel *labelBedRoom;
 @property(strong,nonatomic)IBOutlet UILabel *labelDescription;
+@property(strong,nonatomic)IBOutlet UILabel *labelDistance;
 @property(nonatomic,retain)IBOutlet EGOImageView *imageMain;
 @end

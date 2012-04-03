@@ -25,18 +25,19 @@
 #define kpricetype @"pricetype"
 #define kproperty_placement @"property_placement"
 #define kproperty_type @"property_type"
+#define kproperty_brochure @"property_brochure"
 #define ksummary @"description"
 #define kthumb @"thumb"
 #define ktransaction_type @"transaction_type"
 #define kurl @"url"
 #define ktown @"town"
 #define MAXPRICE @"10000000"
-#define KMRANGE 10.79
+#define KMRANGE 10
 #define PIx 3.141592653589793
 #define RADIO 6371
 double convertToRadians(double val);
 #define TITLENAV @"BSPC"
-
+#define kRadProp @"radiusProp"
 #define COLORBAC [UIColor colorWithRed:0.0f/255.0f green:51.0f/255.0f blue:87.0f/255.0f alpha:1.0f]
 //#define kmainURL @"http://www.bspc.co.uk/sspc_feed/sspc_feed.asp"
 #define  kmainURL @"http://www.bspc.co.uk/sspc_feed/iphone_feed.asp"

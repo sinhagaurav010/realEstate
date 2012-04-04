@@ -138,7 +138,7 @@
 								<string key="NSFrame">{{123, 59}, {152, 39}}</string>
 								<reference key="NSSuperview" ref="1064412699"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="174043422"/>
+								<reference key="NSNextKeyView" ref="359024860"/>
 								<string key="NSReuseIdentifierKey">_NS:328</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -161,7 +161,7 @@
 									<int key="NSfFlags">16</int>
 								</object>
 							</object>
-							<object class="IBUILabel" id="174043422">
+							<object class="IBUILabel" id="359024860">
 								<reference key="NSNextResponder" ref="1064412699"/>
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{252, 7}, {44, 21}}</string>
@@ -263,7 +263,7 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">labelDistance</string>
 						<reference key="source" ref="822908121"/>
-						<reference key="destination" ref="174043422"/>
+						<reference key="destination" ref="359024860"/>
 					</object>
 					<int key="connectionID">19</int>
 				</object>
@@ -296,7 +296,7 @@
 							<reference ref="217574542"/>
 							<reference ref="152757102"/>
 							<reference ref="426945752"/>
-							<reference ref="174043422"/>
+							<reference ref="359024860"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -327,7 +327,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">18</int>
-						<reference key="object" ref="174043422"/>
+						<reference key="object" ref="359024860"/>
 						<reference key="parent" ref="822908121"/>
 					</object>
 				</array>

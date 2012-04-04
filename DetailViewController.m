@@ -46,7 +46,9 @@
         MFMailComposeViewController *mailViewController = [[MFMailComposeViewController alloc] init];
         mailViewController.mailComposeDelegate = self;
         [mailViewController setSubject:@"A Property I found"];
-        [mailViewController setMessageBody:[NSString stringWithFormat:@"%@ \n\n%@",[dictResult objectForKey:@"description"],[dictResult objectForKey:kproperty_brochure]] isHTML:NO];
+//        NSString *strHtml=[NSString stringWithFormat:@"<html><head><title></title></head><body> %@ </br> </br><a href='%@'>%@</a></body></html>",[dictResult objectForKey:@"description"],[dictResult objectForKey:kproperty_brochure],[dictResult objectForKey:kproperty_brochure]];  
+//         [mailViewController setMessageBody:strHtml isHTML:YES];
+       [mailViewController setMessageBody:[NSString stringWithFormat:@"%@ \n\n%@",[dictResult objectForKey:@"description"],[dictResult objectForKey:kproperty_brochure]] isHTML:NO];
         
         [self presentModalViewController:mailViewController animated:YES];
         
@@ -354,8 +356,8 @@
         [rightBtn setTitle:@">" forState:UIControlStateNormal];
         [rightBtn addTarget:self action:@selector(gotoNextPage) forControlEvents:UIControlEventTouchUpInside];
         [rightBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-        [cell addSubview:rightBtn];
-        [cell addSubview:leftBtn];
+//        [cell addSubview:rightBtn];
+//        [cell addSubview:leftBtn];
         [cell  addSubview:scrlView];
     }
     
@@ -524,7 +526,7 @@
         if (index < 0) index = 0;
         if (index > countPhotos- 1) index = countPhotos - 1;
         currentPageIndex = index;
-        NSLog(@"page No=%d",currentPageIndex);
+        //NSLog(@"page No=%d",currentPageIndex);
         if (currentPageIndex >= temp-1) {
             rightBtn.enabled=NO;
         }

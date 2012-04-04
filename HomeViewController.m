@@ -139,6 +139,7 @@
 -(IBAction)clickToFindCurrentLocation:(id)sender
 {
      strGPS=@"GPS";
+    strSortBy=kRadProp;
     [txtFldLoc resignFirstResponder];
     isFromCrrntLoc=YES;
     if(TARGET_IPHONE_SIMULATOR)

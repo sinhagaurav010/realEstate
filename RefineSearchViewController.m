@@ -178,9 +178,17 @@
     } 
     if (indexPath.row==2) {
         labelTitle.text=@"Sort By";
-        self.arrayPicker1=[[NSMutableArray alloc]initWithObjects:@"price",@"bedrooms",nil];
-        self.arrayPicker2=[[NSMutableArray alloc]initWithObjects:@"Ascending",@"Descending",nil];
         
+        if([strGPS isEqualToString:@"GPS"])
+        {
+            self.arrayPicker1=[[NSMutableArray alloc]initWithObjects:@"price",@"bedrooms",kRadProp,nil];
+        }
+        else
+        {
+            self.arrayPicker1=[[NSMutableArray alloc]initWithObjects:@"price",@"bedrooms",nil];
+            
+        }
+        self.arrayPicker2=[[NSMutableArray alloc]initWithObjects:@"Ascending",@"Descending",nil]; 
         for(int i=0;i< [self.arrayPicker1 count];i++)
         {
             if([[self.arrayPicker1 objectAtIndex:i] isEqualToString:strSortBy])

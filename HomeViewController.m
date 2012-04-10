@@ -139,7 +139,6 @@
 -(IBAction)clickToFindCurrentLocation:(id)sender
 {
      strGPS=@"GPS";
-    strSortBy=kRadProp;
     [txtFldLoc resignFirstResponder];
     isFromCrrntLoc=YES;
     if(TARGET_IPHONE_SIMULATOR)
@@ -175,11 +174,14 @@
         if(isFromCrrntLoc == YES)
         {
             strGPS=@"GPS";
+            strSortBy=kRadProp;
             
         }
         else
         {
             strGPS=nil;
+            strSortBy=@"price";
+
         }
         SearchResultViewController *sdvc=[[SearchResultViewController alloc]init];
         [self.navigationController pushViewController:sdvc animated:YES];
@@ -206,12 +208,16 @@
         if(isFromCrrntLoc == YES)
         {
             strGPS=@"GPS";
+            strSortBy=kRadProp;
             
         }
         else
         {
             strGPS=nil;
+            strSortBy=@"price";
+            
         }
+
         SearchResultViewController *sdvc=[[SearchResultViewController alloc]init];
         [self.navigationController pushViewController:sdvc animated:YES];
     }

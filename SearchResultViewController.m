@@ -154,7 +154,7 @@
    SearchPattren *searchPattern=[[SearchPattren alloc]init];
     [searchPattern searchPropertyWheretransaction_type:[[arraySavedSearches  objectAtIndex:0] objectForKey:@"FOR"] fromLocation:[[arraySavedSearches  objectAtIndex:0] objectForKey:@"LOCATION"] fromMinPrice:[[arraySavedSearches  objectAtIndex:0] objectForKey:@"MINPRICE"] toMaxPrice:[[arraySavedSearches  objectAtIndex:0] objectForKey:@"MAXPRICE"] withBedrooms:[[arraySavedSearches  objectAtIndex:0] objectForKey:@"BEDROOMS"] withSorting:[[arraySavedSearches  objectAtIndex:0] objectForKey:@"SORTBY"] arrangeWithOrder:[[arraySavedSearches  objectAtIndex:0] objectForKey:@"ORDERARRANGE"]   gpsEnabled:[[arraySavedSearches  objectAtIndex:0] objectForKey:@"GPSENABLED"] Inarray:arrayProperty];
     self.arraySearchResult=[[NSMutableArray alloc]initWithArray:searchPattern.arrayResult];
-    NSLog(@"self.arraySearchResult=%@",self.arraySearchResult);
+    //NSLog(@"self.arraySearchResult=%@",self.arraySearchResult);
     [tableViewSearch reloadData];
     
 }

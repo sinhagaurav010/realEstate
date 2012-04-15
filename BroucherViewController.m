@@ -68,6 +68,11 @@
 }
 -(IBAction)clickToDone:(id)sender
 {
+    if([webViewBroucher isLoading]==YES)
+    {
+        [webViewBroucher stopLoading];
+        [act stopAnimating];
+    }
     [self dismissModalViewControllerAnimated:YES];
 }
 @end

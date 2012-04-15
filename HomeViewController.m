@@ -95,6 +95,7 @@
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
 {
     [locmanager stopUpdatingLocation];
+    locmanager.delegate=nil;
     self.strUserLat = [NSString stringWithFormat:@"%g",newLocation.coordinate.latitude];
     self.strUserLong = [NSString stringWithFormat:@"%g",newLocation.coordinate.longitude];
     //NSLog(@"%@",self.strUserLat);
@@ -107,6 +108,8 @@
                             NSLog(@"formattedAddress=%@",strformattedAddress);
                             corrd.latitude=placemark.coordinate.latitude;
                             corrd.longitude=placemark.coordinate.longitude;
+                            if(isFromCrrntLoc==YES)
+                                txtFldLoc.text=[NSString stringWithFormat:@"%@ (GPS)",self.strformattedAddress];
                         } else {
                             UIAlertView *alertView;
                             alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:[error description] delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
@@ -122,17 +125,7 @@
     //NSLog(@"error");
     [locmanager stopUpdatingLocation];
 }
-#pragma mark - To find distace between Locations(b/w 10KM)
 
--(double)kilometresBetweenPlace1:(CLLocationCoordinate2D) place1 andPlace2:(CLLocationCoordinate2D) place2 {
-    
-    double dlon = convertToRadians(place2.longitude - place1.longitude);
-    double dlat = convertToRadians(place2.latitude - place1.latitude);
-    
-    double a = ( pow(sin(dlat / 2), 2) + cos(convertToRadians(place1.latitude))) * cos(convertToRadians(place2.latitude)) * pow(sin(dlon / 2), 2);
-    double angle = 2 * asin(sqrt(a));
-    return angle * RADIO;
-}
 
 
 #pragma mark - User Defined Functions
@@ -144,18 +137,21 @@
     if(TARGET_IPHONE_SIMULATOR)
     {
         double lat=55.5991;
-        double  lng=-2.43339;
+        double  lng=-2.43339;//TD57HA ///55.92545 -3.200808
         self.strUserLat=[NSString stringWithFormat:@"%f",lat]; 
         self.strUserLong=[NSString stringWithFormat:@"%f",lng];
         corrd.latitude=[self.strUserLat doubleValue];
         corrd.longitude=[self.strUserLong doubleValue];
         //NSLog(@"%@",self.strUserLat);
-        txtFldLoc.text=@"current loc";
+        txtFldLoc.text=self.strformattedAddress;
         
     }
     else
     {
-        txtFldLoc.text=[NSString stringWithFormat:@"%@ (GPS)",self.strformattedAddress];
+        locmanager = [[CLLocationManager alloc] init];
+        [locmanager setDelegate:self];
+        [locmanager setDesiredAccuracy:kCLLocationAccuracyBest];
+        [locmanager startUpdatingLocation];
         
     }
 }
@@ -164,6 +160,10 @@
 
 -(IBAction)clickToForSale:(id)sender
 {
+//    if(TARGET_IPHONE_SIMULATOR)
+//    {
+//        txtFldLoc.text=@"TD9 9PY";
+//    }
     
     [txtFldLoc resignFirstResponder];
     strFor=@"SALE";
@@ -270,19 +270,11 @@
 {
     if(TESTING)
         [ModalController  saveTheContent:modal.stringRx withKey:SAVEDATA];
-    //    NSDictionary *responseDict = [modal.dataXml objectFromJSONDataWithParseOptions:JKSerializeOptionNone error:nil];
-    //    //NSLog(@"-------=%@",responseDict);
-    
     NSError *error =  nil;
-    
-    
-    NSDictionary * dictionary = [[CJSONDeserializer deserializer] deserializeAsDictionary:modal.dataXml error:&error];
-    //    NSLog(@"%@",dictionary);
-    
+    NSDictionary * dictionary = [[CJSONDeserializer deserializer] deserializeAsDictionary:modal.dataXml error:&error];    
     [[dictionary objectForKey:@"property"] isKindOfClass:[NSArray class]];
     arrayProperty=[[NSMutableArray alloc]initWithArray:[dictionary objectForKey:@"property"]];
     //NSLog(@"array property==%@",arrayProperty);
-    // //NSLog(@"------%@",dictionary);
     [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
     
 }

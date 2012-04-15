@@ -18,6 +18,7 @@ double convertToRadians(double val) {
 -(void)searchPropertyWheretransaction_type:(NSString *)transactionType fromLocation :(NSString *)loc fromMinPrice:(NSString *)minPrice toMaxPrice:(NSString *)maxPrice  withBedrooms:(NSString *)bedrooms withSorting:(NSString *)sortBy arrangeWithOrder:(NSString *)orderArrange gpsEnabled:(NSString *)gpsEnable Inarray:(NSMutableArray *)arraySelect
 {
   
+    countPostCode =0;
     self.arrayResult=[[NSMutableArray alloc]init];
     NSLog(@"array select count=%d",[arraySelect count]);
     NSLog(@"transaction type=%@,\n location=%@,\n minPrice=%@ \n maxPrice=%@ \n bedrooms=%@ \n sort by=%@ \n arrange order=%@ \n gps=%@",transactionType,loc,minPrice,maxPrice,bedrooms,sortBy,orderArrange,gpsEnable);
@@ -59,15 +60,37 @@ double convertToRadians(double val) {
             if([[[arraySelect objectAtIndex:i] objectForKey:@"transaction_type"] integerValue] == [transactionType integerValue])
             {
                 if([self checkForExistance:loc withStringFromArray:[[arraySelect objectAtIndex:i] objectForKey:kpostcode]])
-                    [arrayTemp  addObject:[arraySelect  objectAtIndex:i]];
+                {
+                    if([[[arraySelect objectAtIndex:i]objectForKey:kpostcode]isEqualToString:loc])
+                   {
+                       NSLog(@"from postcode");
+                       isFromPostCode=YES;
+                       countPostCode++;
+                       [arrayTemp  addObject:[arraySelect  objectAtIndex:i]];
+
+                   }
+                    else
+                    {
+                        [arrayTemp  addObject:[arraySelect  objectAtIndex:i]];
+   
+                    }
+                   
+                }
                 
                 else if([self checkForExistance:loc withStringFromArray:[[arraySelect objectAtIndex:i] objectForKey:kaddress]])
                     [arrayTemp  addObject:[arraySelect  objectAtIndex:i]];
                 
-                else if([self checkForExistance:loc withStringFromArray:[[arraySelect objectAtIndex:i] objectForKey:@"town"]])
+                else if([self checkForExistance:loc withStringFromArray:[[arraySelect objectAtIndex:i] objectForKey:ktown]])
                     [arrayTemp  addObject:[arraySelect  objectAtIndex:i]];
             }
         }
+    }
+    if([arrayTemp count]== countPostCode)
+    {
+        isFromPostCode=NO;
+        NSLog(@"countPostCode=%d",countPostCode);
+        
+        
     }
    // NSLog(@"array temp=%@",arrayTemp);
     for(int i=0;i<[arrayTemp count];i++)
@@ -77,8 +100,7 @@ double convertToRadians(double val) {
          [self.arrayResult addObject:[arrayTemp objectAtIndex:i]];
         
      }
-    }
-   
+ }
     NSSortDescriptor *myDescriptor;
     if([orderArrange isEqualToString:@"Ascending"])
     {

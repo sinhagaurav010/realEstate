@@ -80,6 +80,7 @@
 		C9E1370514FA996B0016F018 /* cellShowPhotos.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9E1370414FA996B0016F018 /* cellShowPhotos.xib */; };
 		C9E1370C14FABBD70016F018 /* cellAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E1370B14FABBD70016F018 /* cellAgent.m */; };
 		C9E1370F14FABBFA0016F018 /* cellAgent.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9E1370E14FABBFA0016F018 /* cellAgent.xib */; };
+		C9E88E1C153605F7002A0262 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = C9E88E1B153605F7002A0262 /* Icon.png */; };
 		C9F1C70D153496850079D454 /* bspc1.png in Resources */ = {isa = PBXBuildFile; fileRef = C9F1C70C153496850079D454 /* bspc1.png */; };
 /* End PBXBuildFile section */
 
@@ -208,6 +209,7 @@
 		C9E1370A14FABBD60016F018 /* cellAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cellAgent.h; sourceTree = "<group>"; };
 		C9E1370B14FABBD70016F018 /* cellAgent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = cellAgent.m; sourceTree = "<group>"; };
 		C9E1370E14FABBFA0016F018 /* cellAgent.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = cellAgent.xib; sourceTree = "<group>"; };
+		C9E88E1B153605F7002A0262 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		C9F1C70C153496850079D454 /* bspc1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bspc1.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -232,6 +234,7 @@
 		5DBF49E314FD765D00B92BA9 /* ImagesApp */ = {
 			isa = PBXGroup;
 			children = (
+				C9E88E1B153605F7002A0262 /* Icon.png */,
 				C9F1C70C153496850079D454 /* bspc1.png */,
 				5DBF49E014FD765800B92BA9 /* AppBg.png */,
 			);
@@ -704,6 +707,7 @@
 				C9CB203D1501536F0014AD72 /* SavedSearches.xib in Resources */,
 				C9D207F215055875001A2854 /* SavePropertyViewController.xib in Resources */,
 				C9F1C70D153496850079D454 /* bspc1.png in Resources */,
+				C9E88E1C153605F7002A0262 /* Icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

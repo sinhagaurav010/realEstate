@@ -13,7 +13,8 @@
 @interface SearchPattren : NSObject
 
 {
-    
+    BOOL isFromPostCode;
+    int countPostCode;
 }
 @property(strong,nonatomic)NSMutableArray *arrayResult;
 -(void)searchPropertyWheretransaction_type:(NSString *)transactionType fromLocation :(NSString *)loc fromMinPrice:(NSString *)maxPrice toMaxPrice:(NSString *)minPrice  withBedrooms:(NSString *)bedrooms withSorting:(NSString *)sortBy arrangeWithOrder:(NSString *)orderArrange gpsEnabled:(NSString *)gpsEnable Inarray:(NSMutableArray *)arraySelect;

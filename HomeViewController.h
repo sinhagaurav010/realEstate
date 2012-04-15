@@ -32,6 +32,5 @@
 -(IBAction)clickToSavedSearches:(id)sender;
 -(IBAction)clickToSavedProperties:(id)sender;
 -(IBAction)clickToFindCurrentLocation:(id)sender;
-//double convertToRadians(double val);
--(double)kilometresBetweenPlace1:(CLLocationCoordinate2D) place1 andPlace2:(CLLocationCoordinate2D) place2;
+
 @end

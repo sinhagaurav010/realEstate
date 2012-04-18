@@ -14,7 +14,7 @@
 #define SAVEDPROP @"savedProp"
 #define SAVESEARCHES @"savesearches"
 #define TESTING 1
-
+#define kmain_photo @"main_ photo"
 #define kaddress @"address"
 #define kbedrooms @"bedrooms"
 #define kid @"id"

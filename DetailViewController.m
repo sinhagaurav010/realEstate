@@ -46,9 +46,9 @@
         MFMailComposeViewController *mailViewController = [[MFMailComposeViewController alloc] init];
         mailViewController.mailComposeDelegate = self;
         [mailViewController setSubject:@"A Property I found"];
-//        NSString *strHtml=[NSString stringWithFormat:@"<html><head><title></title></head><body> %@ </br> </br><a href='%@'>%@</a></body></html>",[dictResult objectForKey:@"description"],[dictResult objectForKey:kproperty_brochure],[dictResult objectForKey:kproperty_brochure]];  
-//         [mailViewController setMessageBody:strHtml isHTML:YES];
-       [mailViewController setMessageBody:[NSString stringWithFormat:@"%@ \n\n%@",[dictResult objectForKey:@"description"],[dictResult objectForKey:kproperty_brochure]] isHTML:NO];
+        //        NSString *strHtml=[NSString stringWithFormat:@"<html><head><title></title></head><body> %@ </br> </br><a href='%@'>%@</a></body></html>",[dictResult objectForKey:@"description"],[dictResult objectForKey:kproperty_brochure],[dictResult objectForKey:kproperty_brochure]];  
+        //         [mailViewController setMessageBody:strHtml isHTML:YES];
+        [mailViewController setMessageBody:[NSString stringWithFormat:@"%@ \n\n%@",[dictResult objectForKey:@"description"],[dictResult objectForKey:kproperty_brochure]] isHTML:NO];
         
         [self presentModalViewController:mailViewController animated:YES];
         
@@ -116,8 +116,8 @@
     
     self.navigationItem.rightBarButtonItem.title = self.stringRightTitle;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:stringRightTitle style:UIBarButtonItemStyleDone target:self  action:@selector(save)];
-
-   // NSLog(@"arraySavedProperty=%@",arraySavedProperty  );
+    
+    // NSLog(@"arraySavedProperty=%@",arraySavedProperty  );
     
     ///for cell section 0
     imageMain=[[EGOImageView alloc]initWithFrame:CGRectMake(40,8 ,245, 155)];
@@ -132,8 +132,8 @@
     labelAddress.numberOfLines = 2;  
     labelAddress.lineBreakMode = UILineBreakModeWordWrap; 
     labelAddress.text=[NSString stringWithFormat:@"%@, %@",[dictResult objectForKey:kaddress],[dictResult objectForKey:ktown]];
-   
-      ///for cell section 1 
+    
+    ///for cell section 1 
     arrayImages = [[NSMutableArray alloc] init];
     
     countPhotos = 0; 
@@ -148,13 +148,13 @@
                 
             }
             else
-               countPhotos++;
+                countPhotos++;
         }
     }
-    [scrlView setContentSize:CGSizeMake(90*countPhotos,0)];
+    [scrlView setContentSize:CGSizeMake(90*(countPhotos+1),0)];
     NSLog(@"scrlView setContentSize = %f",scrlView.contentSize.width);
     int inX=0;
-    for(int i=1;i<=countPhotos;i++)
+    for(int i=1;i<=countPhotos+1;i++)
     {
         //  UIView *aView=[[UIView alloc]initWithFrame:CGRectMake(inX, 10, 80,60)];
         //   [aView setBackgroundColor:[UIColor clearColor]];
@@ -168,17 +168,22 @@
         singleTapOne.numberOfTouchesRequired = 1; 
         //    singleTapOne.delegate = self;
         [imgEgo addGestureRecognizer:singleTapOne];
-      //  [singleTapOne release];
-        
-        
+        //  [singleTapOne release];
+        NSURL *imageUrl;
         imgEgo.placeholderImage = [UIImage imageNamed:@"place_holder_small.jpg"];
-        NSURL *imageUrl=[NSURL URLWithString:[dictResult objectForKey:[NSString stringWithFormat:@"photo%d",i]]];
+        if(i==countPhotos+1)
+        {
+            imageUrl=[NSURL URLWithString:[dictResult objectForKey:kmain_photo]];
+        } 
+        else
+        {
+            
+            imageUrl=[NSURL URLWithString:[dictResult objectForKey:[NSString stringWithFormat:@"photo%d",i]]];
+        }
         imgEgo.imageURL=imageUrl;
         [scrlView addSubview:imgEgo];
-        
-       
-        
         [arrayImages addObject:imgEgo];
+        
         
         //  [scrlView addSubview:aView];
         inX=inX+90;
@@ -193,7 +198,7 @@
     else
         priceTemp=[NSString stringWithFormat:@"%d",[[dictResult objectForKey:kprice]integerValue]];
     self.stringDescSection4 = [NSString stringWithFormat:@"%@",[NSString stringWithFormat:@"\n\n\n\n%@",[dictResult objectForKey:ksummary]]];
-   
+    
     ///for cell section 4
     imageMAin2=[[EGOImageView alloc]initWithFrame:CGRectMake(12, 42, 120, 90)];
     imageMAin2.placeholderImage = [UIImage imageNamed:@"place_holder_small.jpg"];
@@ -215,7 +220,7 @@
     [labeltelephone setBackgroundColor:[UIColor clearColor]];
     labeltelephone.text=[dictResult objectForKey:@"agent_telephone"];
     
-///for cell section 5
+    ///for cell section 5
     self.mpView=[[MKMapView alloc]initWithFrame:CGRectMake(13, 3, 295, 307)];
     [self.mpView setUserInteractionEnabled:NO];
     self.stringLat = [dictResult objectForKey:klatitude];
@@ -226,7 +231,7 @@
     
     
     
-           [super viewDidLoad];
+    [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -235,18 +240,18 @@
 -(void)handleSingleTap:(UILongPressGestureRecognizer*)sender 
 {
     
-//    if(UIGestureRecognizerStateEnded == sender.state)
-//    {
-        imageMain.imageURL = [(EGOImageView *)sender.view imageURL]  ;
+    //    if(UIGestureRecognizerStateEnded == sender.state)
+    //    {
+    imageMain.imageURL = [(EGOImageView *)sender.view imageURL]  ;
     
-        //        //NSLog(@"%d%@",[[sender view]tag],[[sender view] stringImageDes]);
-        
-//    }   
+    //        //NSLog(@"%d%@",[[sender view]tag],[[sender view] stringImageDes]);
+    
+    //    }   
 }
 -(void)viewWillAppear:(BOOL)animated
 {
     
-   
+    
 }
 - (void)viewDidUnload
 {
@@ -336,7 +341,7 @@
     if(indexPath.section==0 )
     {
         cell.selectionStyle  = UITableViewCellSelectionStyleNone;
-                
+        
         [cell addSubview:imageMain];
         [cell addSubview:labelAddress];
         
@@ -355,8 +360,8 @@
         [rightBtn setTitle:@">" forState:UIControlStateNormal];
         [rightBtn addTarget:self action:@selector(gotoNextPage) forControlEvents:UIControlEventTouchUpInside];
         [rightBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-//        [cell addSubview:rightBtn];
-//        [cell addSubview:leftBtn];
+        //        [cell addSubview:rightBtn];
+        //        [cell addSubview:leftBtn];
         [cell  addSubview:scrlView];
     }
     
@@ -540,7 +545,7 @@
         else
             leftBtn.enabled=YES;
     }
-
+    
 	
 }
 - (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView
@@ -548,7 +553,7 @@
     //if (performingLayout || rotating) return;
 	
 	// Tile pages
-        
+    
 }
 #pragma mark -
 #pragma mark Paging
